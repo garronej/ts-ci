@@ -10,10 +10,8 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "tsc": "npx tsc",
-        "build": "npm run tsc && npm run denoify",
-        "test:node": "node ./dist/test",
-        "test:deno": "deno ./deno_dist/test/deno_index.ts",
-        "test": "npm run test:node && npm run test:deno",
+        "build": "npm run tsc",
+        "test": "node ./dist/test",
         "enable_short_import_path": "npm run build && npx denoify_enable_short_npm_import_path",
         "clean": "rm -rf node_modules dist"
     },

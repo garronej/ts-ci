@@ -47,7 +47,7 @@ jobs:
     - uses: actions/setup-node@v1
     - run: npm install
 
-    - run: npm run enable_short_import_path:npm
+    - run: npm run enable_short_import_path
       env:
         DRY_RUN: "0"
     - name: (DEBUG) Show how the files have been moved to enable short import
