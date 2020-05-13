@@ -32,7 +32,7 @@ import { Deferred } from "evt/dist/tools/Deferred";
             { "env": { "FORK": path.join(__dirname, name) } }
         )
             .on("message", console.log)
-            .once("exit", code => dExitCode.resolve(code))
+            .once("exit", code => dExitCode.resolve(code ?? 1))
             ;
 
         const exitCode = await dExitCode.pr;
