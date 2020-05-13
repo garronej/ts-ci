@@ -14,7 +14,7 @@
         "test:node": "node ./dist/test",
         "test:deno": "deno ./deno_dist/test/deno_index.ts",
         "test": "npm run test:node && npm run test:deno",
-        "enable_short_import_path:npm": "npm run build && npx denoify_enable_short_npm_import_path",
+        "enable_short_import_path": "npm run build && npx denoify_enable_short_npm_import_path",
         "clean": "rm -rf node_modules dist"
     },
     "author": "u/#{USER_OR_ORG}#",
@@ -28,7 +28,7 @@
     "devDependencies": {
         "typescript": "^3.9.0",
         "@types/node": "^10.0.0",
-        "denoify": "github:garronej/denoify",
+        "denoify": "^0.2.0",
         "evt": "^1.6.8"
     }
 }
