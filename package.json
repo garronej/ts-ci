@@ -1,0 +1,34 @@
+{
+    "name": "#{REPO_NAME}#",
+    "version": "0.0.0",
+    "description": "#{DESC}#",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#.git"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "tsc": "npx tsc",
+        "build": "npm run tsc && npm run denoify",
+        "test:node": "node ./dist/test",
+        "test:deno": "deno ./deno_dist/test/deno_index.ts",
+        "test": "npm run test:node && npm run test:deno",
+        "enable_short_import_path:npm": "npm run build && npx denoify_enable_short_npm_import_path",
+        "clean": "rm -rf node_modules dist"
+    },
+    "author": "u/#{USER_OR_ORG}#",
+    "license": "MIT",
+    "files": [
+        "/dist/*.{d.ts,js,js.map}",
+        "/dist/tools/*.{d.ts,js,js.map}"
+    ],
+    "keywords": [],
+    "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
+    "devDependencies": {
+        "typescript": "^3.9.0",
+        "@types/node": "^10.0.0",
+        "denoify": "github:garronej/denoify",
+        "evt": "^1.6.8"
+    }
+}
