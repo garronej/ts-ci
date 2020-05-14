@@ -34,10 +34,7 @@ jobs:
   publish_npm:
     runs-on: ubuntu-latest
     needs: update_changelog_and_sync_package_lock_version
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-
     - uses: actions/checkout@v2
     - name: Remove branch 'latest' 
       continue-on-error: true
@@ -61,8 +58,11 @@ jobs:
           echo "Can't publish on NPM, You must first create a secret called NPM_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
           false
         fi
+        echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
         npm publish
-
+        rm .npmrc
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Commit changes
       run: |
         git config --local user.email "ts_ci@github.com"

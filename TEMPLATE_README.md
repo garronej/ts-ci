@@ -17,6 +17,7 @@ The following Secrets need to be set to be able to publish.
 # NOTES:
 
 - The template does not support ``.npmignore`` use ``package.json`` ``files`` instead.
+- The template does not support ``.npmrc``
 - Don't forget to update the ``package.json`` ``files`` entry to specify the files you would like to be included in the NPM bundle.
 - The dev dependency ``evt`` is just used as an utility in the demo ``/src/test/`` directory.
 - The dev dependency ``denoify`` is needed for the NPM script ``enable_short_import_path``.
