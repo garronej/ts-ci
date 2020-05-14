@@ -34,6 +34,8 @@ jobs:
   publish_npm:
     runs-on: ubuntu-latest
     needs: update_changelog_and_sync_package_lock_version
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
 
     - uses: actions/checkout@v2
@@ -60,8 +62,6 @@ jobs:
           false
         fi
         npm publish
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Commit changes
       run: |
