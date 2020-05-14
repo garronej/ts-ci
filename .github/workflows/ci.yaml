@@ -44,6 +44,8 @@ jobs:
         owner: ${{github.repository_owner}}
         repo: ${{github.event.repository.name}}
         branch: latest
+        compare_to_version: '0.0.0'
+
 
     - name: Get version on master
       id: v_master
@@ -53,9 +55,10 @@ jobs:
         owner: ${{github.repository_owner}}
         repo: ${{github.event.repository.name}}
         branch: ${{ github.sha }}
+        compare_to_version: ${{steps.v_latest.outputs.version}}
 
-    - name: 'Trigger the ''publish'' workflow' 
-      if: ${{ !!env.PAT && steps.v_latest.outputs.version != steps.v_master.outputs.version && steps.v_master.outputs.version != '0.0.0' }}
+    - name: 'Trigger the ''publish'' workflow if newer version' 
+      if: ${{ !!env.PAT && steps.v_master.outputs.compare_result == '1' }}
       uses: garronej/github_actions_toolkit@master
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
