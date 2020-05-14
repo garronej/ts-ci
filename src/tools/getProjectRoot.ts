@@ -3,7 +3,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-function getProjectRootRec(dirPath: string){
+function getProjectRootRec(dirPath: string): string{
     if( fs.existSync(path.join(dirPath, "package.json")) ){
         return dirPath;
     }
