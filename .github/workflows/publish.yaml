@@ -55,13 +55,13 @@ jobs:
       run: ls -lR
     - name: Publishing on NPM
       run: |
-        if [ "$NODE_AUTH_TOKEN" = "" ]; then
-          echo "Can't publish on NPM, You must first create a secret called NODE_AUTH_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
+        if [ "$NPM_TOKEN" = "" ]; then
+          echo "Can't publish on NPM, You must first create a secret called NPM_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
           false
         fi
         npm publish
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Commit changes
       run: |

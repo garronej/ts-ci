@@ -12,7 +12,7 @@
 The following Secrets need to be set to be able to publish.
 
 - ``PAT``: GitHub Personal access token.
-- ``NODE_AUTH_TOKEN``: NPM Authorization token.
+- ``NPM_TOKEN``: NPM Authorization token.
 
 # NOTES:
 
