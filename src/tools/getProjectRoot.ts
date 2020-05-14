@@ -1,10 +1,8 @@
-
-
 import * as fs from "fs";
 import * as path from "path";
 
-function getProjectRootRec(dirPath: string): string{
-    if( fs.existSync(path.join(dirPath, "package.json")) ){
+function getProjectRootRec(dirPath: string): string {
+    if (fs.existsSync(path.join(dirPath, "package.json"))) {
         return dirPath;
     }
     return getProjectRootRec(path.join(dirPath, ".."))
@@ -12,9 +10,9 @@ function getProjectRootRec(dirPath: string): string{
 
 let result: string | undefined = undefined;
 
-export function getProjectRoot(): string{
+export function getProjectRoot(): string {
 
-    if( result !== undefined ){
+    if (result !== undefined) {
         return result;
     }
 
