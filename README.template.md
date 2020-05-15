@@ -42,16 +42,15 @@ Expose a global ( wider browser support):
 ```html
 <script src="//unpkg.com/#{REPO_NAME}#/umd_bundle.min.js"></script>
 <script>
-  var { myFunction, myObject } = window['#{REPO_NAME}#'];
+  var myFunction = #{REPO_NAME_NO_DASHES}.myFunction;
 </script>
 ```
 
 Or import as an ES module:  
 
 ```html
-<script type="module" src="//unpkg.com/#{REPO_NAME}#/zz_esm/index.js"></script>
-<script>
-  import { myFunction, myObject } from '#{REPO_NAME}#';
+<script type="module">
+  import { myFunction, myObject } from '//unpkg.com/#{REPO_NAME}#/zz_esm/index.js';
 </script>
 ```
 
