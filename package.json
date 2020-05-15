@@ -19,7 +19,7 @@
         "cdn:esm": "tsc -p tsconfig.esm.json",
         "cdn": "npm run cdn:bundle && npm run cdn:esm",
 
-        "build": "npm run tsc  npm run cdn",
+        "build": "npm run tsc && npm run cdn",
 
         "enable_short_import_path": "npm run build && npx denoify_enable_short_npm_import_path",
 
