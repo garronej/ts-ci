@@ -89,6 +89,9 @@ Must keep:
 - ``simplifyify`` ( for CDN build )
 - ``terser`` ( for CDN build )
 
+## Customizing the Badges
+
+You can [shields.io](https://shields.io) to create badges on metrics you would like to showcase.
 
 # WARNINGS:
 

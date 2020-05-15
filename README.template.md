@@ -1,4 +1,3 @@
-
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
 </p>
@@ -6,7 +5,7 @@
     <i>#{DESC}#</i>
     <br>
     <br>
-    <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/workflows/ci/badge.svg?branch=master">
+    <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/workflows/ci/badge.svg?branch=dev">
     <img src="https://img.shields.io/bundlephobia/minzip/#{REPO_NAME}#">
     <img src="https://img.shields.io/npm/dw/#{REPO_NAME}#">
 </p>
@@ -27,15 +26,32 @@
 ```
 ```typescript
 import { myFunction, myObject } from '#{REPO_NAME}#'; 
-//OR to import a specific file:
+```
+
+Specific import
+
+```typescript
 import { myFunction } from '#{REPO_NAME}#/myFunction'
 import { myObject } from '#{REPO_NAME}#/myObject'
 ```
 
-## CI
+## From HTML with CDN
 
-This repository has has continus integration and automatic publishing implemented via GitHub Action. 
+Expose a global ( wider browser support):  
 
-Refer to [TEMPLATE_README.md](https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/blob/dev/TEMPLATE_README.md) for instructions. 
+```html
+<script src="//unpkg.com/#{REPO_NAME}#/umd_bundle.min.js"></script>
+<script>
+  var { myFunction, myObject } = window['#{REPO_NAME}#'];
+</script>
+```
 
+Or import as an ES module:  
+
+```html
+<script type="module" src="//unpkg.com/#{REPO_NAME}#/zz_esm/index.js"></script>
+<script>
+  import { myFunction, myObject } from '#{REPO_NAME}#';
+</script>
+```
 
