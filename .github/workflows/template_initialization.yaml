@@ -28,6 +28,7 @@ jobs:
         IS_AVAILABLE_ON_NPM: ${{steps.id1.outputs.is_available_on_npm}}
 
     - uses: actions/checkout@v2
+    - run: mv README.template.md README.md
     - name: Replace tokens in README.MD and package.json
       uses: cschleiden/replace-tokens@v1
       with: 

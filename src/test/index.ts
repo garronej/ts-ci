@@ -19,7 +19,8 @@ import { Deferred } from "evt/dist/tools/Deferred";
 
     for (const name of [
         "myFunction",
-        "myObject"
+        "myObject",
+        "getProjectRoot"
     ]) {
 
         console.log(`Running: ${name}`);
