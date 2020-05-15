@@ -17,7 +17,7 @@ This template automate the boring and tedious tasks of:
 - Writing a [README.md](https://github.com/garronej/denoify_ci/blob/dev/README.template.md) with decent presentation and instructions on how to install/import your module.
 - Testing on multiples ``Node`` version before publishing.
 - Maintaining a CHANGELOG.
-- Publishing on NPM.
+- Publishing on NPM and creating corresponding GitHub releases.
 
 Good stuffs that come with using this template:
 - No source file are tracked on the default branch .
@@ -25,6 +25,7 @@ Good stuffs that come with using this template:
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
+- A branch ``latest`` always in sync with the latest release.
 
 # How to use
 
