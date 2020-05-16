@@ -9,6 +9,8 @@
 
 ---
 
+**NOTE**: You probably want to "Use this template" ( the green button ) instead of forking the repo.  
+
 # Presentation 
 
 This template automate the boring and tedious tasks of:
@@ -19,8 +21,8 @@ This template automate the boring and tedious tasks of:
 - Maintaining a CHANGELOG.
 - Publishing on NPM and creating corresponding GitHub releases.
 
-Good stuffs that come with using this template:
-- No source file are tracked on the default branch .
+Beside, good stuffs that come with using this template:
+- No source file are tracked on the default branch.
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
@@ -33,25 +35,25 @@ Good stuffs that come with using this template:
 
 - Click on *Use this template*
 - The repo name you will chose will be used as module name for NPM so:
-  - Be sure that the repo name make for a valid NPM module name.
-  - Check if the module name is available on NPM.
-- The description you provide will be the one used on NPM ( you can change it later )
+  - Be sure it makes for a valid NPM module name.
+  - Check if there is not already a NPM module named like that.
+- The description you provide will be the one used on NPM and in ``package.json`` ( you can change it later )
 
-Once you've done that a GitHub action workflow will setup the ``README.md`` and the ``package.json`` for you, wait a couple of minute for it to compleat ( a bot will push ). You can follow it's advancement in the "Action" tab.
+Once you've done that a GitHub action workflow will setup the ``README.md`` and the ``package.json`` for you, wait a couple of minute for it to compleat ( a bot will push ). You can follow the job advancement in the "Action" tab.
 
-Each time you will push changes ``npm test`` will be run on remote docker containers against multiple Node and Deno versions, if everything passes you will get a green ``ci`` badges on your readme.
+Each time you will push changes ``npm test`` will be run on remote docker containers against multiple Node versions, if everything passes you will get a green ``ci`` badges on your readme.
 
 ## Enable automatic publishing.
 
-Once you are ready to make your package available on NPM and deno.land/x you 
-will need to provide two token so that the workflow can publish on your behalf:
+Once you are ready to make your package available on NPM you 
+will need to provide two tokens so that the workflow can publish on your behalf:
 
 Go to repository ``Settings`` tab, then ``Secrets`` you will need to add two new secrets:
 - ``NPM_TOKEN``, you NPM authorization token.
 - ``PAT``, GitHub **P**ersonal **A**ccess **T**oken with the **repo** authorization. [link](https://github.com/settings/tokens)
 
 To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
-The publishing will actually be performed only if ``npm test`` passes to avoid oopsies.  
+The publishing will actually be performed only if ``npm test`` passes.  
 
 # Customizations: 
 
@@ -64,7 +66,7 @@ but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`
 
 A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the README.md.  
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
-Tweeter or Reddit you don't get your GitHub profile picture to shows up.
+Twitter or Reddit you don't get your GitHub profile picture to shows up.
 
 ## Disable CDN build 
 
