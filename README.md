@@ -13,16 +13,16 @@
 
 # Presentation 
 
-This template automate the boring and tedious tasks of:
+This template automates the boring and tedious tasks of:
 - Filling up the ``package.json``
 - Setting up Typescript.
 - Writing a [README.md](https://github.com/garronej/denoify_ci/blob/dev/README.template.md) with decent presentation and instructions on how to install/import your module.
-- Testing on multiples ``Node`` version before publishing.
+- Testing on multiple N``ode`` version before publishing.
 - Maintaining a CHANGELOG.
 - Publishing on NPM and creating corresponding GitHub releases.
 
-Beside, good stuffs that come with using this template:
-- No source file are tracked on the default branch.
+Besides, good stuff that comes with using this template:
+- No source files are tracked on the default branch.
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
@@ -34,14 +34,14 @@ Beside, good stuffs that come with using this template:
 ## Fork it ( click use the template )
 
 - Click on *Use this template*
-- The repo name you will chose will be used as module name for NPM so:
+- The repo name you will choose will be used as a module name for NPM so:
   - Be sure it makes for a valid NPM module name.
   - Check if there is not already a NPM module named like that.
 - The description you provide will be the one used on NPM and in ``package.json`` ( you can change it later )
 
-Once you've done that a GitHub action workflow will setup the ``README.md`` and the ``package.json`` for you, wait a couple of minute for it to compleat ( a bot will push ). You can follow the job advancement in the "Action" tab.
+Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
 
-Each time you will push changes ``npm test`` will be run on remote docker containers against multiple Node versions, if everything passes you will get a green ``ci`` badges on your readme.
+Each time you will push changes ``npm test`` will be run on remote docker containers against multiple node versions if everything passes you will get a green ``ci`` badges on your readme.
 
 ## Enable automatic publishing.
 
@@ -55,16 +55,16 @@ Go to repository ``Settings`` tab, then ``Secrets`` you will need to add two new
 To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
 The publishing will actually be performed only if ``npm test`` passes.  
 
-# Customizations: 
+# Customization: 
 
 ## Changing the directory structures.
 
-All your sources files must remain inside the ``src`` dir, you can change how things are organized
+All your source files must remain inside the ``src`` dir, you can change how things are organized
 but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate!
 
-## Swipe the image in README.md
+## Swipe the image in the ``README.md``
 
-A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the README.md.  
+A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
 Twitter or Reddit you don't get your GitHub profile picture to shows up.
 
@@ -79,7 +79,7 @@ If your project does not target the browser or if you are not interested in offe
 
 ## Remove unwanted dev dependencies.
 
-Dev dependencies that are not required by the template, ( you can safely remove them, if you don't use them ):
+Dev dependencies that are not required by the template ( you can safely remove them if you don't use them ):
 
 - ``evt``
 - ``@types/node``
@@ -136,7 +136,7 @@ const str = fs.readFileSync(
 
 [![Watch the video](https://user-images.githubusercontent.com/6702424/82117367-c32ea700-976f-11ea-93f9-ec056aebc528.png)](https://youtu.be/Q5t-yP2PvPA)
 
-# Example of auto generated readme:
+# Examples of auto-generated readme:
 
 ![serve php](https://user-images.githubusercontent.com/6702424/82119079-d34c8380-977b-11ea-986d-55c783ca076a.jpeg)
 
