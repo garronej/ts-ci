@@ -5,7 +5,7 @@
     <i>#{DESC}#</i>
     <br>
     <br>
-    <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/workflows/ci/badge.svg?branch=dev">
+    <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/workflows/ci/badge.svg">
     <img src="https://img.shields.io/bundlephobia/minzip/#{REPO_NAME}#">
     <img src="https://img.shields.io/npm/dw/#{REPO_NAME}#">
 </p>
