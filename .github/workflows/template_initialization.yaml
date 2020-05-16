@@ -47,13 +47,6 @@ jobs:
         USER_OR_ORG: ${{ github.repository_owner }}
         DESC: ${{ github.event.repository.description }}
         REPO_NAME_NO_DASHES: ${{ steps.id2.outputs.replace_result }}
-    - uses: actions/setup-node@v1
-    - name: Update pre-configured dev dependencies
-      run: |
-        npm install --save-dev denoify
-        npm install --save-dev typescript
-        npm install --save-dev evt
-        rm package-lock.json
     - name: Remove this workflow, it only needs to be run once.
       run: rm .github/workflows/template_initialization.yaml
     - name: Commit files
