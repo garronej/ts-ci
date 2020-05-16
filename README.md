@@ -130,6 +130,10 @@ const str = fs.readFileSync(
 ).toString("utf8");
 ```
 
+# Video demo
+
+[![Watch the video](https://user-images.githubusercontent.com/6702424/82117367-c32ea700-976f-11ea-93f9-ec056aebc528.png)](https://youtu.be/Q5t-yP2PvPA)
+
 # Re-triggering the CI tests
 
 To manually re-trigger the workflows run on the last commit run the following commands:  
@@ -137,3 +141,4 @@ To manually re-trigger the workflows run on the last commit run the following co
 git commit -m "Retrigger CI" --allow-empty
 git push -f
 ```
+
