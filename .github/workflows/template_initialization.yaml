@@ -45,7 +45,7 @@ jobs:
         REPO_NAME: ${{ github.event.repository.name }}
         USER_OR_ORG: ${{ github.repository_owner }}
         DESC: ${{ github.event.repository.description }}
-        REPO_NAME_NO_DASHES: ${{ steps.id1.outputs.replace_result }}
+        REPO_NAME_NO_DASHES: ${{ steps.id2.outputs.replace_result }}
     - uses: actions/setup-node@v1
     - name: Update pre-configured dev dependencies
       run: |
