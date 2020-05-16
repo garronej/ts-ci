@@ -134,11 +134,8 @@ const str = fs.readFileSync(
 
 [![Watch the video](https://user-images.githubusercontent.com/6702424/82117367-c32ea700-976f-11ea-93f9-ec056aebc528.png)](https://youtu.be/Q5t-yP2PvPA)
 
-# Re-triggering the CI tests
+# Example of auto generated readme:
 
-To manually re-trigger the workflows run on the last commit run the following commands:  
-```bash
-git commit -m "Retrigger CI" --allow-empty
-git push -f
-```
+![serve php](https://user-images.githubusercontent.com/6702424/82119079-d34c8380-977b-11ea-986d-55c783ca076a.jpeg)
+
 
