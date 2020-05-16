@@ -54,3 +54,10 @@ Or import as an ES module:
 </script>
 ```
 
+## Contribute
+
+```bash
+npm install
+npm run build
+npm test
+```
