@@ -29,6 +29,14 @@ jobs:
 
     - uses: actions/checkout@v2
     - run: mv README.template.md README.md
+    - name : String replace
+      id: id2
+      uses: garronej/github_actions_toolkit@master
+      with:
+        action_name: string_replace
+        input_string: ${{github.event.repository.name}}
+        search_value: '-'
+        replace_value: '_'
     - name: Replace tokens in README.MD and package.json
       uses: cschleiden/replace-tokens@v1
       with: 
@@ -37,7 +45,7 @@ jobs:
         REPO_NAME: ${{ github.event.repository.name }}
         USER_OR_ORG: ${{ github.repository_owner }}
         DESC: ${{ github.event.repository.description }}
-        REPO_NAME_NO_DASHES: ${{ TODO }}
+        REPO_NAME_NO_DASHES: ${{ steps.id1.outputs.replace_result }}
     - uses: actions/setup-node@v1
     - name: Update pre-configured dev dependencies
       run: |
