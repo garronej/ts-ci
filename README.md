@@ -102,43 +102,6 @@ Must keep:
 
 You can use [shields.io](https://shields.io) to create badges on metrics you would like to showcase.
 
-# Creating a documentation website for your project:
-
-I recommend [GitBook](https://www.gitbook.com), It enables you to write your documentation in markdown from their 
-website and get the markdown files synchronized with in your repo.
-They will provide you with a nice website for which you can customize the domain name.  
-All this is covered by their free tier.  
-
-Example: 
-- [repo](https://github.com/garronej/evt)
-- [GitBook documentation website](https://docs.evt.land)
-
-I advise you to have a special directory at the root of your project where the markdown documentation files
-are stored. It is configured by placing a ``.netbook.yaml`` file at the root of the repo containing, for example:
-``root: ./docs/``
-
-PS: I am not affiliated with GitBook in any way.
-
-# Creating a landing page for your project.
-
-Beside the documentation website, you might want to have a catchy landing page to share on social networks.  
-You can use [GitHub pages](https://pages.github.com) to host it. 
-
-If you like the landing page of EVT, [evt.land](http://evt.land), you can fork the [repo](https://github.com/garronej/evt.land) and adapt it for your module.  
-
-You'll just have to go to settings and enable Pages.
-
-![image](https://user-images.githubusercontent.com/6702424/82155402-0aeb2680-9875-11ea-9159-f6167ee2928e.png)
-
-And update your DNS: 
-
-![image](https://user-images.githubusercontent.com/6702424/82155473-7e8d3380-9875-11ea-9bba-115cbb3ef162.png)
-
-I personally use [Hurricane Electric](https://dns.he.net) free DNS servers because they support a lot of record types.
-If your provider does not support ``ALIAS``, however, you can use ``A`` records and manually enter the IP of GitHub servers.
-I let you consult the [GitHub Pages Documentation](https://help.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain). 
-
-
 # Accessing files outside the ``dist/`` directory
 
 - The template does not support ``.npmignore`` use ``package.json`` ``files`` instead.
@@ -184,4 +147,38 @@ const str = fs.readFileSync(
 
 ![serve php](https://user-images.githubusercontent.com/6702424/82119079-d34c8380-977b-11ea-986d-55c783ca076a.jpeg)
 
+# Creating a documentation website for your project:
 
+I recommend [GitBook](https://www.gitbook.com), It enables you to write your documentation in markdown from their 
+website and get the markdown files synchronized with in your repo.
+They will provide you with a nice website for which you can customize the domain name.  
+All this is covered by their free tier.  
+
+Example: 
+- [repo](https://github.com/garronej/evt)
+- [GitBook documentation website](https://docs.evt.land)
+
+I advise you to have a special directory at the root of your project where the markdown documentation files
+are stored. It is configured by placing a ``.netbook.yaml`` file at the root of the repo containing, for example:
+``root: ./docs/``
+
+PS: I am not affiliated with GitBook in any way.
+
+# Creating a landing page for your project.
+
+Beside the documentation website, you might want to have a catchy landing page to share on social networks.  
+You can use [GitHub pages](https://pages.github.com) to host it. 
+
+If you like the landing page of EVT, [evt.land](http://evt.land), you can fork the [repo](https://github.com/garronej/evt.land) and adapt it for your module.  
+
+You'll just have to go to settings and enable Pages.
+
+![image](https://user-images.githubusercontent.com/6702424/82155402-0aeb2680-9875-11ea-9159-f6167ee2928e.png)
+
+And update your DNS: 
+
+![image](https://user-images.githubusercontent.com/6702424/82155473-7e8d3380-9875-11ea-9bba-115cbb3ef162.png)
+
+I personally use [Hurricane Electric](https://dns.he.net) free DNS servers because they support a lot of record types.
+If your provider does not support ``ALIAS``, however, you can use ``A`` records and manually enter the IP of GitHub servers.
+I let you consult the [GitHub Pages Documentation](https://help.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain). 
