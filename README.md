@@ -9,7 +9,6 @@
 
 ---
 
-**NOTE**: You probably want to "Use this template" ( the green button ) instead of forking the repo.  
 
 # Presentation 
 
@@ -17,7 +16,7 @@ This template automates the boring and tedious tasks of:
 - Filling up the ``package.json``
 - Setting up Typescript.
 - Writing a [README.md](https://github.com/garronej/denoify_ci/blob/dev/README.template.md) with decent presentation and instructions on how to install/import your module.
-- Testing on multiple N``ode`` version before publishing.
+- Testing on multiple Node version before publishing.
 - Maintaining a CHANGELOG.
 - Publishing on NPM and creating corresponding GitHub releases.
 
@@ -28,6 +27,14 @@ Besides, good stuff that comes with using this template:
   ``import {...} from "my_module/dist/theFile"`` 
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
 - A branch ``latest`` always in sync with the latest release.
+
+# Important notices
+
+- You probably want to "Use this template" ( the green button ) instead of forking the repo.  
+- The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
+  If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``
+  otherwise remember, when you add a subdirectory in ``src/``, to update the ``package.json`` ``files``.
+- If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
 
 # How to use
 
@@ -41,9 +48,9 @@ Besides, good stuff that comes with using this template:
 
 Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
 
-Each time you will push changes ``npm test`` will be run on remote docker containers against multiple node versions if everything passes you will get a green ``ci`` badges on your readme.
+Each time you will push changes ``npm test`` will be run on remote docker containers against multiple node versions if everything passes you will get a green ``ci`` badges in your readme.
 
-## Enable automatic publishing.
+## Enable automatic publishing
 
 Once you are ready to make your package available on NPM you 
 will need to provide two tokens so that the workflow can publish on your behalf:
@@ -66,7 +73,7 @@ but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`
 
 A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
-Twitter or Reddit you don't get your GitHub profile picture to shows up.
+Twitter or Reddit you don't get your GitHub profile picture to show up.
 
 ## Disable CDN build 
 
@@ -77,14 +84,14 @@ If your project does not target the browser or if you are not interested in offe
 - Remove ``/dist/esm/`` entry from ``files`` in ``package.json`` 
 - Remove ``simplifyify`` and ``terser`` from dev dependencies.
 
-## Remove unwanted dev dependencies.
+## Remove unwanted dev dependencies
 
 Dev dependencies that are not required by the template ( you can safely remove them if you don't use them ):
 
 - ``evt``
 - ``@types/node``
 
-Must keep: 
+Must keep:
 
 - ``typescript``
 - ``denoify`` ( for the script that moves dist files to the root before publishing )
@@ -93,9 +100,46 @@ Must keep:
 
 ## Customizing the Badges
 
-You can [shields.io](https://shields.io) to create badges on metrics you would like to showcase.
+You can use [shields.io](https://shields.io) to create badges on metrics you would like to showcase.
 
-# WARNINGS:
+# Creating a documentation website for your project:
+
+I recommend [GitBook](https://www.gitbook.com), It enables you to write your documentation in markdown from their 
+website and get the markdown files synchronized with in your repo.
+They will provide you with a nice website for which you can customize the domain name.  
+All this is covered by their free tier.  
+
+Example: 
+- [repo](https://github.com/garronej/evt)
+- [GitBook documentation website](https://docs.evt.land)
+
+I advise you to have a special directory at the root of your project where the markdown documentation files
+are stored. It is configured by placing a ``.netbook.yaml`` file at the root of the repo containing, for example:
+``root: ./docs/``
+
+PS: I am not affiliated with GitBook in any way.
+
+# Creating a landing page for your project.
+
+Beside the documentation website, you might want to have a catchy landing page to share on social networks.  
+You can use [GitHub pages](https://pages.github.com) to host it. 
+
+If you like the landing page of EVT, [evt.land](http://evt.land), you can fork the [repo](https://github.com/garronej/evt.land) and adapt it for your module.  
+
+You'll just have to go to settings and enable Pages.
+
+![image](https://user-images.githubusercontent.com/6702424/82155402-0aeb2680-9875-11ea-9159-f6167ee2928e.png)
+
+And update your DNS: 
+
+![image](https://user-images.githubusercontent.com/6702424/82155473-7e8d3380-9875-11ea-9bba-115cbb3ef162.png)
+
+I personally use [Hurricane Electric](https://dns.he.net) free DNS servers because they support a lot of record types.
+If your provider does not support ``ALIAS``, however, you can use ``A`` records and manually enter the IP of GitHub servers.
+I let you consult the [GitHub Pages Documentation](https://help.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain). 
+
+
+# Accessing files outside the ``dist/`` directory
 
 - The template does not support ``.npmignore`` use ``package.json`` ``files`` instead.
 - The template does not support ``.npmrc``
