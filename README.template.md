@@ -31,13 +31,13 @@ import { myFunction, myObject } from '#{REPO_NAME}#';
 Specific import
 
 ```typescript
-import { myFunction } from '#{REPO_NAME}#/myFunction'
-import { myObject } from '#{REPO_NAME}#/myObject'
+import { myFunction } from '#{REPO_NAME}#/myFunction';
+import { myObject } from '#{REPO_NAME}#/myObject';
 ```
 
 ## From HTML with CDN
 
-Expose a global ( wider browser support):  
+Expose a global (wider browser support):  
 
 ```html
 <script src="//unpkg.com/#{REPO_NAME}#/umd_bundle.min.js"></script>
