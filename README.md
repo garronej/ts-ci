@@ -35,6 +35,8 @@ Besides, good stuff that comes with using this template:
   If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``
   otherwise remember, when you add a subdirectory in ``src/``, to update the ``package.json`` ``files``.
 - If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
+- The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
+- The template does not support ``.npmrc``.
 
 # How to use
 
@@ -103,9 +105,6 @@ Must keep:
 You can use [shields.io](https://shields.io) to create badges on metrics you would like to showcase.
 
 # Accessing files outside the ``dist/`` directory
-
-- The template does not support ``.npmignore`` use ``package.json`` ``files`` instead.
-- The template does not support ``.npmrc``
 
 The drawback of having short import path is that the dir structure  
 is not exactly the same in production ( in the npm bundle ) and in development.
