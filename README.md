@@ -121,7 +121,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 const str = fs.readFileSync(
-    path.join(__filename,"..", "package.json")
+    path.join(__dirname,"..", "package.json")
 ).toString("utf8");
 ```
 
