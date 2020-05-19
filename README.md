@@ -28,17 +28,6 @@ Besides, good stuff that comes with using this template:
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
 - A branch ``latest`` always in sync with the latest release.
 
-# Important notices
-
-- You probably want to "Use this template" ( the green button ) instead of forking the repo.  
-- The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
-  If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``
-  otherwise remember, when you add a subdirectory in ``src/``, to update the ``package.json`` ``files``.
-- If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
-- The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
-- The template does not support ``.npmrc``.
-- In rare occasions the workflow in charge of performing the initial configuration does not fire up.
-  If it is the case for you please delete the repo you just created and start over again.
 
 # How to use
 
@@ -65,6 +54,18 @@ Go to repository ``Settings`` tab, then ``Secrets`` you will need to add two new
 
 To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
 The publishing will actually be performed only if ``npm test`` passes.  
+
+# Few things you need to be aware of before getting started
+
+- You probably want to "Use this template" ( the green button ) instead of forking the repo.  
+- The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
+  If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``
+  otherwise remember, when you add a subdirectory in ``src/``, to update the ``package.json`` ``files``.
+- If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
+- The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
+- The template does not support ``.npmrc``.
+- In rare occasions the workflow in charge of performing the initial configuration does not fire up.
+  If it is the case for you please delete the repo you just created and start over again.
 
 # Customization: 
 
@@ -151,7 +152,7 @@ const str = fs.readFileSync(
 # Creating a documentation website for your project:
 
 I recommend [GitBook](https://www.gitbook.com), It enables you to write your documentation in markdown from their 
-website and get the markdown files synchronized with in your repo.
+website and get the markdown files synchronized with your repo.
 They will provide you with a nice website for which you can customize the domain name.  
 All this is covered by their free tier.  
 
