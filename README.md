@@ -161,7 +161,7 @@ Example:
 - [GitBook documentation website](https://docs.evt.land)
 
 I advise you to have a special directory at the root of your project where the markdown documentation files
-are stored. It is configured by placing a ``.netbook.yaml`` file at the root of the repo containing, for example:
+are stored. It is configured by placing a ``.gitbook.yaml`` file at the root of the repo containing, for example:
 ``root: ./docs/``
 
 PS: I am not affiliated with GitBook in any way.
