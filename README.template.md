@@ -28,7 +28,7 @@
 import { myFunction, myObject } from '#{REPO_NAME}#'; 
 ```
 
-Specific import
+Specific imports:
 
 ```typescript
 import { myFunction } from '#{REPO_NAME}#/myFunction';
