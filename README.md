@@ -28,6 +28,7 @@ Besides, good stuff that comes with using this template:
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
 - A branch ``latest`` always in sync with the latest release.
 
+If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
 # How to use
 
