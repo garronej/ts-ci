@@ -161,7 +161,7 @@ Example:
 - [GitBook documentation website](https://docs.evt.land)
 
 I advise you to have a special directory at the root of your project where the markdown documentation files
-are stored. It is configured by placing a ``.netbook.yaml`` file at the root of the repo containing, for example:
+are stored. It is configured by placing a ``.gitbook.yaml`` file at the root of the repo containing, for example:
 ``root: ./docs/``
 
 PS: I am not affiliated with GitBook in any way.
@@ -182,5 +182,5 @@ And update your DNS:
 ![image](https://user-images.githubusercontent.com/6702424/82155473-7e8d3380-9875-11ea-9bba-115cbb3ef162.png)
 
 I personally use [Hurricane Electric](https://dns.he.net) free DNS servers because they support a lot of record types.
-If your provider does not support ``ALIAS``, however, you can use ``A`` records and manually enter the IP of GitHub servers.
+However, if your DNS provider does not support ``ALIAS``, you can use ``A`` records and manually enter the IP of GitHub servers.
 I let you consult the [GitHub Pages Documentation](https://help.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain). 
