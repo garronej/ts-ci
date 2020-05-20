@@ -147,7 +147,7 @@ const str = fs.readFileSync(
 
 # Examples of auto-generated readme:
 
-![serve php](https://user-images.githubusercontent.com/6702424/82119079-d34c8380-977b-11ea-986d-55c783ca076a.jpeg)
+![npmjs com](https://user-images.githubusercontent.com/6702424/82402717-70017080-9a5d-11ea-8137-0bfa9a139655.jpg)
 
 # Creating a documentation website for your project:
 
