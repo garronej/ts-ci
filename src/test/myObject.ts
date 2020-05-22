@@ -1,7 +1,7 @@
 
 
-import { assert } from "evt/dist/tools/typeSafety";
-import * as inDepth from "evt/dist/tools/inDepth";
+import { assert } from "evt/tools/typeSafety";
+import * as inDepth from "evt/tools/inDepth";
 import { myObject } from "..";
 
 assert(
