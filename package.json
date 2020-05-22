@@ -10,19 +10,14 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "test": "node ./dist/test",
-
         "tsc": "npx tsc",
-
         "cdn:bundle:.js": "simplifyify dist/index.js -s #{REPO_NAME_NO_DASHES}# -o dist/umd_bundle.js --debug --bundle",
         "cdn:bundle:.min.js": "terser dist/umd_bundle.js -cmo dist/umd_bundle.min.js",
         "cdn:bundle": "npm run cdn:bundle:.js && npm run cdn:bundle:.min.js",
         "cdn:esm": "tsc -p tsconfig.esm.json",
         "cdn": "npm run cdn:bundle && npm run cdn:esm",
-
         "build": "npm run tsc && npm run cdn",
-
         "enable_short_import_path": "npm run build && npx denoify_enable_short_npm_import_path",
-
         "clean": "rm -rf node_modules dist"
     },
     "author": "u/#{USER_OR_ORG}#",
@@ -37,8 +32,8 @@
     "devDependencies": {
         "typescript": "^3.9.0",
         "@types/node": "^10.0.0",
-        "denoify": "0.2.9",
-        "evt": "1.6.8",
+        "denoify": "0.2.11",
+        "evt": "1.7.4",
         "simplifyify": "8.0.1",
         "terser": "4.6.13"
     }
