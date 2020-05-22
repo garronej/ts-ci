@@ -9,7 +9,7 @@
 
 ---
 
-NOTICE: GitHub Action is currently down.
+NOTICE: GitHub Actions is [currently down](https://www.githubstatus.com). Until it is back up again impossible to use this template. 🤷
 
 # Presentation 
 
