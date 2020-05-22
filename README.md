@@ -9,7 +9,7 @@
 
 ---
 
-NOTICE: GitHub appear to have made a change in their policy. Actions are no longer enabled by default. Becuase of this the initial workflow that setup the README.md and the package.json never runs. Waiting to see if it is a temporary bug or a permanent thing before fixing. sorry for the inconvenience.
+NOTICE: GitHub Action is currently down.
 
 # Presentation 
 
