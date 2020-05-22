@@ -74,7 +74,6 @@ jobs:
       id: id_rcm
       run: |
         if [ "$FROM_VERSION" = "" ]; then
-        then
             echo "::set-output name=message::'🚀'"
         else
             echo "::set-output name=message::'📋 https://github.com/$OWNER/$REPO/blob/$REF/CHANGELOG.md'"
