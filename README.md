@@ -9,8 +9,6 @@
 
 ---
 
-NOTICE: GitHub Actions is [currently down](https://www.githubstatus.com). Until it is back up again impossible to use this template. 🤷
-
 # Presentation 
 
 This template automates the boring and tedious tasks of:
