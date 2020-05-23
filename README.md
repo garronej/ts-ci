@@ -9,7 +9,6 @@
 
 ---
 
-
 # Presentation 
 
 This template automates the boring and tedious tasks of:
