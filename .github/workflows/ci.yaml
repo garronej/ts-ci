@@ -38,7 +38,7 @@ jobs:
 
     - name: Get version on branch 'latest'
       id: v_latest
-      uses: garronej/github_actions_toolkit@v1.3
+      uses: garronej/github_actions_toolkit@v1.4
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
@@ -49,7 +49,7 @@ jobs:
 
     - name: Get version on master
       id: v_master
-      uses: garronej/github_actions_toolkit@v1.3
+      uses: garronej/github_actions_toolkit@v1.4
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
@@ -59,7 +59,7 @@ jobs:
 
     - name: 'Trigger the ''publish'' workflow if newer version' 
       if: ${{ !!env.PAT && steps.v_master.outputs.compare_result == '1' }}
-      uses: garronej/github_actions_toolkit@v1.3
+      uses: garronej/github_actions_toolkit@v1.4
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
