@@ -173,7 +173,9 @@ You can use [GitHub pages](https://pages.github.com) to host it.
 
 If you like the landing page of EVT, [evt.land](http://evt.land), you can fork the [repo](https://github.com/garronej/evt.land) and adapt it for your module.  
 
-You'll just have to go to settings and enable Pages.
+To produce high quality GIF from screen recording that remain relatively small checkout the wonderful [Gifski](https://gif.ski) from [Sindre Sorhus](https://github.com/sindresorhus).
+
+Once your page is ready you'll just have to go to settings and enable Pages yo put it online.
 
 ![image](https://user-images.githubusercontent.com/6702424/82155402-0aeb2680-9875-11ea-9159-f6167ee2928e.png)
 
