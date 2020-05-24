@@ -141,6 +141,23 @@ const str = fs.readFileSync(
 ).toString("utf8");
 ```
 
+# Automatically updated ``CHANGELOG.md``
+
+Starting from the second release, a ``CHANGELOG.md`` will be created at the root of the repo.
+
+*Example:*  
+![image](https://user-images.githubusercontent.com/6702424/82747884-c47a5800-9d9d-11ea-8f3b-22df03352e54.png)
+
+The ``CHANGELOG.md`` is built from the commits messages since last release.
+
+Are NOT included in the ``CHANGELOG.md``:
+- The commit messages that includes the word "changelog" ( non-case sensitive ). 
+- The commit messages that start with "Merge branch ".
+- The commit messages that with "GitBook: "
+
+*The GitHub release will point to a freezed version of the ``CHANGELOG.md``*:  
+![image](https://user-images.githubusercontent.com/6702424/82748469-6439e500-9da2-11ea-8552-ea9b7322dfa7.png)
+
 # Video demo
 
 [![Watch the video](https://user-images.githubusercontent.com/6702424/82117367-c32ea700-976f-11ea-93f9-ec056aebc528.png)](https://youtu.be/Q5t-yP2PvPA)
