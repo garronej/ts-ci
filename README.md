@@ -80,7 +80,9 @@ A good way to host your repo image is to open an issue named ASSET in your proje
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
 Twitter or Reddit you don't get your GitHub profile picture to show up.
 
-## Disable CDN build 
+## Disable CDN build  
+
+### Completely disable  
 
 If your project does not target the browser or if you are not interested in offering CDN distribution:
 
@@ -88,6 +90,40 @@ If your project does not target the browser or if you are not interested in offe
 - Remove ``./tsconfig.esm.json``
 - Remove ``/dist/esm/`` entry from ``files`` in ``package.json`` 
 - Remove ``simplifyify`` and ``terser`` from dev dependencies.
+
+### Only disable ES Module build ( ``dist/zz_esm/*`` )  
+
+If ``npm run build`` fail because ``tsc -p tsconfig.esm.json`` gives errors you may want to remove the ESM
+build but keep the ``bundle.js`` and ``bundle.min.js``. To do that:
+
+In ``package.json`` replace theses ``scripts``:  
+
+```json
+{
+  "cdn:bundle:.js": "simplifyify dist/index.js -s #{REPO_NAME}# -o dist/bundle.js --debug --bundle",
+  "cdn:bundle:.min.js": "terser dist/bundle.js -cmo dist/bundle.min.js",
+  "cdn:bundle": "npm run cdn:bundle:.js && npm run cdn:bundle:.min.js",
+  "cdn:esm": "tsc -p tsconfig.esm.json",
+  "cdn": "npm run cdn:bundle && npm run cdn:esm",
+}
+```
+
+By theses ones:
+
+```json
+{
+  "cdn:.js": "simplifyify dist/index.js -s #{REPO_NAME}# -o dist/bundle.js --debug --bundle",
+  "cdn:.min.js": "terser dist/bundle.js -cmo dist/bundle.min.js",
+  "cdn": "npm run cdn:.js && npm run cdn:.min.js",
+}
+```
+
+Remove the ``/dist/zz_esm/`` entry from ``package.json``'s ``files``.
+
+Remove ``tsconfig.esm.json``. ( file at the root of the project )  
+
+Edit the ``README.md`` to remove instructions about how to 
+import as ES module.
 
 ## Remove unwanted dev dependencies
 

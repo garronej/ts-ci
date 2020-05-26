@@ -35,24 +35,26 @@ import { myFunction } from '#{REPO_NAME}#/myFunction';
 import { myObject } from '#{REPO_NAME}#/myObject';
 ```
 
-## From HTML with CDN
+## Import from HTML, with CDN
 
-Expose a global (wider browser support):  
+Import it via a bundle that creates a global ( wider browser support ):  
 
 ```html
-<script src="//unpkg.com/#{REPO_NAME}#/umd_bundle.min.js"></script>
+<script src="//unpkg.com/#{REPO_NAME}#/bundle.min.js"></script>
 <script>
-  var myFunction = #{REPO_NAME_NO_DASHES}#.myFunction;
+  const { myFunction, myObject } = #{REPO_NAME}#;
 </script>
 ```
 
-Or import as an ES module:  
+Or import it as an ES module:  
 
 ```html
 <script type="module">
   import { myFunction, myObject } from '//unpkg.com/#{REPO_NAME}#/zz_esm/index.js';
 </script>
 ```
+
+*You can specify the version you wish to import: * [unpkg.com](https://unpkg.com)
 
 ## Contribute
 

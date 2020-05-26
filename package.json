@@ -11,8 +11,8 @@
     "scripts": {
         "test": "node ./dist/test",
         "tsc": "npx tsc",
-        "cdn:bundle:.js": "simplifyify dist/index.js -s #{REPO_NAME_NO_DASHES}# -o dist/umd_bundle.js --debug --bundle",
-        "cdn:bundle:.min.js": "terser dist/umd_bundle.js -cmo dist/umd_bundle.min.js",
+        "cdn:bundle:.js": "simplifyify dist/index.js -s #{REPO_NAME}# -o dist/bundle.js --debug --bundle",
+        "cdn:bundle:.min.js": "terser dist/bundle.js -cmo dist/bundle.min.js",
         "cdn:bundle": "npm run cdn:bundle:.js && npm run cdn:bundle:.min.js",
         "cdn:esm": "tsc -p tsconfig.esm.json",
         "cdn": "npm run cdn:bundle && npm run cdn:esm",
@@ -24,10 +24,11 @@
     "license": "MIT",
     "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
     "files": [
-        "/src/",
         "/dist/*.{d.ts,js,js.map}",
         "/dist/tools/",
-        "/dist/zz_esm/"
+        "/dist/zz_esm/",
+        "/src/*.ts",
+        "/src/tools/"
     ],
     "keywords": [],
     "devDependencies": {
