@@ -31,6 +31,28 @@ Besides, good stuff that comes with using this template:
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
+# Table of content
+
+- [How to use](#how-to-use)
+  - [Fork it ( click use the template )](#fork-it--click-use-the-template-)
+  - [Enable automatic publishing](#enable-automatic-publishing)
+- [Few things you need to be aware of before getting started](#few-things-you-need-to-be-aware-of-before-getting-started)
+- [Customization:](#customization)
+  - [Changing the directories structure](#changing-the-directories-structure)
+  - [Enabling "Go to Definition" to redirect to the source ``.ts`` file](#enabling-go-to-definition-to-redirect-to-the-source-ts-file)
+  - [Swipe the image in the ``README.md``](#swipe-the-image-in-the-readmemd)
+  - [Disable CDN build](#disable-cdn-build)
+    - [Completely disable](#completely-disable)
+    - [Only disable ES Module build ( ``dist/zz_esm/*`` )](#only-disable-es-module-build--distzz_esm-)
+  - [Remove unwanted dev dependencies](#remove-unwanted-dev-dependencies)
+  - [Customizing the Badges](#customizing-the-badges)
+- [Accessing files outside the ``dist/`` directory](#accessing-files-outside-the-dist-directory)
+- [The automatically updated ``CHANGELOG.md``](#the-automatically-updated-changelogmd)
+- [Video demo](#video-demo)
+- [Examples of auto-generated readme](#examples-of-auto-generated-readme)
+- [Creating a documentation website for your project](#creating-a-documentation-website-for-your-project)
+- [Creating a landing page for your project](#creating-a-landing-page-for-your-project)
+
 # How to use
 
 ## Fork it ( click use the template )
@@ -213,7 +235,7 @@ const str = fs.readFileSync(
 ).toString("utf8");
 ```
 
-# Automatically updated ``CHANGELOG.md``
+# The automatically updated ``CHANGELOG.md``
 
 Starting from the second release, a ``CHANGELOG.md`` will be created at the root of the repo.
 
@@ -234,11 +256,11 @@ Are NOT included in the ``CHANGELOG.md``:
 
 [![Watch the video](https://user-images.githubusercontent.com/6702424/82117367-c32ea700-976f-11ea-93f9-ec056aebc528.png)](https://youtu.be/Q5t-yP2PvPA)
 
-# Examples of auto-generated readme:
+# Examples of auto-generated readme
 
 ![npmjs com](https://user-images.githubusercontent.com/6702424/82402717-70017080-9a5d-11ea-8137-0bfa9a139655.jpg)
 
-# Creating a documentation website for your project:
+# Creating a documentation website for your project
 
 I recommend [GitBook](https://www.gitbook.com), It enables you to write your documentation in markdown from their 
 website and get the markdown files synchronized with your repo.
@@ -255,7 +277,7 @@ are stored. It is configured by placing a ``.gitbook.yaml`` file at the root of 
 
 PS: I am not affiliated with GitBook in any way.
 
-# Creating a landing page for your project.
+# Creating a landing page for your project
 
 Beside the documentation website, you might want to have a catchy landing page to share on social networks.  
 You can use [GitHub pages](https://pages.github.com) to host it. 
