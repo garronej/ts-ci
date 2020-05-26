@@ -52,7 +52,6 @@ jobs:
         git checkout latest
     - uses: actions/setup-node@v1
     - run: npm ci
-
     - run: npm run enable_short_import_path
       env:
         DRY_RUN: "0"
@@ -74,7 +73,7 @@ jobs:
         git config --local user.email "ts_ci@github.com"
         git config --local user.name "ts_ci"
         git add -A
-        git commit -am "Enable shorter import path [automatic]"
+        git commit -am "Enable shorter import paths [automatic]"
     - run: git push origin latest
     - name: Release body
       id: id_rb
