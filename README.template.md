@@ -42,7 +42,7 @@ Import it via a bundle that creates a global ( wider browser support ):
 ```html
 <script src="//unpkg.com/#{REPO_NAME}#/bundle.min.js"></script>
 <script>
-  const { myFunction, myObject } = #{REPO_NAME}#;
+  const { myFunction, myObject } = #{REPO_NAME_NO_DASHES}#;
 </script>
 ```
 
