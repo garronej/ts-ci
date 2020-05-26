@@ -22,18 +22,19 @@
     },
     "author": "u/#{USER_OR_ORG}#",
     "license": "MIT",
+    "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
     "files": [
+        "/src/",
         "/dist/*.{d.ts,js,js.map}",
         "/dist/tools/",
         "/dist/zz_esm/"
     ],
     "keywords": [],
-    "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
     "devDependencies": {
         "typescript": "^3.9.0",
         "@types/node": "^10.0.0",
-        "denoify": "0.2.11",
-        "evt": "1.7.4",
+        "denoify": "0.2.15",
+        "evt": "1.7.11",
         "simplifyify": "8.0.1",
         "terser": "4.6.13"
     }
