@@ -26,6 +26,8 @@ Besides, good stuff that comes with using this template:
   ``import {...} from "my_module/dist/theFile"`` 
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
 - A branch ``latest`` always in sync with the latest release.
+- When your users hit *"Go to Definition"* they get redirected to the actual ``.ts`` source file instead of the ``.d.ts``.
+  ( Feature disabled by default, refer to [instructions](#enabling-go-to-definition-to-redirect-to-the-source-ts-file) on how to enable it ).  
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
@@ -69,10 +71,44 @@ The publishing will actually be performed only if ``npm test`` passes.
 
 # Customization: 
 
-## Changing the directory structures.
+## Changing the directories structure
 
-All your source files must remain inside the ``src`` dir, you can change how things are organized
-but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate!
+All your source files must remain inside the ``src`` dir, you can change how things are organized inside the source directory
+but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate.
+
+## Enabling "Go to Definition" to redirect to the source ``.ts`` file
+
+There is no denying that it is more convenient when clicking "Go To Definition" to get redirected to 
+a file ``.ts`` file rather than to a ``.d.ts``.  
+
+To enable this feature simply point to the ``package.json``'s ``types`` filed to the ``main``'s source
+file instead the type definition file ``.d.ts``.  
+
+For example you would replace:
+
+```json
+{
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+}
+```
+
+by:
+
+```json
+{
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+}
+```
+
+Enabling this feature comes at a cost though. Be aware that if you use [optional chaining](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining) or [nullish coalescing](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#nullish-coalescing) for example, your module will only be importable
+in projects using typescript 3.7 or newer ( version that introduces theses features ).  
+It is important to keep your project compatible with older TS version because  
+- You don't want to force your users to update the typescript version they use in their project,
+  updating typescript might break some other things in their code. 
+- In certain environments updating TypeScript is not an option. Take [Stackblitz](https://stackblitz.com) 
+  for example.
 
 ## Swipe the image in the ``README.md``
 
