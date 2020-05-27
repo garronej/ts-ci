@@ -166,7 +166,7 @@ Delete these files:
 - ``.prettierignore``
 - ``.prettierrc.json``  
 
-In ``.github/workflows/ci.yaml`` remove the line ``- run: npm run format:check``.  
+In ``.github/workflows/ci.yaml`` remove the line ``npm run format:check`` from the ``test_lint`` job.  
 
 ### Disable Eslint and Prettier altogether
 
@@ -186,7 +186,7 @@ Remove these ``package.j`on``'s ``devDependencies``:
 - ``@typescript-eslint/eslint-plugin``
 - ``husky``
 
-Remove the ``lint-staged`` and ``husky`` fields from the ``package.json``.  
+Remove the  ``lint-staged`` and ``husky`` fields from the ``package.json``.  
 
 Delete these files:  
 - ``.prettierignore``
@@ -194,9 +194,7 @@ Delete these files:
 - ``.eslintignore``
 - ``.eslintrc.js``
 
-Remove these lines from ``.github/workflows/ci.yaml``:
-- ``- run: npm run lint:check``
-- ``- run: npm run format:check``
+In ``.github/workflows/ci.yaml`` remove the ``test_lint`` job and the line ``needs: test_lint``.  
 
 ## Disable CDN build  
 
