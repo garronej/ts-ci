@@ -1,5 +1,3 @@
 /node_modules/
 /dist/
-/deno_dist/
-/mod.ts
 /.eslintrc.js
