@@ -28,6 +28,8 @@ Besides, good stuff that comes with using this template:
 - A branch ``latest`` always in sync with the latest release.
 - When your users hit *"Go to Definition"* they get redirected to the actual ``.ts`` source file instead of the ``.d.ts``.
   ( Feature disabled by default, refer to [instructions](#enabling-go-to-definition-to-redirect-to-the-source-ts-file) on how to enable it ).  
+- Eslint and Prettifier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
+
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
@@ -41,6 +43,9 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
   - [Changing the directories structure](#changing-the-directories-structure)
   - [Enabling "Go to Definition" to redirect to the source ``.ts`` file](#enabling-go-to-definition-to-redirect-to-the-source-ts-file)
   - [Swipe the image in the ``README.md``](#swipe-the-image-in-the-readmemd)
+  - [Disable linting and formatting](#disable-linting-and-formatting)
+    - [Disable Prettier](#disable-prettier)
+    - [Disable Eslint and Prettier altogether](#disable-eslint-and-prettier-altogether)
   - [Disable CDN build](#disable-cdn-build)
     - [Completely disable](#completely-disable)
     - [Only disable ES Module build ( ``dist/zz_esm/*`` )](#only-disable-es-module-build--distzz_esm-)
@@ -137,6 +142,61 @@ It is important to keep your project compatible with older TS version because
 A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
 Twitter or Reddit you don't get your GitHub profile picture to show up.
+
+## Disable linting and formatting
+
+### Disable Prettier
+
+[Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
+
+Remove these ``package.json``'s ``scripts``:  
+- ``_format``
+- ``format``
+- ``format:check``
+
+Remove these ``package.json``'s ``devDependencies``:  
+- ``prettier``
+- ``eslint-config-prettier``  
+
+In the ``package.json``'s ``lint-staged`` field remove ``"*.{`s,json,md}": [ "prettier --write" ]``  
+
+From ``.eslintrc.js``, remove the line: ``"prettier/@typescript-eslint",``.  
+
+Delete these files:  
+- ``.prettierignore``
+- ``.prettierrc.json``  
+
+In ``.github/workflows/ci.yaml`` remove the line ``- run: npm run format:check``.  
+
+### Disable Eslint and Prettier altogether
+
+Remove these ``package.json``'s ``scripts``:  
+
+- ``_format``
+- ``format``
+- ``format:check``
+- ``lint:check``
+- ``lint``
+
+Remove these ``package.j`on``'s ``devDependencies``:  
+- ``prettier``
+- ``eslint-config-prettier``  
+- ``eslint``
+- ``@typescript-eslint/parser``
+- ``@typescript-eslint/eslint-plugin``
+- ``husky``
+
+Remove the ``lint-staged`` and ``husky`` fields from the ``package.json``.  
+
+Delete these files:  
+- ``.prettierignore``
+- ``.prettierrc.json``  
+- ``.eslintignore``
+- ``.eslintrc.js``
+
+Remove these lines from ``.github/workflows/ci.yaml``:
+- ``- run: npm run lint:check``
+- ``- run: npm run format:check``
 
 ## Disable CDN build  
 

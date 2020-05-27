@@ -1,2 +1,3 @@
-
-export const myFunction = ()=> Promise.resolve(["a", "b", "c"]);
+export function myFunction() {
+    return Promise.resolve(["a", "b", "c"]);
+}
