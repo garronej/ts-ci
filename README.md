@@ -28,7 +28,7 @@ Besides, good stuff that comes with using this template:
 - A branch ``latest`` always in sync with the latest release.
 - When your users hit *"Go to Definition"* they get redirected to the actual ``.ts`` source file instead of the ``.d.ts``.
   ( Feature disabled by default, refer to [instructions](#enabling-go-to-definition-to-redirect-to-the-source-ts-file) on how to enable it ).  
-- Eslint and Prettifier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
+- ESlint and Prettier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
 
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
