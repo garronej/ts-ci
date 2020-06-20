@@ -204,7 +204,7 @@ If your project does not target the browser or if you are not interested in offe
 
 - Remove all ``cdn:*`` npm scripts and ``npm run cdn`` from the `build` script ( in ``package.json`` ).
 - Remove ``./tsconfig.esm.json``
-- Remove ``/dist/esm/`` entry from ``files`` in ``package.json`` 
+- Remove ``/dist/zz_esm/`` entry from ``files`` in ``package.json`` 
 - Remove ``simplifyify`` and ``terser`` from dev dependencies.
 
 ### Only disable ES Module build ( ``dist/zz_esm/*`` )  
