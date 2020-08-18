@@ -3,6 +3,6 @@
     "include": ["src/index.ts"],
     "compilerOptions": {
         "module": "es2015",
-        "outDir": "dist/zz_esm"
+        "outDir": "dist/zz_esm/"
     }
 }
