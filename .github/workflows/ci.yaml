@@ -2,10 +2,10 @@ name: ci
 on:
   push:
     branches:
-      - master
+      - develop
   pull_request:
     branches:
-      - master
+      - develop
 
 jobs:
 
@@ -35,7 +35,8 @@ jobs:
         node-version: ${{ matrix.node }}
     - run: npm ci
     - run: npm run build
-    - run: npm run test
+    - run: npm run test:node
+
 
   trigger_publish:
     name: Trigger publish.yaml workflow if package.json version updated ( and secrets.PAT is set ).
@@ -45,27 +46,30 @@ jobs:
     if: github.event_name == 'push' && github.event.head_commit.author.name != 'ts_ci'
     needs: test_node
     steps:
-    - name: Get version on branch 'latest'
+
+    - name: Get version on latest
       id: v_latest
-      uses: garronej/github_actions_toolkit@v1.4
+      uses: garronej/github_actions_toolkit@v1.6
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
         repo: ${{github.event.repository.name}}
         branch: latest
         compare_to_version: '0.0.0'
-    - name: Get version on master
-      id: v_master
-      uses: garronej/github_actions_toolkit@v1.4
+
+    - name: Get version on develop
+      id: v_develop
+      uses: garronej/github_actions_toolkit@v1.6
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
         repo: ${{github.event.repository.name}}
         branch: ${{ github.sha }}
         compare_to_version: ${{steps.v_latest.outputs.version || '0.0.0'}}
-    - name: 'Trigger the ''publish'' workflow if newer version' 
-      if: ${{ !!env.PAT && steps.v_master.outputs.compare_result == '1' }}
-      uses: garronej/github_actions_toolkit@v1.4
+
+    - name: 'Trigger the ''publish'' workflow' 
+      if: ${{ !!env.PAT && steps.v_develop.outputs.compare_result == '1' }}
+      uses: garronej/github_actions_toolkit@v1.6
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
@@ -78,7 +82,7 @@ jobs:
             format(
               '{{"from_version":"{0}","to_version":"{1}","repo":"{2}"}}',
               steps.v_latest.outputs.version,
-              steps.v_master.outputs.version,
+              steps.v_develop.outputs.version,
               github.event.repository.name
             )
           }}
