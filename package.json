@@ -6,10 +6,10 @@
         "type": "git",
         "url": "git://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#.git"
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
-        "test": "node ./dist/test",
+        "test": "node dist/test/",
         "cdn:bundle:.js": "simplifyify dist/index.js -s #{REPO_NAME_NO_DASHES}# -o dist/bundle.js --debug --bundle",
         "cdn:bundle:.min.js": "terser dist/bundle.js -cmo dist/bundle.min.js",
         "cdn:bundle": "npm run cdn:bundle:.js && npm run cdn:bundle:.min.js",
@@ -40,27 +40,27 @@
     "author": "u/#{USER_OR_ORG}#",
     "license": "MIT",
     "files": [
-        "/dist/*.{d.ts,js,js.map}",
-        "/dist/tools/",
-        "/dist/zz_esm/",
-        "/src/*.ts",
-        "/src/tools/"
+        "src/",
+        "!src/test/",
+        "dist/",
+        "!dist/test/",
+        "!dist/tsconfig.tsbuildinfo"
     ],
     "keywords": [],
     "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
     "devDependencies": {
-        "typescript": "^3.9.0",
+        "typescript": "^3.9.7",
         "@types/node": "^10.0.0",
-        "denoify": "0.2.15",
-        "evt": "1.7.11",
-        "simplifyify": "8.0.1",
-        "terser": "4.6.13",
-        "husky": "^4.2.1",
-        "prettier": "^1.19.1",
-        "eslint": "^7.1.0",
-        "@typescript-eslint/parser": "^3.0.1",
-        "@typescript-eslint/eslint-plugin": "^3.0.1",
+        "denoify": "0.4.11",
+        "evt": "1.8.7",
+        "simplifyify": "8.0.3",
+        "terser": "5.1.0",
+        "husky": "^4.2.5",
+        "prettier": "^2.0.5",
+        "eslint": "^7.7.0",
+        "@typescript-eslint/parser": "^3.9.1",
+        "@typescript-eslint/eslint-plugin": "^3.9.1",
         "eslint-config-prettier": "^6.11.0",
-        "lint-staged": "^10.2.6"
+        "lint-staged": "^10.2.11"
     }
 }
