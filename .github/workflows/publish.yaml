@@ -8,18 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Synchronize package.json  and package-lock.json version if needed.
-      uses: garronej/github_actions_toolkit@v1.4
+      uses: garronej/github_actions_toolkit@v1.6
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
         action_name: sync_package_and_package_lock_version
         owner: ${{github.repository_owner}}
         repo: ${{github.event.client_payload.repo}}
-        branch: master
+        branch: develop
         commit_author_email: ts_ci@github.com
     - name: Update CHANGELOG.md
       if: ${{ !!github.event.client_payload.from_version }}
-      uses: garronej/github_actions_toolkit@v1.4
+      uses: garronej/github_actions_toolkit@v1.6
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
@@ -27,18 +27,18 @@ jobs:
         owner: ${{github.repository_owner}}
         repo: ${{github.event.client_payload.repo}}
         branch_behind: latest
-        branch_ahead: master
+        branch_ahead: develop
         commit_author_email: ts_ci@github.com
         exclude_commit_from_author_names_json: '["ts_ci"]'
-      
-  publish_npm:
+
+  publish:
     runs-on: ubuntu-latest
     needs: update_changelog_and_sync_package_lock_version
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        ref: master
+        ref: develop
     - name: Remove .github directory, useless on 'latest' branch
       run: rm -r .github
     - name: Remove branch 'latest' 
@@ -59,6 +59,10 @@ jobs:
       run: ls -lR
     - name: Publishing on NPM
       run: |
+        if [ "$(npm show . version)" = "$VERSION" ]; then
+          echo "This version is already published"
+          exit 0
+        fi
         if [ "$NPM_TOKEN" = "" ]; then
           echo "Can't publish on NPM, You must first create a secret called NPM_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
           false
@@ -68,12 +72,13 @@ jobs:
         rm .npmrc
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        VERSION: ${{ github.event.client_payload.to_version }}
     - name: Commit changes
       run: |
         git config --local user.email "ts_ci@github.com"
         git config --local user.name "ts_ci"
         git add -A
-        git commit -am "Enable shorter import paths [automatic]"
+        git commit -am "Enabling shorter import paths [automatic]"
     - run: git push origin latest
     - name: Release body
       id: id_rb
@@ -87,14 +92,14 @@ jobs:
         FROM_VERSION: ${{ github.event.client_payload.from_version }}
         OWNER: ${{github.repository_owner}}
         REPO: ${{github.event.client_payload.repo}}
-        REF: ${{github.event.client_payload.to_version}}
+        REF: v${{github.event.client_payload.to_version}}
     - name: Create Release
       uses: garronej/create-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
-        tag_name: ${{ github.event.client_payload.to_version }}
-        release_name: Release ${{ github.event.client_payload.to_version }}
+        tag_name: v${{ github.event.client_payload.to_version }}
+        release_name: Release v${{ github.event.client_payload.to_version }}
         branch: latest
         draft: false
         prerelease: false
