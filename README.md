@@ -86,24 +86,31 @@ The publishing will actually be performed only if ``npm test`` passes.
 
 # Few things you need to be aware of before getting started
 
+- In rare occasions the workflow in charge of performing the initial configuration does not fire up.
+  If it is the case for you please delete the repo you just created and start over again.
 - You probably want to "Use this template" ( the green button ) instead of forking the repo.  
 - The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
-  If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``
-  otherwise remember, when you add a subdirectory in ``src/``, to update the ``package.json`` ``files``.
+  If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``.
 - If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
 - The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
 - The template does not support ``.npmrc``.
-- In rare occasions the workflow in charge of performing the initial configuration does not fire up.
-  If it is the case for you please delete the repo you just created and start over again.
 
 # Customization: 
 
 ## Changing the directories structure
 
+<details>
+  <summary>Click to expand</summary>
+
 All your source files must remain inside the ``src`` dir, you can change how things are organized inside the source directory
 but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate.
 
+</details>
+
 ## Enabling "Go to Definition" to redirect to the source ``.ts`` file
+
+<details>
+  <summary>Click to expand</summary>
 
 There is no denying that it is more convenient when clicking "Go To Definition" to get redirected to 
 a file ``.ts`` file rather than to a ``.d.ts``.  
@@ -137,15 +144,25 @@ It is important to keep your project compatible with older TS version because
 - In certain environments updating TypeScript is not an option. Take [Stackblitz](https://stackblitz.com) 
   for example.
 
+</details>
+
 ## Swipe the image in the ``README.md``
+
+<details>
+  <summary>Click to expand</summary>
 
 A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
 Twitter or Reddit you don't get your GitHub profile picture to show up.
 
+</details>
+
 ## Disable linting and formatting
 
 ### Disable Prettier
+
+<details>
+  <summary>Click to expand</summary>
 
 [Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
 
@@ -168,7 +185,12 @@ Delete these files:
 
 In ``.github/workflows/ci.yaml`` remove the line ``npm run format:check`` from the ``test_lint`` job.  
 
+</details>
+
 ### Disable Eslint and Prettier altogether
+
+<details>
+  <summary>Click to expand</summary>
 
 Remove these ``package.json``'s ``scripts``:  
 
@@ -196,18 +218,27 @@ Delete these files:
 
 In ``.github/workflows/ci.yaml`` remove the ``test_lint`` job and the line ``needs: test_lint``.  
 
+</details>
+
 ## Disable CDN build  
 
 ### Completely disable  
+
+<details>
+  <summary>Click to expand</summary>
 
 If your project does not target the browser or if you are not interested in offering CDN distribution:
 
 - Remove all ``cdn:*`` npm scripts and ``npm run cdn`` from the `build` script ( in ``package.json`` ).
 - Remove ``./tsconfig.esm.json``
-- Remove ``/dist/zz_esm/`` entry from ``files`` in ``package.json`` 
 - Remove ``simplifyify`` and ``terser`` from dev dependencies.
 
+</details>
+
 ### Only disable ES Module build ( ``dist/zz_esm/*`` )  
+
+<details>
+  <summary>Click to expand</summary>
 
 If ``npm run build`` fail because ``tsc -p tsconfig.esm.json`` gives errors you may want to remove the ESM
 build but keep the ``bundle.js`` and ``bundle.min.js``. To do that:
@@ -234,14 +265,17 @@ By theses ones:
 }
 ```
 
-Remove the ``/dist/zz_esm/`` entry from ``package.json``'s ``files``.
-
 Remove ``tsconfig.esm.json``. ( file at the root of the project )  
 
 Edit the ``README.md`` to remove instructions about how to 
 import as ES module.
 
+</details>
+
 ## Remove unwanted dev dependencies
+
+<details>
+  <summary>Click to expand</summary>
 
 Dev dependencies that are not required by the template ( you can safely remove them if you don't use them ):
 
@@ -255,11 +289,21 @@ Must keep:
 - ``simplifyify`` ( for CDN build )
 - ``terser`` ( for CDN build )
 
+</details>
+
 ## Customizing the Badges
+
+<details>
+  <summary>Click to expand</summary>
 
 You can use [shields.io](https://shields.io) to create badges on metrics you would like to showcase.
 
+</details>
+
 # Accessing files outside the ``dist/`` directory
+
+<details>
+  <summary>Click to expand</summary>
 
 The drawback of having short import path is that the dir structure  
 is not exactly the same in production ( in the npm bundle ) and in development.
@@ -292,6 +336,8 @@ const str = fs.readFileSync(
     path.join(getProjectRoot(),"package.json")
 ).toString("utf8");
 ```
+
+</details>
 
 # The automatically updated ``CHANGELOG.md``
 
