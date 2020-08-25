@@ -122,8 +122,8 @@ For example you would replace:
 
 ```json
 {
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
 }
 ```
 
@@ -131,8 +131,8 @@ by:
 
 ```json
 {
-  "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
 }
 ```
 
