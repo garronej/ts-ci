@@ -35,6 +35,8 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 
 # Table of content
 
+- [Presentation](#presentation)
+- [Table of content](#table-of-content)
 - [How to use](#how-to-use)
   - [Fork it ( click use the template )](#fork-it--click-use-the-template-)
   - [Enable automatic publishing](#enable-automatic-publishing)
@@ -68,7 +70,9 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
   - Check if there is not already a NPM module named like that.
 - The description you provide will be the one used on NPM and in ``package.json`` ( you can change it later )
 
-Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
+Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` 
+ for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
+(**warning** please read [this](#few-things-you-need-to-be-aware-of-before-getting-started))
 
 Each time you will push changes ``npm test`` will be run on remote docker containers against multiple node versions if everything passes you will get a green ``ci`` badges in your readme.
 
