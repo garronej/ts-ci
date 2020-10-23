@@ -15,7 +15,7 @@ This template automates the boring and tedious tasks of:
 - Filling up the ``package.json``
 - Setting up Typescript.
 - Writing a [README.md](https://github.com/garronej/ts_ci/blob/master/README.template.md) with decent presentation and instructions on how to install/import your module.
-- Testing on multiple Node version before publishing.
+- Testing on multiple Node version running on Ubuntu and Windows before publishing.
 - Maintaining a CHANGELOG.
 - Publishing on NPM and creating corresponding GitHub releases.
 

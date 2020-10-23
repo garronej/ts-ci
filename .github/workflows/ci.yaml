@@ -22,12 +22,13 @@ jobs:
         npm run format:check
 
   test_node:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: test_lint
     strategy:
       matrix:
         node: [ '14', '13', '12', '11', '10', '8' ]
-    name: Test with Node v${{ matrix.node }}
+        os: [ windows-latest, ubuntu-latest ]
+    name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
