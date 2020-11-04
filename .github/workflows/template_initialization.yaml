@@ -1,5 +1,10 @@
-on: create
-
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
 jobs:
   template_initialization:
     runs-on: ubuntu-latest
@@ -14,7 +19,7 @@ jobs:
       
     - name: Checks results
       run: |
-        if [ "$IS_VALID_NODE_MODULE_NAME" = "false" ]; then
+        if [ "$IS_VALID_NODE_MODULE_NAME" = "true" ]; then
           echo $MODULE_NAME" is not a valid node module name"
           false
         fi
