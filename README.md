@@ -379,7 +379,9 @@ Example:
 
 I advise you to have a special directory at the root of your project where the markdown documentation files
 are stored. It is configured by placing a ``.gitbook.yaml`` file at the root of the repo containing, for example:
-``root: ./docs/``
+``root: ./docs/``  
+
+Do not hesitate to request free access to premium features. Open source projects are eligible!  
 
 PS: I am not affiliated with GitBook in any way.
 
