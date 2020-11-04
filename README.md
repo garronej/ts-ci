@@ -30,7 +30,6 @@ Besides, good stuff that comes with using this template:
   ( Feature disabled by default, refer to [instructions](#enabling-go-to-definition-to-redirect-to-the-source-ts-file) on how to enable it ).  
 - ESlint and Prettier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
 
-
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
 # Table of content
