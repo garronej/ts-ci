@@ -90,8 +90,6 @@ The publishing will actually be performed only if ``npm test`` passes.
 
 # Few things you need to be aware of before getting started
 
-- **Quite often, due to a GitHub Action bug, the workflow in charge of performing the initial configuration does not fire up.**
-  If it is the case for you please delete the repo you just created and start over again.
 - You probably want to "Use this template" ( the green button ) instead of forking the repo.  
 - The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
   If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``.
