@@ -64,9 +64,7 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 
 ## Fork it ( click use the template )
 
-
-
-- Click on ![image](https://user-images.githubusercontent.com/6702424/98155116-0aebeb00-1ed6-11eb-8d0d-a95174739b2f.png)
+- Click on ![image](https://user-images.githubusercontent.com/6702424/98155461-92395e80-1ed6-11eb-93b2-98c64453043f.png)
 - The repo name you will choose will be used as a module name for NPM so:
   - Be sure it makes for a valid NPM module name.
   - Check if there is not already a NPM module named like that.
