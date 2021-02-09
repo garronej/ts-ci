@@ -1,4 +1,8 @@
-on: create
+name: template_initialization
+on:
+  create:
+    branches:
+      - develop
 
 jobs:
   template_initialization:
