@@ -50,7 +50,7 @@ jobs:
 
     - name: Get version on latest
       id: v_latest
-      uses: garronej/github_actions_toolkit@v1.6
+      uses: garronej/github_actions_toolkit@v1.9
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
@@ -60,7 +60,7 @@ jobs:
 
     - name: Get version on develop
       id: v_develop
-      uses: garronej/github_actions_toolkit@v1.6
+      uses: garronej/github_actions_toolkit@v1.9
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
@@ -70,7 +70,7 @@ jobs:
 
     - name: 'Trigger the ''publish'' workflow' 
       if: ${{ !!env.PAT && steps.v_develop.outputs.compare_result == '1' }}
-      uses: garronej/github_actions_toolkit@v1.6
+      uses: garronej/github_actions_toolkit@v1.9
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
