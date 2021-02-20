@@ -67,7 +67,7 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 - The repo name you will choose will be used as a module name for NPM so:
   - Be sure it makes for a valid NPM module name.
   - Check if there is not already a NPM module named like that.
-- The description you provide will be the one used on NPM and in ``package.json`` ( you can change it later **BUT YOU MUST PROVIDE ONE OR IT WONT WORK** )
+- The description you provide will be the one used on NPM and in ``package.json`` ( you can change it later )
 
 Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` 
  for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
