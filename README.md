@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/82094662-cd17c200-96fd-11ea-8645-808344bad951.png">  
 </p>
 <p align="center">
-    <i> A template to assist you in creating and publishing TypeScript modules on NPM </i>
+    <i> A template to assist you in creating and publishing TypeScript modules on NPM. </i>
     <br>
     <br>
 </p>
