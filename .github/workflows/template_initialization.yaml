@@ -33,7 +33,7 @@ jobs:
     - run: |
         mv README.template.md README.md
         mv LICENSE.template LICENSE
-        mv *.yaml .github/workflows/
+        mv workflows/*.yaml .github/workflows/ && rm -r workflows
     - name : String replace
       id: id2
       uses: garronej/github_actions_toolkit@v1.9
