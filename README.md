@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/6702424/82094662-cd17c200-96fd-11ea-8645-808344bad951.png">  
+    <img src="https://user-images.githubusercontent.com/6702424/109354825-ab4b8e00-787e-11eb-8336-6009415ecaf6.png">  
 </p>
 <p align="center">
     <i> A template to assist you in creating and publishing TypeScript modules on NPM </i>
