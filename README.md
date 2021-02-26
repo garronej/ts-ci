@@ -9,6 +9,8 @@
 
 ---
 
+NEW: `yarn` support ✅ You are now free to use yarn instead of `npm` if you'd like to.
+
 ⚠WARNING⚠: There is currently a problem with the initialization workflow that does not trigger automatically.  
 I am trying to adress the problem but for now the workaround is to manually edit `.github/workflow/template_initialization.yaml`
 and replace:

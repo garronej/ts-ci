@@ -1,8 +1,6 @@
 name: template_initialization
 on:
-  create:
-    branches:
-      - develop
+  create
 
 jobs:
   template_initialization:
