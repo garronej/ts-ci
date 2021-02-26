@@ -18,7 +18,6 @@ jobs:
     - run: npm ci
     - name: Making sure 'npm run lint' and 'npm run format' does not changes anything.
       run: |
-        sleep 15
         npm run lint:check
         npm run format:check
   test_node:
