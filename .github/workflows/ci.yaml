@@ -17,6 +17,7 @@ jobs:
 
   test_lint:
     runs-on: ubuntu-latest
+    if: ${{ !github.event.created }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
