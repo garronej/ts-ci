@@ -30,8 +30,10 @@ jobs:
         IS_AVAILABLE_ON_NPM: ${{steps.id1.outputs.is_available_on_npm}}
 
     - uses: actions/checkout@v2
-    - run: mv README.template.md README.md
-    - run: mv LICENSE.template LICENSE
+    - run: |
+        mv README.template.md README.md
+        mv LICENSE.template LICENSE
+        mv *.yaml .github/workflows/
     - name : String replace
       id: id2
       uses: garronej/github_actions_toolkit@v1.9
