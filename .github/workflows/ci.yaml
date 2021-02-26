@@ -9,7 +9,6 @@ on:
 
 jobs:
 
-
   test_lint:
     runs-on: ubuntu-latest
     if: ${{ !github.event.created && github.repository != 'garronej/ts_ci' }}
