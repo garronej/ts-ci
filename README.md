@@ -90,10 +90,9 @@ The publishing will actually be performed only if ``npm test`` passes.
 
 # Few things you need to be aware of before getting started
 
-- You probably want to "Use this template" ( the green button ) instead of forking the repo.  
 - The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
   If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``.
-- If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
+- If you are going to programmatically load files outside of the ``dist/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
 - The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
 - The template does not support ``.npmrc``.
 
@@ -168,7 +167,7 @@ Twitter or Reddit you don't get your GitHub profile picture to show up.
 
 [Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
 
-Remove these ``package.json``'s ``scripts``:  
+Remove these ``scripts`` from ``package.json``:  
 - ``_format``
 - ``format``
 - ``format:check``
