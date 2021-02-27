@@ -73,7 +73,6 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 
 Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` 
  for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
-(**warning** please read [this](#few-things-you-need-to-be-aware-of-before-getting-started))
 
 Each time you will push changes ``npm test`` will be run on remote docker containers against multiple node versions if everything passes you will get a green ``ci`` badges in your readme.
 
