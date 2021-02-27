@@ -15,7 +15,7 @@ jobs:
         action_name: sync_package_and_package_lock_version
         owner: ${{github.repository_owner}}
         repo: ${{github.event.client_payload.repo}}
-        branch: develop
+        branch: main
         commit_author_email: ts_ci@github.com
     - name: Update CHANGELOG.md
       if: ${{ !!github.event.client_payload.from_version }}
@@ -27,7 +27,7 @@ jobs:
         owner: ${{github.repository_owner}}
         repo: ${{github.event.client_payload.repo}}
         branch_behind: latest
-        branch_ahead: develop
+        branch_ahead: main
         commit_author_email: ts_ci@github.com
         exclude_commit_from_author_names_json: '["ts_ci"]'
 
@@ -38,7 +38,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        ref: develop
+        ref: main
     - name: Remove .github directory, useless on 'latest' branch
       run: rm -r .github
     - name: Remove branch 'latest' 

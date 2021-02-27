@@ -2,7 +2,7 @@ name: template_initialization
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   template_initialization:
@@ -64,7 +64,7 @@ jobs:
       uses: ad-m/github-push-action@v0.5.0
       with:
         github_token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-        branch: develop
+        branch: main
 
   debug:
     runs-on: ubuntu-latest
