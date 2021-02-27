@@ -48,10 +48,7 @@ Or import it as an ES module:
 
 ```html
 <script type="module">
-    import {
-        myFunction,
-        myObject,
-    } from "//unpkg.com/#{REPO_NAME}#/zz_esm/index.js";
+    import { myFunction, myObject } from "//unpkg.com/#{REPO_NAME}#/zz_esm/index.js";
 </script>
 ```
 
