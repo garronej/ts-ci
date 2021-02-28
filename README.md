@@ -23,15 +23,13 @@ This template automates the boring and tedious tasks of:
 - Publishing on NPM and creating corresponding GitHub releases.
 
 Besides, good stuff that comes with using this template:
-- No dist files are tracked on the ``main`` branch.
+- No `dist/` directory tracked on the ``main`` branch.
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
-- CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
 - A branch ``latest`` always in sync with the latest release.
-- When your users hit *"Go to Definition"* they get redirected to the actual ``.ts`` source file instead of the ``.d.ts``.
-  ( Feature disabled by default, refer to [instructions](#enabling-go-to-definition-to-redirect-to-the-source-ts-file) on how to enable it ).  
-- ESlint and Prettier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
+- CDN distribution for importing from an ``.html`` file with a ``<script>`` tag. (Optional, you can [disable](#disable-cdn-build) this feature)
+- ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
@@ -48,8 +46,8 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
   - [Enabling "Go to Definition" to redirect to the source ``.ts`` file](#enabling-go-to-definition-to-redirect-to-the-source-ts-file)
   - [Swipe the image in the ``README.md``](#swipe-the-image-in-the-readmemd)
   - [Disable linting and formatting](#disable-linting-and-formatting)
-    - [Disable Prettier](#disable-prettier)
     - [Disable Eslint and Prettier altogether](#disable-eslint-and-prettier-altogether)
+    - [Disable Prettier](#disable-prettier)
   - [Disable CDN build](#disable-cdn-build)
     - [Completely disable](#completely-disable)
     - [Only disable ES Module build ( ``dist/zz_esm/*`` )](#only-disable-es-module-build--distzz_esm-)
@@ -161,34 +159,6 @@ Twitter or Reddit you don't get your GitHub profile picture to show up.
 
 ## Disable linting and formatting
 
-### Disable Prettier
-
-<details>
-  <summary>Click to expand</summary>
-
-[Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
-
-Remove these ``scripts`` from ``package.json``:  
-- ``_format``
-- ``format``
-- ``format:check``
-
-Remove these ``package.json``'s ``devDependencies``:  
-- ``prettier``
-- ``eslint-config-prettier``  
-
-In the ``package.json``'s ``lint-staged`` field remove ``"*.{`s,json,md}": [ "prettier --write" ]``  
-
-From ``.eslintrc.js``, remove the line: ``"prettier/@typescript-eslint",``.  
-
-Delete these files:  
-- ``.prettierignore``
-- ``.prettierrc.json``  
-
-In ``.github/workflows/ci.yaml`` remove the line ``npm run format:check`` from the ``test_lint`` job.  
-
-</details>
-
 ### Disable Eslint and Prettier altogether
 
 <details>
@@ -219,6 +189,34 @@ Delete these files:
 - ``.eslintrc.js``
 
 In ``.github/workflows/ci.yaml`` remove the ``test_lint`` job and the line ``needs: test_lint``.  
+
+</details>
+
+### Disable only Prettier
+
+<details>
+  <summary>Click to expand</summary>
+
+[Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
+
+Remove these ``scripts`` from ``package.json``:  
+- ``_format``
+- ``format``
+- ``format:check``
+
+Remove these ``package.json``'s ``devDependencies``:  
+- ``prettier``
+- ``eslint-config-prettier``  
+
+In the ``package.json``'s ``lint-staged`` field remove ``"*.{`s,json,md}": [ "prettier --write" ]``  
+
+From ``.eslintrc.js``, remove the line: ``"prettier/@typescript-eslint",``.  
+
+Delete these files:  
+- ``.prettierignore``
+- ``.prettierrc.json``  
+
+In ``.github/workflows/ci.yaml`` remove the line ``npm run format:check`` from the ``test_lint`` job.  
 
 </details>
 
