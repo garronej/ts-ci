@@ -33,6 +33,13 @@ Besides, good stuff that comes with using this template:
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
 
+# Examples of project using this template
+
+- [denoify](https://github.com/garronej/denoify)
+- [keycloak-react-theming](https://github.com/garronej/keycloak-react-theming)
+- [tss-react](https://github.com/garronej/tss-react)
+- [EVT](https://github.com/garronej/evt) (uses [denoify_ci](https://github.com/garronej/denoify_ci) )
+
 # Table of content
 
 - [Presentation](#presentation)
