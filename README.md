@@ -105,6 +105,8 @@ The publishing will actually be performed only if ``npm test`` passes.
 All your source files must remain inside the ``src`` dir, you can change how things are organized inside the source directory
 but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate.
 
+- If you add a new directory in `src/`: Add it to `files` in `package.json` or it wont be in you npm bundle.
+
 </details>
 
 ## Enabling "Go to Definition" to redirect to the source ``.ts`` file
