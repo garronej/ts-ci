@@ -70,6 +70,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'garronej/ts_ci' }}
     steps:
+      - name: Show envs
+        run: env
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
