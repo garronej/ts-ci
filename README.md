@@ -11,6 +11,7 @@
 
 ✅ NEW: The workflow is now much more straightforward and portable.
 ✅ NEW: `yarn` support  You are now free to use yarn instead of `npm` if you'd like to.
+✅ NEW: React ready ( `tsconfig.json` configured to transpile `.tsx` files).
 
 # Presentation
 
@@ -23,18 +24,26 @@ This template automates the boring and tedious tasks of:
 - Publishing on NPM and creating corresponding GitHub releases.
 
 Besides, good stuff that comes with using this template:
-- No dist files are tracked on the ``main`` branch.
+<<<<<<< HEAD
+- The `dist/` directory is not tracked on the ``main`` branch.
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
-- CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
-- ESlint and Prettier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
+- CDN distribution for importing from an ``.html`` file with a ``<script>`` tag. (Optional, you can [disable](#disable-cdn-build) this feature for node projects)
+- ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
+# Examples of project using this template
+
+- [denoify](https://github.com/garronej/denoify)
+- [keycloak-react-theming](https://github.com/garronej/keycloak-react-theming)
+- [tss-react](https://github.com/garronej/tss-react)
+- [EVT](https://github.com/garronej/evt) (uses [denoify_ci](https://github.com/garronej/denoify_ci) )
 
 # Table of content
 
 - [Presentation](#presentation)
+- [Examples of project using this template](#examples-of-project-using-this-template)
 - [Table of content](#table-of-content)
 - [How to use](#how-to-use)
   - [Fork it ( click use the template )](#fork-it--click-use-the-template-)
@@ -44,8 +53,8 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
   - [Changing the directories structure](#changing-the-directories-structure)
   - [Swipe the image in the ``README.md``](#swipe-the-image-in-the-readmemd)
   - [Disable linting and formatting](#disable-linting-and-formatting)
-    - [Disable Prettier](#disable-prettier)
     - [Disable Eslint and Prettier altogether](#disable-eslint-and-prettier-altogether)
+    - [Disable only Prettier](#disable-only-prettier)
   - [Disable CDN build](#disable-cdn-build)
     - [Completely disable](#completely-disable)
     - [Only disable ES Module build ( ``dist/zz_esm/*`` )](#only-disable-es-module-build--distzz_esm-)
@@ -70,7 +79,6 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 
 Once you've done that a GitHub action workflow will set up the ``README.md`` and the ``package.json`` 
  for you, wait a couple of minutes for it to complete ( a bot will push ). You can follow the job advancement in the "Action" tab.
-(**warning** please read [this](#few-things-you-need-to-be-aware-of-before-getting-started))
 
 Each time you will push changes ``npm test`` will be run on remote docker containers against multiple node versions if everything passes you will get a green ``ci`` badges in your readme.
 
@@ -87,10 +95,9 @@ The publishing will actually be performed only if ``npm test`` passes.
 
 # Few things you need to be aware of before getting started
 
-- You probably want to "Use this template" ( the green button ) instead of forking the repo.  
 - The files to include in the NPM bundle are cherry-picked using the ``package.json`` ``files`` field.  
   If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``.
-- If you are going to programmatically load files outside of the ``dis/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
+- If you are going to programmatically load files outside of the ``dist/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
 - The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
 - The template does not support ``.npmrc``.
 
@@ -101,9 +108,12 @@ The publishing will actually be performed only if ``npm test`` passes.
 <details>
   <summary>Click to expand</summary>
 
-All your source files must remain inside the ``src`` dir, you can change how things are organized inside the source directory
-but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate.
+You can freelly change how things are organized inside the `src/` directory but be mindfull:
 
+- If you add a new directory in `src/`: Add it to `files` in `package.json` or it wont be included in you npm bundle.
+- If you change the entry point of your module (default `src/index.ts`) update `include` in the `tsconfig.esm.json` as well as `main` and `type`
+  in `package.json`.  
+  
 </details>
 
 ## Swipe the image in the ``README.md``
@@ -118,34 +128,6 @@ Twitter or Reddit you don't get your GitHub profile picture to show up.
 </details>
 
 ## Disable linting and formatting
-
-### Disable Prettier
-
-<details>
-  <summary>Click to expand</summary>
-
-[Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
-
-Remove these ``package.json``'s ``scripts``:  
-- ``_format``
-- ``format``
-- ``format:check``
-
-Remove these ``package.json``'s ``devDependencies``:  
-- ``prettier``
-- ``eslint-config-prettier``  
-
-In the ``package.json``'s ``lint-staged`` field remove ``"*.{`s,json,md}": [ "prettier --write" ]``  
-
-From ``.eslintrc.js``, remove the line: ``"prettier/@typescript-eslint",``.  
-
-Delete these files:  
-- ``.prettierignore``
-- ``.prettierrc.json``  
-
-In ``.github/workflows/ci.yaml`` remove the line ``npm run format:check`` from the ``test_lint`` job.  
-
-</details>
 
 ### Disable Eslint and Prettier altogether
 
@@ -177,6 +159,34 @@ Delete these files:
 - ``.eslintrc.js``
 
 In ``.github/workflows/ci.yaml`` remove the ``test_lint`` job and the line ``needs: test_lint``.  
+
+</details>
+
+### Disable only Prettier
+
+<details>
+  <summary>Click to expand</summary>
+
+[Prettier](https://prettier.io) is opinionated, it is OK to want to break free from it.
+
+Remove these ``scripts`` from ``package.json``:  
+- ``_format``
+- ``format``
+- ``format:check``
+
+Remove these ``package.json``'s ``devDependencies``:  
+- ``prettier``
+- ``eslint-config-prettier``  
+
+In the ``package.json``'s ``lint-staged`` field remove ``"*.{`s,json,md}": [ "prettier --write" ]``  
+
+From ``.eslintrc.js``, remove the line: ``"prettier/@typescript-eslint",``.  
+
+Delete these files:  
+- ``.prettierignore``
+- ``.prettierrc.json``  
+
+In ``.github/workflows/ci.yaml`` remove the line ``npm run format:check`` from the ``test_lint`` job.  
 
 </details>
 
