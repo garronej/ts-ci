@@ -9,9 +9,9 @@
 
 ---
 
-✅ NEW: The workflow is now much more straightforward and portable.
-✅ NEW: `yarn` support  You are now free to use yarn instead of `npm` if you'd like to.
-✅ NEW: React ready ( `tsconfig.json` configured to transpile `.tsx` files).
+✅ NEW: The workflow is now much more straightforward and portable.  
+✅ NEW: `yarn` support  You are now free to use yarn instead of `npm` if you'd like to.  
+✅ NEW: React ready ( `tsconfig.json` configured to transpile `.tsx` files).  
 
 # Presentation
 
