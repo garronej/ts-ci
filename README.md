@@ -9,6 +9,7 @@
 
 ---
 
+✅ NEW: The workflow is now much more straightforward and portable.
 ✅ NEW: `yarn` support  You are now free to use yarn instead of `npm` if you'd like to.
 
 # Presentation
@@ -16,20 +17,17 @@
 This template automates the boring and tedious tasks of:
 - Filling up the ``package.json``
 - Setting up Typescript.
-- Writing a [README.md](https://github.com/garronej/ts_ci/blob/master/README.template.md) with decent presentation and instructions on how to install/import your module.
+- Writing a [README.md](https://github.com/garronej/ts_ci/blob/main/README.template.md) with decent presentation and instructions on how to install/import your module.
 - Testing on multiple Node version running on Ubuntu and Windows before publishing.
 - Maintaining a CHANGELOG.
 - Publishing on NPM and creating corresponding GitHub releases.
 
 Besides, good stuff that comes with using this template:
-- No dist files are tracked on the ``master`` branch.
+- No dist files are tracked on the ``main`` branch.
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag.
-- A branch ``latest`` always in sync with the latest release.
-- When your users hit *"Go to Definition"* they get redirected to the actual ``.ts`` source file instead of the ``.d.ts``.
-  ( Feature disabled by default, refer to [instructions](#enabling-go-to-definition-to-redirect-to-the-source-ts-file) on how to enable it ).  
 - ESlint and Prettier are automatically run against files staged for commit. ( You can [disable](#disable-linting-and-formatting) this feature. )
 
 If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
@@ -44,7 +42,6 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 - [Few things you need to be aware of before getting started](#few-things-you-need-to-be-aware-of-before-getting-started)
 - [Customization:](#customization)
   - [Changing the directories structure](#changing-the-directories-structure)
-  - [Enabling "Go to Definition" to redirect to the source ``.ts`` file](#enabling-go-to-definition-to-redirect-to-the-source-ts-file)
   - [Swipe the image in the ``README.md``](#swipe-the-image-in-the-readmemd)
   - [Disable linting and formatting](#disable-linting-and-formatting)
     - [Disable Prettier](#disable-prettier)
@@ -80,11 +77,10 @@ Each time you will push changes ``npm test`` will be run on remote docker contai
 ## Enable automatic publishing
 
 Once you are ready to make your package available on NPM you 
-will need to provide two tokens so that the workflow can publish on your behalf:
+will need to provide your NPM token so that the workflow can publish on your behalf:
 
-Go to repository ``Settings`` tab, then ``Secrets`` you will need to add two new secrets:
-- ``NPM_TOKEN``, you NPM authorization token.
-- ``PAT``, GitHub **P**ersonal **A**ccess **T**oken with the **repo** authorization. [link](https://github.com/settings/tokens)
+Go to repository ``Settings`` tab, then ``Secrets`` you will need to add a new secret:
+``NPM_TOKEN``, you NPM authorization token.
 
 To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
 The publishing will actually be performed only if ``npm test`` passes.  
@@ -107,45 +103,6 @@ The publishing will actually be performed only if ``npm test`` passes.
 
 All your source files must remain inside the ``src`` dir, you can change how things are organized inside the source directory
 but don't forget to update your ``package.json`` ``main``, ``type`` and ``files`` fields and ``tsconfig.esm.json`` ``include`` field when appropriate.
-
-</details>
-
-## Enabling "Go to Definition" to redirect to the source ``.ts`` file
-
-<details>
-  <summary>Click to expand</summary>
-
-There is no denying that it is more convenient when clicking "Go To Definition" to get redirected to 
-a file ``.ts`` file rather than to a ``.d.ts``.  
-
-To enable this feature simply point to the ``package.json``'s ``types`` filed to the ``main``'s source
-file instead the type definition file ``.d.ts``.  
-
-For example you would replace:
-
-```json
-{
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-}
-```
-
-by:
-
-```json
-{
-  "main": "dist/index.js",
-  "types": "src/index.ts",
-}
-```
-
-Enabling this feature comes at a cost though. Be aware that if you use [optional chaining](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining) or [nullish coalescing](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#nullish-coalescing) for example, your module will only be importable
-in projects using typescript 3.7 or newer ( version that introduces theses features ).  
-It is important to keep your project compatible with older TS version because  
-- You don't want to force your users to update the typescript version they use in their project,
-  updating typescript might break some other things in their code. 
-- In certain environments updating TypeScript is not an option. Take [Stackblitz](https://stackblitz.com) 
-  for example.
 
 </details>
 
@@ -288,7 +245,6 @@ Dev dependencies that are not required by the template ( you can safely remove t
 Must keep:
 
 - ``typescript``
-- ``denoify`` ( for the script that moves dist files to the root before publishing )
 - ``simplifyify`` ( for CDN build )
 - ``terser`` ( for CDN build )
 
