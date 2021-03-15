@@ -7,9 +7,12 @@
     <br>
 </p>
 
+![image](https://user-images.githubusercontent.com/6702424/111089239-4012e480-852b-11eb-8351-df1610953d0c.png)
+
 ---
 
 ✅ NEW: The workflow is now much more straightforward and portable.  
+✅ NEW: Only one secret has to be defined: `NPM_TOKEN` (to enable publishing on your behalf on NPM).  
 ✅ NEW: `yarn` support  You are now free to use yarn instead of `npm` if you'd like to.  
 ✅ NEW: React ready ( `tsconfig.json` configured to transpile `.tsx` files).  
 
