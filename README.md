@@ -7,6 +7,8 @@
     <br>
 </p>
 
+![image](https://user-images.githubusercontent.com/6702424/111089185-03df8400-852b-11eb-9106-17da34abbb53.png)
+
 ---
 
 ✅ NEW: The workflow is now much more straightforward and portable.  
