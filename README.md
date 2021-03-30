@@ -27,7 +27,6 @@ This template automates the boring and tedious tasks of:
 - Publishing on NPM and creating corresponding GitHub releases.
 
 Besides, good stuff that comes with using this template:
-<<<<<<< HEAD
 - The `dist/` directory is not tracked on the ``main`` branch.
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
