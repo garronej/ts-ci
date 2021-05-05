@@ -128,12 +128,12 @@ jobs:
     - uses: actions/setup-node@v2.1.3
       with:
         node-version: '15'
+        registry-url: https://registry.npmjs.org/
     - run: |
         PACKAGE_MANAGER=npm
         if [ -f "./yarn.lock" ]; then
             PACKAGE_MANAGER=yarn
         fi
-
         if [ "$PACKAGE_MANAGER" = "yarn" ]; then
             yarn install --frozen-lockfile                                                                                                                                                                                        
         else
@@ -149,13 +149,11 @@ jobs:
           echo "This version is already published"
           exit 0
         fi
-        if [ "$NPM_TOKEN" = "" ]; then
+        if [ "$NODE_AUTH_TOKEN" = "" ]; then
           echo "Can't publish on NPM, You must first create a secret called NPM_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
           false
         fi
-        echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
         npm publish
-        rm .npmrc
       env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
