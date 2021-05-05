@@ -101,7 +101,6 @@ The publishing will actually be performed only if ``npm test`` passes.
   If you don't want to bother and includes everything just remove the ``files`` field from the ``package.json``.
 - If you are going to programmatically load files outside of the ``dist/`` directory ( like the ``package.json`` or files inside ``res/`` ) be mindful that the paths might not be the one you expect. [Details](#accessing-files-outside-the-dist-directory). 
 - The template does not support ``.npmignore`` ( it use the safer ``package.json`` ``files`` instead ).
-- The template does not support ``.npmrc``.
 
 # Customization: 
 
