@@ -34,7 +34,21 @@ Besides, good stuff that comes with using this template:
 - CDN distribution for importing from an ``.html`` file with a ``<script>`` tag. (Optional, you can [disable](#disable-cdn-build) this feature for node projects)
 - ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
 
-If you want your module to support Deno as well checkout [denoify_ci](https://github.com/garronej/denoify_ci).
+# TS_CI vs [TSDX](https://github.com/formium/tsdx)
+
+Reasons why you might want to use TS_CI over TSDX
+
+- TSDX doesn't help you with publishing on NPM, creating GitHub releases and maintaining a CHANGELOG.md.
+- TSDX bundle your module into a single minified `index.js` which is not what you want if you publish a module for node
+  It's not even what you want if you are targeting the web because it will prevent users from cherry-picking what 
+  they want to import from your library. Imagine how it would impact the bundle size if `material-ui` didn't let you cherry
+  pick what component of the lib you want to import.
+  ts_ci creates bundle.js and ESM distribution for you, but it's not the default way. 
+
+Reasons why you might want to use TSDX
+
+- TS_CI doesn't set up a test framework for you. 
+- You want to use babel plugin like [https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions
 # Examples of project using this template
 
 - [denoify](https://github.com/garronej/denoify)
@@ -45,6 +59,7 @@ If you want your module to support Deno as well checkout [denoify_ci](https://gi
 # Table of content
 
 - [Presentation](#presentation)
+- [TS_CI vs TSDX](#ts_ci-vs-tsdx)
 - [Examples of project using this template](#examples-of-project-using-this-template)
 - [Table of content](#table-of-content)
 - [How to use](#how-to-use)
