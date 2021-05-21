@@ -48,10 +48,11 @@ Reasons why you might want to use TS_CI over TSDX
 Reasons why you might want to use TSDX
 
 - TS_CI doesn't set up a test framework for you. 
-- You want to use babel plugin like [https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions) # Examples of project using this template
+- You want to use babel plugin like [https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions) 
+# Examples of project using this template
 
-- [denoify](https://github.com/garronej/denoify)
 - [keycloakify](https://github.com/garronej/keycloakify)
+- [denoify](https://github.com/garronej/denoify)
 - [tss-react](https://github.com/garronej/tss-react)
 - [EVT](https://github.com/garronej/evt) (uses [denoify_ci](https://github.com/garronej/denoify_ci) )
 
@@ -59,6 +60,7 @@ Reasons why you might want to use TSDX
 
 - [Presentation](#presentation)
 - [TS_CI vs TSDX](#ts_ci-vs-tsdx)
+- [Examples of project using this template](#examples-of-project-using-this-template)
 - [Table of content](#table-of-content)
 - [How to use](#how-to-use)
   - [Fork it ( click use the template )](#fork-it--click-use-the-template-)
