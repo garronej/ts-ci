@@ -39,16 +39,18 @@ Besides, good stuff that comes with using this template:
 Reasons why you might want to use TS_CI over TSDX
 
 - TSDX doesn't help you with publishing on NPM, creating GitHub releases and maintaining a CHANGELOG.md.
-- TSDX bundle your module into a single minified `index.js` which is not what you want if you publish a module for node
+- TSDX bundle your module into a single minified `index.js` which is not what you want if your module is for node.
   It's not even what you want if you are targeting the web because it will prevent users from cherry-picking what 
   they want to import from your library. Imagine how it would impact the bundle size if `material-ui` didn't let you cherry
-  pick what component of the lib you want to import.
-  ts_ci creates bundle.js and ESM distribution for you, but it's not the default way. 
+  pick what component of the lib you want to import.  
+  That said, ts_ci do create bundle.js and ESM distribution as well.
 
 Reasons why you might want to use TSDX
 
 - TS_CI doesn't set up a test framework for you. 
-- You want to use babel plugin like [https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions) 
+- You want to use babel plugin like [https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions)  
+
+
 # Examples of project using this template
 
 - [keycloakify](https://github.com/garronej/keycloakify)
