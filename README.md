@@ -48,7 +48,7 @@ Reasons why you might want to use TS_CI over TSDX
 Reasons why you might want to use TSDX
 
 - TS_CI doesn't set up a test framework for you. 
-- You want to use babel plugin like [https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions)  
+- If you want to use babel plugins like [advanced-babel-plugin-dev-expressions](https://github.com/formium/tsdx#advanced-babel-plugin-dev-expressions)  
 
 
 # Examples of project using this template
