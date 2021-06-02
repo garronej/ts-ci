@@ -29,7 +29,7 @@ jobs:
     needs: test_lint
     strategy:
       matrix:
-        node: [ '15', '14', '13', '12' ]
+        node: [ '16', '15', '14', '13' ]
         os: [ windows-latest, ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
@@ -71,11 +71,10 @@ jobs:
     needs: check_if_version_upgraded
     if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
     steps:
-    - uses: garronej/github_actions_toolkit@v2.2
+    - uses: garronej/github_actions_toolkit@v2.4
       with:
         action_name: update_changelog
         branch: ${{ github.ref }}
-        commit_author_email: ts_ci@github.com
 
   create_github_release:
     runs-on: ubuntu-latest
