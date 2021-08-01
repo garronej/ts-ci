@@ -23,7 +23,7 @@ $ npm install --save #{REPO_NAME}#
 ```
 
 ```typescript
-import { myFunction, myObject } from "#{REPO_NAME}#";
+import { myFunction, myObject } from "update_ts_ci";
 ```
 
 Specific imports:
@@ -31,33 +31,4 @@ Specific imports:
 ```typescript
 import { myFunction } from "#{REPO_NAME}#/myFunction";
 import { myObject } from "#{REPO_NAME}#/myObject";
-```
-
-## Import from HTML, with CDN
-
-Import it via a bundle that creates a global ( wider browser support ):
-
-```html
-<script src="//unpkg.com/#{REPO_NAME}#/bundle.min.js"></script>
-<script>
-    const { myFunction, myObject } = #{REPO_NAME_NO_DASHES}#;
-</script>
-```
-
-Or import it as an ES module:
-
-```html
-<script type="module">
-    import { myFunction, myObject } from "//unpkg.com/#{REPO_NAME}#/zz_esm/index.js";
-</script>
-```
-
-_You can specify the version you wish to import:_ [unpkg.com](https://unpkg.com)
-
-## Contribute
-
-```bash
-npm install
-npm run build
-npm test
 ```
