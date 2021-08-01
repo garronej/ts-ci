@@ -10,7 +10,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "test": "echo DODO",
-        "build": "tsc && npm run cdn",
+        "build": "tsc",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "npm run lint:check -- --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
