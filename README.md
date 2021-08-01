@@ -36,7 +36,7 @@ Besides, good stuff that comes with using this template:
 
 # TS_CI vs [TSDX](https://github.com/formium/tsdx)
 
-Reasons why you might want to use TS_CI over TSDX
+Reasons to favour TS_CI over TSDX
 
 - TSDX doesn't help you with publishing on NPM, creating GitHub releases and maintaining a CHANGELOG.md.
 - TSDX bundles your module into a single minified `index.js` which is not what you want if your module is for node.
