@@ -2,12 +2,12 @@
     <img src="https://user-images.githubusercontent.com/6702424/109354825-ab4b8e00-787e-11eb-8336-6009415ecaf6.png">  
 </p>
 <p align="center">
-    <i> 🚀 A starter for any TypeScript project meant to be published on NPM</i>
+    <i> 🚀 A starter for any TypeScript project meant to be published on NPM 🚀</i>
     <br>
     <br>
 </p>
 
-`ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because
+`ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
 - It's not a CLI tool, the automation happens with Github Actions. Update your `package.json` version number, push.
   Voila, your new version is published on NPM.
 - It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib. E.g: `import { aSpecificFunction } from "your-module/aSpecificFile`.  
