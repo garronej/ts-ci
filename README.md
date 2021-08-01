@@ -7,18 +7,17 @@
     <br>
 </p>
 
-ts-ci is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript starter](https://github.com/bitjson/typescript-starter) but (arguably) better because
+`ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript starter](https://github.com/bitjson/typescript-starter) but (arguably) better because
 - It's not a CLI tool, the automation happens with Github Actions. Update your `package.json` version number, push.
   Voila, your new version is published on NPM.
 - It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib. E.g: `import { aSpecificFunction } from "your-module/aSpecificFile`.  
 # How to use
 
-- Click on ![image](https://user-images.githubusercontent`com/6702424/98155461-92395e80-1ed6-11eb-93b2-98c64453043f.png)
+- Click on ![image](https://user-images.githubusercontent.com/6702424/127756563-ec5f2d07-d758-43f1-8fac-387847c0d064.png)
 - The repo name you will choose will be used as a module name for NPM.
 - Go to the repository ``Settings`` tab, then ``Secrets`` you will need to add a new secret:
 ``NPM_TOKEN``, you NPM authorization token.
 - To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
-
 # Features
 
 This template automates the boring and tedious tasks of:
@@ -47,20 +46,23 @@ Besides, good stuff that comes with using this template:
 # FAQ
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Click to expand</summary>  
+
+## Can I use `npm` instead of `yarn`
+
+Yes, just remove the `yarn.lock` file.
 ## What will be included in the npm bundle?
 
-All filles listed in [the files property of your package JSON]().  
+All filles listed in [the files property of your package JSON](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L35-L41).  
 ## How to put my own image in the ``README.md``
-
 
 A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
 While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
 Twitter or Reddit you don't get your GitHub profile picture to show up.
 ## Disable linting and formatting
 
-Remove [this](), [this]() and [this]() from your `package.json`  
-Remove [this]() and [this]() from `github/workflows/ci.yaml`  
+Remove [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L15-L18), [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L20-L32) and [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L47-L53) from your `package.json`  
+Remove [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/.github/workflows/ci.yaml#L12-L26) and [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/.github/workflows/ci.yaml#L29) from `github/workflows/ci.yaml`  
 Remove `.eslintignore`, `.eslintrc.js`, `.prettierignore` and `.prettierrc.json`.
 
 ## Accessing files outside the ``dist/`` directory
@@ -120,7 +122,6 @@ export function getProjectRoot(): string {
     return (result = getProjectRootRec(__dirname));
 }
 ```
-
 
 ## How does the automatic ``CHANGELOG.md`` update works?
 
