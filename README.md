@@ -11,6 +11,13 @@
 - It's not a CLI tool, the automation happens with Github Actions. Update your `package.json` version number, push.
   Voila, your new version is published on NPM.
 - It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib. E.g: `import { aSpecificFunction } from "your-module/aSpecificFile`.  
+
+<p align="center">
+    <a href='https://youtu.be/rYaAZg8RYyI'>
+        <img src="https://user-images.githubusercontent.com/6702424/127759381-f8bb7efe-231c-4540-84bb-fc17c3d4dc38.gif">
+    </a>
+</p>
+
 # How to use
 
 - Click on ![image](https://user-images.githubusercontent.com/6702424/127756563-ec5f2d07-d758-43f1-8fac-387847c0d064.png)
