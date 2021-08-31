@@ -41,7 +41,6 @@ Besides, good stuff that comes with using this template:
 - Shorter specific file import path.  
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
-- CDN distribution for importing from an ``.html`` file with a ``<script>`` tag. (Optional, you can [disable](#disable-cdn-build) this feature for node projects)
 - ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
 
 # Examples of project using this template
