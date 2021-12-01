@@ -12383,7 +12383,7 @@ function action(_actionName, params, core) {
         const { owner, repo, branch, github_token } = params;
         const to_version = yield getPackageJsonVersion({ owner, repo, branch });
         if (to_version === undefined) {
-            throw new Error("No version in package.json on ${owner}/${repo}#${branch} (or repo is private)");
+            throw new Error(`No version in package.json on ${owner}/${repo}#${branch} (or repo is private)`);
         }
         core.debug(`Version on ${owner}/${repo}#${branch} is ${NpmModuleVersion_1.NpmModuleVersion.stringify(to_version)}`);
         const octokit = createOctokit_1.createOctokit({ github_token });
