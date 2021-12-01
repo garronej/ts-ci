@@ -8,6 +8,7 @@ import { NpmModuleVersion } from "./tools/NpmModuleVersion";
 import { gitCommit } from "./tools/gitCommit";
 import { getLatestSemVersionedTagFactory } from "./tools/octokit-addons/getLatestSemVersionedTag";
 import { createOctokit } from "./tools/createOctokit";
+import { assert } from "tsafe/assert";
 
 export const { getActionParams } = getActionParamsFactory({
     "inputNameSubset": [
@@ -53,7 +54,7 @@ export async function action(
 
     const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
 
-    const { tag: branchBehind } = (await getLatestSemVersionedTag({ owner, repo })) ?? {};
+    const { tag: branchBehind } = (await getLatestSemVersionedTag({ owner, repo, "doIgnoreBeta": true })) ?? {};
 
     if( branchBehind === undefined ){
 
@@ -97,13 +98,22 @@ export async function action(
             )
     );
 
+    if( NpmModuleVersion.parse(branchAheadVersion).betaPreRelease !== undefined ){
+
+        core.warning(`Version on ${branch} is ${branchAheadVersion} it's a beta release, we do not update the CHANGELOG.md`);
+
+        return;
+
+    }
 
     const bumpType = NpmModuleVersion.bumpType({
         "versionAheadStr": branchAheadVersion,
         "versionBehindStr": branchBehindVersion || "0.0.0"
     });
 
-    if( bumpType === "SAME" ){
+    assert(bumpType !== "betaPreRelease");
+
+    if( bumpType === "same" ){
 
         core.warning(`Version on ${branch} and ${branchBehind} are the same, not editing CHANGELOG.md`);
 
@@ -162,7 +172,7 @@ function updateChangelog(
     params: {
         changelogRaw: string;
         version: string;
-        bumpType: "MAJOR" | "MINOR" | "PATCH";
+        bumpType: "major" | "minor" | "patch";
         body: string;
     }
 ): { changelogRaw: string; } {
@@ -180,7 +190,7 @@ function updateChangelog(
     })();
 
     const changelogRaw = [
-        `${bumpType === "MAJOR" ? "#" : (bumpType === "MINOR" ? "##" : "###")}`,
+        `${bumpType === "major" ? "#" : (bumpType === "minor" ? "##" : "###")}`,
         ` **${version}** (${dateString})  \n  \n`,
         `${body}  \n  \n`,
         params.changelogRaw

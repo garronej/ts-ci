@@ -24,6 +24,7 @@
     "glob": "^7.1.6",
     "node-fetch": "^2.6.1",
     "scripting-tools": "^0.19.12",
+    "tsafe": "^0.8.1",
     "url-join": "^4.0.1",
     "validate-npm-package-name": "^3.0.0"
   },

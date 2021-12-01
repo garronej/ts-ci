@@ -77,6 +77,8 @@ outputs:
     description: 'Output of is_package_json_version_upgraded, string'
   is_upgraded_version:
     description: 'Output of is_package_json_version_upgraded, true|false'
+  is_release_beta:
+    description: 'Output of is_package_json_version_upgraded, true|false'
 runs:
   using: 'node12'
   main: 'dist/index.js'

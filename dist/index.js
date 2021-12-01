@@ -3449,16 +3449,17 @@ var NpmModuleVersion;
         if (!match) {
             throw new Error(`${versionStr} is not a valid NPM version`);
         }
-        return {
-            "major": parseInt(match[1]),
-            "minor": parseInt(match[2]),
-            "patch": parseInt(match[3])
-        };
+        return Object.assign({ "major": parseInt(match[1]), "minor": parseInt(match[2]), "patch": parseInt(match[3]) }, (() => {
+            const str = match[4];
+            return str === undefined ?
+                {} :
+                { "betaPreRelease": parseInt(str) };
+        })());
     }
     NpmModuleVersion.parse = parse;
     ;
     function stringify(v) {
-        return `${v.major}.${v.minor}.${v.patch}`;
+        return `${v.major}.${v.minor}.${v.patch}${v.betaPreRelease === undefined ? "" : `-beta.${v.betaPreRelease}`}`;
     }
     NpmModuleVersion.stringify = stringify;
     /**
@@ -3469,18 +3470,14 @@ var NpmModuleVersion;
      *
      */
     function compare(v1, v2) {
-        const sign = (n) => n === 0 ? 0 : (n < 0 ? -1 : 1);
-        if (v1.major === v2.major) {
-            if (v1.minor === v2.minor) {
-                return sign(v1.patch - v2.patch);
-            }
-            else {
-                return sign(v1.minor - v2.minor);
+        const sign = (diff) => diff === 0 ? 0 : (diff < 0 ? -1 : 1);
+        const noUndefined = (n) => n !== null && n !== void 0 ? n : -1;
+        for (const level of ["major", "minor", "patch", "betaPreRelease"]) {
+            if (noUndefined(v1[level]) !== noUndefined(v2[level])) {
+                return sign(noUndefined(v1[level]) - noUndefined(v2[level]));
             }
         }
-        else {
-            return sign(v1.major - v2.major);
-        }
+        return 0;
     }
     NpmModuleVersion.compare = compare;
     function bumpType(params) {
@@ -3489,18 +3486,12 @@ var NpmModuleVersion;
         if (compare(versionBehind, versionAhead) === 1) {
             throw new Error(`Version regression ${versionBehind} -> ${versionAhead}`);
         }
-        if (versionBehind.major !== versionAhead.major) {
-            return "MAJOR";
+        for (const level of ["major", "minor", "patch", "betaPreRelease"]) {
+            if (versionBehind[level] !== versionAhead[level]) {
+                return level;
+            }
         }
-        else if (versionBehind.minor !== versionAhead.minor) {
-            return "MINOR";
-        }
-        else if (versionBehind.patch !== versionAhead.patch) {
-            return "PATCH";
-        }
-        else {
-            return "SAME";
-        }
+        return "same";
     }
     NpmModuleVersion.bumpType = bumpType;
 })(NpmModuleVersion = exports.NpmModuleVersion || (exports.NpmModuleVersion = {}));
@@ -5563,6 +5554,20 @@ function getCommitAheadFactory(params) {
 }
 exports.getCommitAheadFactory = getCommitAheadFactory;
 
+
+/***/ }),
+
+/***/ 440:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.id = void 0;
+/** https://docs.tsafe.dev/id  */
+var id = function (x) { return x; };
+exports.id = id;
+//# sourceMappingURL=id.js.map
 
 /***/ }),
 
@@ -7886,20 +7891,23 @@ function getLatestSemVersionedTagFactory(params) {
     function getLatestSemVersionedTag(params) {
         var e_1, _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { owner, repo } = params;
+            const { owner, repo, doIgnoreBeta } = params;
             const semVersionedTags = [];
             const { listTags } = listTags_1.listTagsFactory({ octokit });
             try {
                 for (var _b = __asyncValues(listTags({ owner, repo })), _c; _c = yield _b.next(), !_c.done;) {
                     const tag = _c.value;
-                    const match = tag.match(/^v?([0-9]+\.[0-9]+\.[0-9]+)$/);
-                    if (!match) {
+                    let version;
+                    try {
+                        version = NpmModuleVersion_1.NpmModuleVersion.parse(tag.replace(/^[vV]?/, ""));
+                    }
+                    catch (_d) {
                         continue;
                     }
-                    semVersionedTags.push({
-                        tag,
-                        "version": NpmModuleVersion_1.NpmModuleVersion.parse(match[1])
-                    });
+                    if (doIgnoreBeta && version.betaPreRelease !== undefined) {
+                        continue;
+                    }
+                    semVersionedTags.push({ tag, version });
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -8610,6 +8618,94 @@ module.exports = require("http");
 
 /***/ }),
 
+/***/ 606:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.assert = exports.AssertionError = void 0;
+/* eslint-disable @typescript-eslint/no-unused-vars */
+var overwriteReadonlyProp_1 = __webpack_require__(983);
+var assertIsRefWrapper_1 = __webpack_require__(723);
+/** @see <https://docs.tsafe.dev/assert#error-thrown> */
+var AssertionError = /** @class */ (function (_super) {
+    __extends(AssertionError, _super);
+    function AssertionError(msg) {
+        var _newTarget = this.constructor;
+        var _this = _super.call(this, "Wrong assertion encountered" + (!msg ? "" : ": \"" + msg + "\"")) || this;
+        Object.setPrototypeOf(_this, _newTarget.prototype);
+        if (!_this.stack) {
+            return _this;
+        }
+        try {
+            (0, overwriteReadonlyProp_1.overwriteReadonlyProp)(_this, "stack", _this.stack
+                .split("\n")
+                .filter(function () {
+                var _a = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    _a[_i] = arguments[_i];
+                }
+                var _b = __read(_a, 2), i = _b[1];
+                return i !== 1 && i !== 2;
+            })
+                .join("\n"));
+            // eslint-disable-next-line no-empty
+        }
+        catch (_a) { }
+        return _this;
+    }
+    return AssertionError;
+}(Error));
+exports.AssertionError = AssertionError;
+/** https://docs.tsafe.dev/assert */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function assert(condition, msg) {
+    if (condition === void 0) { condition = true; }
+    if (assertIsRefWrapper_1.assertIsRefWrapper.ref !== undefined) {
+        assertIsRefWrapper_1.assertIsRefWrapper.ref = undefined;
+        return;
+    }
+    if (!condition) {
+        throw new AssertionError(msg);
+    }
+}
+exports.assert = assert;
+//# sourceMappingURL=assert.js.map
+
+/***/ }),
+
 /***/ 614:
 /***/ (function(module) {
 
@@ -9053,6 +9149,7 @@ const NpmModuleVersion_1 = __webpack_require__(395);
 const gitCommit_1 = __webpack_require__(503);
 const getLatestSemVersionedTag_1 = __webpack_require__(472);
 const createOctokit_1 = __webpack_require__(906);
+const assert_1 = __webpack_require__(606);
 exports.getActionParams = inputHelper_1.getActionParamsFactory({
     "inputNameSubset": [
         "owner",
@@ -9072,7 +9169,7 @@ function action(_actionName, params, core) {
         const octokit = createOctokit_1.createOctokit({ github_token });
         const { getCommitAhead } = getCommitAhead_1.getCommitAheadFactory({ octokit });
         const { getLatestSemVersionedTag } = getLatestSemVersionedTag_1.getLatestSemVersionedTagFactory({ octokit });
-        const { tag: branchBehind } = (_a = (yield getLatestSemVersionedTag({ owner, repo }))) !== null && _a !== void 0 ? _a : {};
+        const { tag: branchBehind } = (_a = (yield getLatestSemVersionedTag({ owner, repo, "doIgnoreBeta": true }))) !== null && _a !== void 0 ? _a : {};
         if (branchBehind === undefined) {
             core.warning(`It's the first release, not editing the CHANGELOG.md`);
             return;
@@ -9094,11 +9191,16 @@ function action(_actionName, params, core) {
             branch,
             "compare_to_version": "0.0.0"
         }, core).then(({ version }) => version)));
+        if (NpmModuleVersion_1.NpmModuleVersion.parse(branchAheadVersion).betaPreRelease !== undefined) {
+            core.warning(`Version on ${branch} is ${branchAheadVersion} it's a beta release, we do not update the CHANGELOG.md`);
+            return;
+        }
         const bumpType = NpmModuleVersion_1.NpmModuleVersion.bumpType({
             "versionAheadStr": branchAheadVersion,
             "versionBehindStr": branchBehindVersion || "0.0.0"
         });
-        if (bumpType === "SAME") {
+        assert_1.assert(bumpType !== "betaPreRelease");
+        if (bumpType === "same") {
             core.warning(`Version on ${branch} and ${branchBehind} are the same, not editing CHANGELOG.md`);
             return;
         }
@@ -9147,7 +9249,7 @@ function updateChangelog(params) {
             .split("T")[0];
     })();
     const changelogRaw = [
-        `${bumpType === "MAJOR" ? "#" : (bumpType === "MINOR" ? "##" : "###")}`,
+        `${bumpType === "major" ? "#" : (bumpType === "minor" ? "##" : "###")}`,
         ` **${version}** (${dateString})  \n  \n`,
         `${body}  \n  \n`,
         params.changelogRaw
@@ -9216,6 +9318,21 @@ function getCommonOriginFactory(params) {
 }
 exports.getCommonOriginFactory = getCommonOriginFactory;
 
+
+/***/ }),
+
+/***/ 723:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.assertIsRefWrapper = void 0;
+var id_1 = __webpack_require__(440);
+exports.assertIsRefWrapper = {
+    "ref": (0, id_1.id)(undefined),
+};
+//# sourceMappingURL=assertIsRefWrapper.js.map
 
 /***/ }),
 
@@ -9501,7 +9618,8 @@ exports.outputNames = [
     "npm_or_yarn",
     "from_version",
     "to_version",
-    "is_upgraded_version"
+    "is_upgraded_version",
+    "is_release_beta"
 ];
 function getOutputDescription(inputName) {
     switch (inputName) {
@@ -9518,6 +9636,7 @@ function getOutputDescription(inputName) {
         case "from_version": return "Output of is_package_json_version_upgraded, string";
         case "to_version": return "Output of is_package_json_version_upgraded, string";
         case "is_upgraded_version": return "Output of is_package_json_version_upgraded, true|false";
+        case "is_release_beta": return "Output of is_package_json_version_upgraded, true|false";
     }
 }
 exports.getOutputDescription = getOutputDescription;
@@ -10015,6 +10134,39 @@ function action(_actionName, params, core) {
 }
 exports.action = action;
 
+
+/***/ }),
+
+/***/ 834:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.is = void 0;
+var assertIsRefWrapper_1 = __webpack_require__(723);
+var errorMessage = [
+    "Wrong usage of the " + is.name + " function refer to",
+    "https://docs.tsafe.dev/" + is.name.toLowerCase(),
+].join(" ");
+function is(_value) {
+    var ref = {};
+    if (assertIsRefWrapper_1.assertIsRefWrapper.ref !== undefined) {
+        assertIsRefWrapper_1.assertIsRefWrapper.ref = undefined;
+        throw new Error(errorMessage);
+    }
+    assertIsRefWrapper_1.assertIsRefWrapper.ref = ref;
+    Promise.resolve().then(function () {
+        if (assertIsRefWrapper_1.assertIsRefWrapper.ref === ref) {
+            throw new Error(errorMessage);
+        }
+    });
+    return null;
+}
+exports.is = is;
+//# sourceMappingURL=is.js.map
 
 /***/ }),
 
@@ -12236,15 +12388,17 @@ function action(_actionName, params, core) {
         core.debug(`Version on ${owner}/${repo}#${branch} is ${NpmModuleVersion_1.NpmModuleVersion.stringify(to_version)}`);
         const octokit = createOctokit_1.createOctokit({ github_token });
         const { getLatestSemVersionedTag } = getLatestSemVersionedTag_1.getLatestSemVersionedTagFactory({ octokit });
-        const { version: from_version } = yield getLatestSemVersionedTag({ owner, repo })
+        const { version: from_version } = yield getLatestSemVersionedTag({ owner, repo, "doIgnoreBeta": false })
             .then(wrap => wrap === undefined ? { "version": NpmModuleVersion_1.NpmModuleVersion.parse("0.0.0") } : wrap);
         core.debug(`Last version was ${NpmModuleVersion_1.NpmModuleVersion.stringify(from_version)}`);
         const is_upgraded_version = NpmModuleVersion_1.NpmModuleVersion.compare(to_version, from_version) === 1 ? "true" : "false";
         core.debug(`Is version upgraded: ${is_upgraded_version}`);
+        const is_release_beta = is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
         return {
             "to_version": NpmModuleVersion_1.NpmModuleVersion.stringify(to_version),
             "from_version": NpmModuleVersion_1.NpmModuleVersion.stringify(from_version),
-            is_upgraded_version
+            is_upgraded_version,
+            is_release_beta
         };
     });
 }
@@ -12742,6 +12896,65 @@ function onceStrict (fn) {
   return f
 }
 
+
+/***/ }),
+
+/***/ 983:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.overwriteReadonlyProp = void 0;
+/* eslint-disable no-empty */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+var assert_1 = __webpack_require__(606);
+var is_1 = __webpack_require__(834);
+/**
+ * Assign a value to a property even if the object is freezed or if the property is not writable
+ * Throw if the assignation fail ( for example if the property is non configurable write: false )
+ * */
+var overwriteReadonlyProp = function (obj, propertyName, value) {
+    try {
+        obj[propertyName] = value;
+    }
+    catch (_a) { }
+    if (obj[propertyName] === value) {
+        return value;
+    }
+    var errorDefineProperty = undefined;
+    var propertyDescriptor = Object.getOwnPropertyDescriptor(obj, propertyName) || {
+        "enumerable": true,
+        "configurable": true,
+    };
+    if (!!propertyDescriptor.get) {
+        throw new Error("Probably a wrong ides to overwrite " + propertyName + " getter");
+    }
+    try {
+        Object.defineProperty(obj, propertyName, __assign(__assign({}, propertyDescriptor), { value: value }));
+    }
+    catch (error) {
+        (0, assert_1.assert)((0, is_1.is)(error));
+        errorDefineProperty = error;
+    }
+    if (obj[propertyName] !== value) {
+        throw errorDefineProperty || new Error("Can't assign");
+    }
+    return value;
+};
+exports.overwriteReadonlyProp = overwriteReadonlyProp;
+//# sourceMappingURL=overwriteReadonlyProp.js.map
 
 /***/ })
 

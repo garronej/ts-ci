@@ -22,7 +22,7 @@ type CoreLike = {
     debug: (message: string) => void;
 };
 
-export const { setOutput } = setOutputFactory<"from_version" | "to_version" | "is_upgraded_version">();
+export const { setOutput } = setOutputFactory<"from_version" | "to_version" | "is_upgraded_version" | "is_release_beta">();
 
 export async function action(
     _actionName: "is_package_json_version_upgraded",
@@ -46,7 +46,7 @@ export async function action(
 
     const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
 
-    const { version: from_version } = await getLatestSemVersionedTag({ owner, repo })
+    const { version: from_version } = await getLatestSemVersionedTag({ owner, repo, "doIgnoreBeta": false })
         .then(wrap => wrap === undefined ? { "version": NpmModuleVersion.parse("0.0.0") } : wrap);
 
     core.debug(`Last version was ${NpmModuleVersion.stringify(from_version)}`);
@@ -58,10 +58,13 @@ export async function action(
 
     core.debug(`Is version upgraded: ${is_upgraded_version}`);
 
+    const is_release_beta= is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
+
     return {
         "to_version": NpmModuleVersion.stringify(to_version),
         "from_version": NpmModuleVersion.stringify(from_version),
-        is_upgraded_version
+        is_upgraded_version,
+        is_release_beta
     };
 
 }

@@ -4,6 +4,7 @@ export type NpmModuleVersion = {
     major: number;
     minor: number;
     patch: number;
+    betaPreRelease?: number;
 };
 
 export namespace NpmModuleVersion {
@@ -12,20 +13,28 @@ export namespace NpmModuleVersion {
 
         const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-beta.([0-9]+))?/);
 
-        if( !match ){
+        if (!match) {
             throw new Error(`${versionStr} is not a valid NPM version`);
         }
 
         return {
             "major": parseInt(match[1]),
             "minor": parseInt(match[2]),
-            "patch": parseInt(match[3])
+            "patch": parseInt(match[3]),
+            ...(() => {
+
+                const str = match[4];
+                return str === undefined ?
+                    {} :
+                    { "betaPreRelease": parseInt(str) };
+
+            })()
         };
 
     };
 
     export function stringify(v: NpmModuleVersion) {
-        return `${v.major}.${v.minor}.${v.patch}`;
+        return `${v.major}.${v.minor}.${v.patch}${v.betaPreRelease === undefined ? "" : `-beta.${v.betaPreRelease}`}`;
     }
 
     /**
@@ -37,17 +46,16 @@ export namespace NpmModuleVersion {
      */
     export function compare(v1: NpmModuleVersion, v2: NpmModuleVersion): -1 | 0 | 1 {
 
-        const sign = (n: number): -1 | 0 | 1 => n === 0 ? 0 : (n < 0 ? -1 : 1);
+        const sign = (diff: number): -1 | 0 | 1 => diff === 0 ? 0 : (diff < 0 ? -1 : 1);
+        const noUndefined= (n: number | undefined)=> n ?? -1;
 
-        if (v1.major === v2.major) {
-            if (v1.minor === v2.minor) {
-                return sign(v1.patch - v2.patch);
-            } else {
-                return sign(v1.minor - v2.minor);
+        for (const level of ["major", "minor", "patch", "betaPreRelease"] as const) {
+            if (noUndefined(v1[level]) !== noUndefined(v2[level])) {
+                return sign(noUndefined(v1[level]) - noUndefined(v2[level]));
             }
-        } else {
-            return sign(v1.major - v2.major);
         }
+
+        return 0;
 
     }
 
@@ -56,33 +64,23 @@ export namespace NpmModuleVersion {
             versionBehindStr: string;
             versionAheadStr: string;
         }
-    ): "SAME" | "MAJOR" | "MINOR" | "PATCH" {
+    ): "major" | "minor" | "patch" | "betaPreRelease" | "same" {
 
 
         const versionAhead = parse(params.versionAheadStr);
         const versionBehind = parse(params.versionBehindStr);
 
-        if( compare(versionBehind, versionAhead) === 1 ){
+        if (compare(versionBehind, versionAhead) === 1) {
             throw new Error(`Version regression ${versionBehind} -> ${versionAhead}`);
         }
 
-        if (versionBehind.major !== versionAhead.major) {
-
-            return "MAJOR";
-
-        } else if (versionBehind.minor !== versionAhead.minor) {
-
-            return "MINOR";
-
-        } else if (versionBehind.patch !== versionAhead.patch) {
-
-            return "PATCH";
-
-        } else {
-
-            return "SAME";
-
+        for (const level of ["major", "minor", "patch", "betaPreRelease"] as const) {
+            if (versionBehind[level] !== versionAhead[level]) {
+                return level;
+            }
         }
+
+        return "same";
 
     }
 
