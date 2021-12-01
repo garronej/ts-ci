@@ -89,9 +89,6 @@ jobs:
       - update_changelog
       - check_if_version_upgraded
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.ref }}
     - name: Build GitHub release body
       id: step1
       run: |
