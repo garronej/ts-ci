@@ -32,7 +32,9 @@ export async function action(
 
     core.debug(JSON.stringify(params));
 
-    const { owner, repo, branch, github_token } = params;
+    const { owner, repo, github_token } = params;
+
+    const branch = params.branch.split("/").reverse()[0];
 
     const to_version = await getPackageJsonVersion({ owner, repo, branch });
 
