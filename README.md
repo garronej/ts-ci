@@ -26,6 +26,8 @@
 - Go to the repository ``Settings`` tab, then ``Secrets`` you will need to add a new secret:
 ``NPM_TOKEN``, you NPM authorization token.
 - To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
+- Publish beta release by setting your version number to `X.Y.Z-beta.T` (example: `1.0.0-beta.32`). You usually want to do that from a branch,
+  it work as well! You just have to open a PR.
 # Features
 
 This template automates the boring and tedious tasks of:
