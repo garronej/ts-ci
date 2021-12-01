@@ -63,6 +63,13 @@ Yes, just remove the `yarn.lock` file.
 ## What will be included in the npm bundle?
 
 All filles listed in [the files property of your package JSON](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L35-L41).  
+
+## How to debug the action
+
+You can increase the verbosity by creating a new secret `ACTIONS_STEP_DEBUG` and setting it to true.  
+
+![image](https://user-images.githubusercontent.com/6702424/144307837-f401c595-4695-45e3-8459-b1c1ca7fabb9.png)
+
 ## How to put my own image in the ``README.md``
 
 A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
