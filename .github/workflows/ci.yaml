@@ -71,7 +71,7 @@ jobs:
       id: step1
       with: 
         action_name: is_package_json_version_upgraded
-        branch: ${{ github.head_ref }}
+        branch: ${{ github.head_ref || github.ref }}
 
   update_changelog:
     runs-on: ubuntu-latest
@@ -81,7 +81,7 @@ jobs:
     - uses: garronej/ts-ci@v1.1.2
       with:
         action_name: update_changelog
-        branch: ${{ github.head_ref }}
+        branch: ${{ github.head_ref || github.ref }}
 
   create_github_release:
     runs-on: ubuntu-latest
@@ -107,7 +107,7 @@ jobs:
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
-        target_commitish: ${{ github.head_ref }}
+        target_commitish: ${{ github.head_ref || github.ref }}
         body: ${{ steps.step1.outputs.body }}
         draft: false
         prerelease: ${{ needs.check_if_version_upgraded.outputs.is_release_beta == 'true' }}
