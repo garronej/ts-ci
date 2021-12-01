@@ -60,6 +60,8 @@ export async function action(
 
     const is_release_beta= is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
 
+    core.debug(`Is release beta: ${is_release_beta}`);
+
     return {
         "to_version": NpmModuleVersion.stringify(to_version),
         "from_version": NpmModuleVersion.stringify(from_version),

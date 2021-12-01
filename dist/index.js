@@ -12394,6 +12394,7 @@ function action(_actionName, params, core) {
         const is_upgraded_version = NpmModuleVersion_1.NpmModuleVersion.compare(to_version, from_version) === 1 ? "true" : "false";
         core.debug(`Is version upgraded: ${is_upgraded_version}`);
         const is_release_beta = is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
+        core.debug(`Is release beta: ${is_release_beta}`);
         return {
             "to_version": NpmModuleVersion_1.NpmModuleVersion.stringify(to_version),
             "from_version": NpmModuleVersion_1.NpmModuleVersion.stringify(from_version),
