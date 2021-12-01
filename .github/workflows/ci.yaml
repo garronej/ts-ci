@@ -64,12 +64,14 @@ jobs:
     outputs:
       from_version: ${{ steps.step1.outputs.from_version }}
       to_version: ${{ steps.step1.outputs.to_version }}
-      is_upgraded_version: ${{steps.step1.outputs.is_upgraded_version }}
+      is_upgraded_version: ${{ steps.step1.outputs.is_upgraded_version }}
+      is_release_beta: ${{steps.step1.outputs.is_release_beta }}
     steps:
     - uses: garronej/ts-ci@v1.1.0
       id: step1
       with: 
         action_name: is_package_json_version_upgraded
+        branch: ${{ github.head_ref }}
 
   update_changelog:
     runs-on: ubuntu-latest
@@ -79,7 +81,7 @@ jobs:
     - uses: garronej/ts-ci@v1.1.0
       with:
         action_name: update_changelog
-        branch: ${{ github.ref }}
+        branch: ${{ github.head_ref }}
 
   create_github_release:
     runs-on: ubuntu-latest
@@ -105,10 +107,10 @@ jobs:
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
-        target_commitish: ${{ github.ref }}
+        target_commitish: ${{ github.head_ref }}
         body: ${{ steps.step1.outputs.body }}
         draft: false
-        prerelease: ${{ needs.check_if_version_upgraded.outputs.to_version.is_release_beta == 'true' }}
+        prerelease: ${{ needs.check_if_version_upgraded.outputs.is_release_beta == 'true' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
@@ -145,7 +147,12 @@ jobs:
           echo "Can't publish on NPM, You must first create a secret called NPM_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
           false
         fi
-        npm publish
+        EXTRA_ARGS=""
+        if [ "$IS_BETA" = "true" ]; then
+            EXTRA_ARGS="--tag beta"
+        fi
+        npm publish $EXTRA_ARGS
       env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
+        IS_BETA: ${{ needs.check_if_version_upgraded.outputs.is_release_beta }}
