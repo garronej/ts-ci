@@ -3471,7 +3471,7 @@ var NpmModuleVersion;
      */
     function compare(v1, v2) {
         const sign = (diff) => diff === 0 ? 0 : (diff < 0 ? -1 : 1);
-        const noUndefined = (n) => n !== null && n !== void 0 ? n : -1;
+        const noUndefined = (n) => n !== null && n !== void 0 ? n : Infinity;
         for (const level of ["major", "minor", "patch", "betaPreRelease"]) {
             if (noUndefined(v1[level]) !== noUndefined(v2[level])) {
                 return sign(noUndefined(v1[level]) - noUndefined(v2[level]));
@@ -3480,6 +3480,11 @@ var NpmModuleVersion;
         return 0;
     }
     NpmModuleVersion.compare = compare;
+    /*
+    console.log(compare(parse("3.0.0-beta.3"), parse("3.0.0")) === -1 )
+    console.log(compare(parse("3.0.0-beta.3"), parse("3.0.0-beta.4")) === -1 )
+    console.log(compare(parse("3.0.0-beta.3"), parse("4.0.0")) === -1 )
+    */
     function bumpType(params) {
         const versionAhead = parse(params.versionAheadStr);
         const versionBehind = parse(params.versionBehindStr);

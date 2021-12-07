@@ -47,7 +47,7 @@ export namespace NpmModuleVersion {
     export function compare(v1: NpmModuleVersion, v2: NpmModuleVersion): -1 | 0 | 1 {
 
         const sign = (diff: number): -1 | 0 | 1 => diff === 0 ? 0 : (diff < 0 ? -1 : 1);
-        const noUndefined= (n: number | undefined)=> n ?? -1;
+        const noUndefined= (n: number | undefined)=> n ?? Infinity;
 
         for (const level of ["major", "minor", "patch", "betaPreRelease"] as const) {
             if (noUndefined(v1[level]) !== noUndefined(v2[level])) {
@@ -58,6 +58,12 @@ export namespace NpmModuleVersion {
         return 0;
 
     }
+
+    /*
+    console.log(compare(parse("3.0.0-beta.3"), parse("3.0.0")) === -1 )
+    console.log(compare(parse("3.0.0-beta.3"), parse("3.0.0-beta.4")) === -1 )
+    console.log(compare(parse("3.0.0-beta.3"), parse("4.0.0")) === -1 )
+    */
 
     export function bumpType(
         params: {
