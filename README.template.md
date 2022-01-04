@@ -31,7 +31,7 @@ $ npm install --save #{REPO_NAME}#
 ```
 
 ```typescript
-import { myFunction, myObject } from "update_ts_ci";
+import { myFunction, myObject } from "#{REPO_NAME}#";
 ```
 
 Specific imports:
