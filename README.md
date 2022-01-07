@@ -10,7 +10,7 @@
 `ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
 - It's not a CLI tool, the automation happens with Github Actions.  
   Update your `package.json` version number, push. Voila, your new version is published on NPM.  
-- It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib.  
+- It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib, your modules will be tree shakable.  
   E.g: `import { aSpecificFunction } from "your-module/aSpecificFile"`  
 
 <p align="center">
