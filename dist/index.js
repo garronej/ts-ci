@@ -12386,7 +12386,10 @@ function action(_actionName, params, core) {
     return __awaiter(this, void 0, void 0, function* () {
         core.debug(JSON.stringify(params));
         const { owner, repo, github_token } = params;
-        const branch = params.branch.split("/").reverse()[0];
+        //params.branch <- github.head_ref || github.ref
+        //When it's a normal branch: github.head_ref==="" and github.ref==="refs/heads/main"
+        //When it's a pr from: github.head_ref==="<name of the branch branch>"
+        const branch = params.branch.replace(/^refs\/heads\//, "");
         const to_version = yield getPackageJsonVersion({ owner, repo, branch });
         if (to_version === undefined) {
             throw new Error(`No version in package.json on ${owner}/${repo}#${branch} (or repo is private)`);
