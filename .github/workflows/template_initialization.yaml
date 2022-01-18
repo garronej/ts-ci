@@ -12,7 +12,7 @@ jobs:
 
     - name: Checking availability for module name ${{github.event.repository.name}} on NPM.
       id: id1
-      uses: garronej/ts-ci@v1.1.3
+      uses: garronej/ts-ci@v1.1.4
       with:
         action_name: is_well_formed_and_available_module_name
         module_name: ${{github.event.repository.name}}
@@ -38,7 +38,7 @@ jobs:
         mv LICENSE.template LICENSE
     - name : String replace
       id: id2
-      uses: garronej/ts-ci@v1.1.3
+      uses: garronej/ts-ci@v1.1.4
       with:
         action_name: string_replace
         input_string: ${{github.event.repository.name}}
