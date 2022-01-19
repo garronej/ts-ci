@@ -73,7 +73,7 @@ export async function action(
 
     if( commits === undefined ){
 
-        core.warning(`${branchBehind} probably does not exist`);
+        core.warning(`${owner}/${repo}#${branchBehind} probably does not exist ( branch: ${branch})`);
 
         return;
 

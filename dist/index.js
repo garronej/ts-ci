@@ -9186,7 +9186,7 @@ function action(_actionName, params, core) {
             "branchAhead": branch
         }).catch(() => ({ "commits": undefined }));
         if (commits === undefined) {
-            core.warning(`${branchBehind} probably does not exist`);
+            core.warning(`${owner}/${repo}#${branchBehind} probably does not exist ( branch: ${branch})`);
             return;
         }
         const [branchBehindVersion, branchAheadVersion] = yield Promise.all([branchBehind, branch]
