@@ -31,7 +31,10 @@ export async function action(
 
     const { owner, repo } = params;
 
-    const branch = params.branch.split("/").reverse()[0];
+    //params.branch <- github.head_ref || github.ref
+    //When it's a normal branch: github.head_ref==="" and github.ref==="refs/heads/main"
+    //When it's a pr from: github.head_ref==="<name of the branch branch>"
+    const branch = params.branch.replace(/^refs\/heads\//, "");
 
     const npm_or_yarn = await fetch(
         urlJoin(
