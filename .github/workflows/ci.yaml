@@ -100,7 +100,7 @@ jobs:
       env: 
         FROM_VERSION: ${{ needs.check_if_version_upgraded.outputs.from_version }}
         TO_VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
-    - uses: garronej/action-gh-release@v0.2.0
+    - uses: softprops/action-gh-release@v1
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
