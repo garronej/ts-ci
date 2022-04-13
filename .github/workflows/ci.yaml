@@ -105,7 +105,7 @@ jobs:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
         target_commitish: ${{ github.head_ref || github.ref }}
-        body: ${{ steps.step1.outputs.body }}
+        generate_release_notes: true
         draft: false
         prerelease: ${{ needs.check_if_version_upgraded.outputs.is_release_beta == 'true' }}
       env:
