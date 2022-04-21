@@ -60,7 +60,6 @@ jobs:
         git config --local user.email "ts_ci@github.com"
         git config --local user.name "ts_ci"
         git commit -am "Replacing the template's placeholders"
-        git config --global safe.directory "$GITHUB_WORKSPACE"
     - name: Push changes
       uses: ad-m/github-push-action@v0.6.0
       with:
