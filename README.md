@@ -7,6 +7,11 @@
     <br>
 </p>
 
+> ATTENTION: Since a recent GitHub uptate you have to enable workflow read and write permission manually (see video).  
+> Follow resolution [here](https://github.community/t/template-repo-enable-read-and-write-workflow-permissions/249055)  
+
+https://user-images.githubusercontent.com/6702424/167035748-4fe28710-ed0f-4feb-a297-bdbdc451c69a.mov
+
 `ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
 - It's not a CLI tool, the automation happens with Github Actions.  
   Update your `package.json` version number, push. Voila, your new version is published on NPM.  
