@@ -35,7 +35,6 @@ https://user-images.githubusercontent.com/6702424/167035748-4fe28710-ed0f-4feb-a
 This template automates the boring and tedious tasks of:
 - Filling up the ``package.json``
 - Setting up Typescript.
-- Writing a [README.md](https://github.com/garronej/ts_ci/blob/main/README.template.md) with decent presentation and instructions on how to install/import your module.
 - Testing on multiple Node version running on Ubuntu and Windows before publishing.
 - Maintaining a CHANGELOG.
 - Publishing on NPM and creating corresponding GitHub releases.
@@ -72,11 +71,6 @@ You can increase the verbosity by creating a new secret `ACTIONS_STEP_DEBUG` and
 
 ![image](https://user-images.githubusercontent.com/6702424/144307837-f401c595-4695-45e3-8459-b1c1ca7fabb9.png)
 
-## How to put my own image in the ``README.md``
-
-A good way to host your repo image is to open an issue named ASSET in your project, close it, create a comment, drag and drop the picture you want to use and that's it. You have a link that you can replace in the ``README.md``.  
-While you are at it submit this image as *social preview* in your repos github page's settings so that when you share on
-Twitter or Reddit you don't get your GitHub profile picture to show up.
 ## Disable linting and formatting
 
 Remove [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L15-L18), [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L20-L32) and [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L47-L53) from your `package.json`  
