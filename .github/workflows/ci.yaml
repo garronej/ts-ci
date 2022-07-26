@@ -86,7 +86,7 @@ jobs:
     needs: 
       - check_if_version_upgraded
     steps:
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v0.1.14
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
