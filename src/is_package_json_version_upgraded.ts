@@ -45,13 +45,19 @@ export async function action(
         throw new Error(`No version in package.json on ${owner}/${repo}#${branch} (or repo is private)`);
     }
 
+
     core.debug(`Version on ${owner}/${repo}#${branch} is ${NpmModuleVersion.stringify(to_version)}`);
 
     const octokit = createOctokit({ github_token });
 
-    const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
+    const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
 
-    const { version: from_version } = await getLatestSemVersionedTag({ owner, repo, "doIgnoreBeta": false })
+    const { version: from_version } = await getLatestSemVersionedTag({ 
+        owner, 
+        repo, 
+        "beta": to_version.betaPreRelease !== undefined ? 
+            "ONLY LOOK FOR BETA" : "IGNORE BETA"
+    })
         .then(wrap => wrap === undefined ? { "version": NpmModuleVersion.parse("0.0.0") } : wrap);
 
     core.debug(`Last version was ${NpmModuleVersion.stringify(from_version)}`);

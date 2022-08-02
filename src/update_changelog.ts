@@ -57,7 +57,7 @@ export async function action(
 
     const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
 
-    const { tag: branchBehind } = (await getLatestSemVersionedTag({ owner, repo, "doIgnoreBeta": true })) ?? {};
+    const { tag: branchBehind } = (await getLatestSemVersionedTag({ owner, repo, "beta": "IGNORE BETA" })) ?? {};
 
     if( branchBehind === undefined ){
 

@@ -1,24 +1,24 @@
 
 import { listTagsFactory } from "./listTags";
 import type { Octokit } from "@octokit/rest";
-import { NpmModuleVersion } from "../NpmModuleVersion";
+import { NpmModuleVersion } from "../NpmModuleVersion";
 
 export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
 
     const { octokit } = params;
 
     async function getLatestSemVersionedTag(
-        params: { 
-            owner: string; 
-            repo: string; 
-            doIgnoreBeta: boolean;
+        params: {
+            owner: string;
+            repo: string;
+            beta: "ONLY LOOK FOR BETA" | "IGNORE BETA" | "BETA OR REGULAR RELEASE";
         }
-    ): Promise<{ 
-        tag: string; 
-        version: NpmModuleVersion; 
+    ): Promise<{
+        tag: string;
+        version: NpmModuleVersion;
     } | undefined> {
 
-        const { owner, repo, doIgnoreBeta } = params;
+        const { owner, repo, beta } = params;
 
         const semVersionedTags: { tag: string; version: NpmModuleVersion; }[] = [];
 
@@ -28,16 +28,26 @@ export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
 
             let version: NpmModuleVersion;
 
-            try{
+            try {
 
                 version = NpmModuleVersion.parse(tag.replace(/^[vV]?/, ""));
 
-            }catch{
+            } catch {
                 continue;
             }
 
-            if( doIgnoreBeta && version.betaPreRelease !== undefined ){
-                continue;
+            switch (beta) {
+                case "IGNORE BETA":
+                    if (version.betaPreRelease !== undefined) {
+                        continue;
+                    }
+                    break;
+                case "ONLY LOOK FOR BETA":
+                    if (version.betaPreRelease === undefined) {
+                        continue;
+                    }
+                case "BETA OR REGULAR RELEASE":
+                    break;
             }
 
             semVersionedTags.push({ tag, version });
