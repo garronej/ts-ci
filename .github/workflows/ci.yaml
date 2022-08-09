@@ -35,7 +35,7 @@ jobs:
     steps:
     - name: Tell if project is using npm or yarn
       id: step1
-      uses: garronej/ts-ci@v1.1.4
+      uses: garronej/ts-ci@v1.1.7
       with: 
         action_name: tell_if_project_uses_npm_or_yarn
     - uses: actions/checkout@v2.3.4
