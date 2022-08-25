@@ -5,8 +5,8 @@
     <i>#{DESC}#</i>
     <br>
     <br>
-    <a href="https://github.com/garronej/#{REPO_NAME}#/actions">
-      <img src="https://github.com/garronej/#{REPO_NAME}#/workflows/ci/badge.svg?branch=main">
+    <a href="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/actions">
+      <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/workflows/ci/badge.svg?branch=main">
     </a>
     <a href="https://bundlephobia.com/package/#{REPO_NAME}#">
       <img src="https://img.shields.io/bundlephobia/minzip/#{REPO_NAME}#">
@@ -14,7 +14,7 @@
     <a href="https://www.npmjs.com/package/#{REPO_NAME}#">
       <img src="https://img.shields.io/npm/dw/#{REPO_NAME}#">
     </a>
-    <a href="https://github.com/garronej/#{REPO_NAME}#/blob/main/LICENSE">
+    <a href="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/blob/main/LICENSE">
       <img src="https://img.shields.io/npm/l/#{REPO_NAME}#">
     </a>
 </p>
