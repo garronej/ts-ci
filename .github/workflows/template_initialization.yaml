@@ -32,7 +32,7 @@ jobs:
         IS_VALID_NODE_MODULE_NAME: ${{steps.id1.outputs.is_valid_node_module_name}}
         IS_AVAILABLE_ON_NPM: ${{steps.id1.outputs.is_available_on_npm}}
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: |
         mv README.template.md README.md
         mv LICENSE.template LICENSE
