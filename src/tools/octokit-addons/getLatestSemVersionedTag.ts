@@ -12,13 +12,14 @@ export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
             owner: string;
             repo: string;
             beta: "ONLY LOOK FOR BETA" | "IGNORE BETA" | "BETA OR REGULAR RELEASE";
+            major: number | undefined;
         }
     ): Promise<{
         tag: string;
         version: NpmModuleVersion;
     } | undefined> {
 
-        const { owner, repo, beta } = params;
+        const { owner, repo, beta, major } = params;
 
         const semVersionedTags: { tag: string; version: NpmModuleVersion; }[] = [];
 
@@ -31,6 +32,10 @@ export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
             try {
 
                 version = NpmModuleVersion.parse(tag.replace(/^[vV]?/, ""));
+
+                if (major !== undefined && version.major !== major) {
+                    continue;
+                }
 
             } catch {
                 continue;

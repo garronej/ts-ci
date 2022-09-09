@@ -6,6 +6,8 @@ import { NpmModuleVersion } from "./tools/NpmModuleVersion";
 import { getActionParamsFactory } from "./inputHelper";
 import { createOctokit } from "./tools/createOctokit";
 import { getLatestSemVersionedTagFactory } from "./tools/octokit-addons/getLatestSemVersionedTag";
+import type { Param0 } from "tsafe";
+
 
 export const { getActionParams } = getActionParamsFactory({
     "inputNameSubset": [
@@ -52,13 +54,31 @@ export async function action(
 
     const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
 
-    const { version: from_version } = await getLatestSemVersionedTag({ 
-        owner, 
-        repo, 
-        "beta": to_version.betaPreRelease !== undefined ? 
-            "ONLY LOOK FOR BETA" : "IGNORE BETA"
-    })
-        .then(wrap => wrap === undefined ? { "version": NpmModuleVersion.parse("0.0.0") } : wrap);
+    const from_version= await (async () => {
+
+        const getLatestSemVersionedTagParam: Param0<typeof getLatestSemVersionedTag> = {
+            owner,
+            repo,
+            "beta": to_version.betaPreRelease !== undefined ?
+                "ONLY LOOK FOR BETA" : "IGNORE BETA",
+            "major": to_version.major
+        };
+
+        let wrap = await getLatestSemVersionedTag(getLatestSemVersionedTagParam);
+
+        if( wrap !== undefined ){
+            return wrap.version;
+        }
+        wrap = await getLatestSemVersionedTag({ ...getLatestSemVersionedTagParam, "major": undefined });
+
+        if( wrap !== undefined ){
+            return wrap.version;
+        }
+
+        return NpmModuleVersion.parse("0.0.0");
+
+
+    })();
 
     core.debug(`Last version was ${NpmModuleVersion.stringify(from_version)}`);
 
@@ -69,7 +89,7 @@ export async function action(
 
     core.debug(`Is version upgraded: ${is_upgraded_version}`);
 
-    const is_release_beta= is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
+    const is_release_beta = is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
 
     core.debug(`Is release beta: ${is_release_beta}`);
 
@@ -103,10 +123,10 @@ async function getPackageJsonVersion(params: {
         .then(res => res.text())
         .then(text => JSON.parse(text))
         .then(({ version }) => version as string)
-        .catch(()=> undefined)
+        .catch(() => undefined)
         ;
 
-    if( version === undefined){
+    if (version === undefined) {
         return undefined;
     }
 

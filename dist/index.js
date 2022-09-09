@@ -7899,7 +7899,7 @@ function getLatestSemVersionedTagFactory(params) {
     function getLatestSemVersionedTag(params) {
         var e_1, _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { owner, repo, beta } = params;
+            const { owner, repo, beta, major } = params;
             const semVersionedTags = [];
             const { listTags } = listTags_1.listTagsFactory({ octokit });
             try {
@@ -7908,6 +7908,9 @@ function getLatestSemVersionedTagFactory(params) {
                     let version;
                     try {
                         version = NpmModuleVersion_1.NpmModuleVersion.parse(tag.replace(/^[vV]?/, ""));
+                        if (major !== undefined && version.major !== major) {
+                            continue;
+                        }
                     }
                     catch (_d) {
                         continue;
@@ -9190,7 +9193,7 @@ function action(_actionName, params, core) {
         const octokit = createOctokit_1.createOctokit({ github_token });
         const { getCommitAhead } = getCommitAhead_1.getCommitAheadFactory({ octokit });
         const { getLatestSemVersionedTag } = getLatestSemVersionedTag_1.getLatestSemVersionedTagFactory({ octokit });
-        const { tag: branchBehind } = (_a = (yield getLatestSemVersionedTag({ owner, repo, "beta": "IGNORE BETA" }))) !== null && _a !== void 0 ? _a : {};
+        const { tag: branchBehind } = (_a = (yield getLatestSemVersionedTag({ owner, repo, "beta": "IGNORE BETA", "major": undefined }))) !== null && _a !== void 0 ? _a : {};
         if (branchBehind === undefined) {
             core.warning(`It's the first release, not editing the CHANGELOG.md`);
             return;
@@ -12413,13 +12416,24 @@ function action(_actionName, params, core) {
         core.debug(`Version on ${owner}/${repo}#${branch} is ${NpmModuleVersion_1.NpmModuleVersion.stringify(to_version)}`);
         const octokit = createOctokit_1.createOctokit({ github_token });
         const { getLatestSemVersionedTag } = getLatestSemVersionedTag_1.getLatestSemVersionedTagFactory({ octokit });
-        const { version: from_version } = yield getLatestSemVersionedTag({
-            owner,
-            repo,
-            "beta": to_version.betaPreRelease !== undefined ?
-                "ONLY LOOK FOR BETA" : "IGNORE BETA"
-        })
-            .then(wrap => wrap === undefined ? { "version": NpmModuleVersion_1.NpmModuleVersion.parse("0.0.0") } : wrap);
+        const from_version = yield (() => __awaiter(this, void 0, void 0, function* () {
+            const getLatestSemVersionedTagParam = {
+                owner,
+                repo,
+                "beta": to_version.betaPreRelease !== undefined ?
+                    "ONLY LOOK FOR BETA" : "IGNORE BETA",
+                "major": to_version.major
+            };
+            let wrap = yield getLatestSemVersionedTag(getLatestSemVersionedTagParam);
+            if (wrap !== undefined) {
+                return wrap.version;
+            }
+            wrap = yield getLatestSemVersionedTag(Object.assign(Object.assign({}, getLatestSemVersionedTagParam), { "major": undefined }));
+            if (wrap !== undefined) {
+                return wrap.version;
+            }
+            return NpmModuleVersion_1.NpmModuleVersion.parse("0.0.0");
+        }))();
         core.debug(`Last version was ${NpmModuleVersion_1.NpmModuleVersion.stringify(from_version)}`);
         const is_upgraded_version = NpmModuleVersion_1.NpmModuleVersion.compare(to_version, from_version) === 1 ? "true" : "false";
         core.debug(`Is version upgraded: ${is_upgraded_version}`);
