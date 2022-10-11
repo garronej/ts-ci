@@ -5420,7 +5420,7 @@ exports.NpmModuleVersion = void 0;
 var NpmModuleVersion;
 (function (NpmModuleVersion) {
     function parse(versionStr) {
-        const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-beta.([0-9]+))?/);
+        const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-rc.([0-9]+))?/);
         if (!match) {
             throw new Error(`${versionStr} is not a valid NPM version`);
         }
@@ -5428,13 +5428,13 @@ var NpmModuleVersion;
             const str = match[4];
             return str === undefined ?
                 {} :
-                { "betaPreRelease": parseInt(str) };
+                { "rc": parseInt(str) };
         })());
     }
     NpmModuleVersion.parse = parse;
     ;
     function stringify(v) {
-        return `${v.major}.${v.minor}.${v.patch}${v.betaPreRelease === undefined ? "" : `-beta.${v.betaPreRelease}`}`;
+        return `${v.major}.${v.minor}.${v.patch}${v.rc === undefined ? "" : `-rc.${v.rc}`}`;
     }
     NpmModuleVersion.stringify = stringify;
     /**
@@ -5447,7 +5447,7 @@ var NpmModuleVersion;
     function compare(v1, v2) {
         const sign = (diff) => diff === 0 ? 0 : (diff < 0 ? -1 : 1);
         const noUndefined = (n) => n !== null && n !== void 0 ? n : Infinity;
-        for (const level of ["major", "minor", "patch", "betaPreRelease"]) {
+        for (const level of ["major", "minor", "patch", "rc"]) {
             if (noUndefined(v1[level]) !== noUndefined(v2[level])) {
                 return sign(noUndefined(v1[level]) - noUndefined(v2[level]));
             }
@@ -5456,9 +5456,9 @@ var NpmModuleVersion;
     }
     NpmModuleVersion.compare = compare;
     /*
-    console.log(compare(parse("3.0.0-beta.3"), parse("3.0.0")) === -1 )
-    console.log(compare(parse("3.0.0-beta.3"), parse("3.0.0-beta.4")) === -1 )
-    console.log(compare(parse("3.0.0-beta.3"), parse("4.0.0")) === -1 )
+    console.log(compare(parse("3.0.0-rc.3"), parse("3.0.0")) === -1 )
+    console.log(compare(parse("3.0.0-rc.3"), parse("3.0.0-rc.4")) === -1 )
+    console.log(compare(parse("3.0.0-rc.3"), parse("4.0.0")) === -1 )
     */
     function bumpType(params) {
         const versionAhead = parse(params.versionAheadStr);
@@ -5466,7 +5466,7 @@ var NpmModuleVersion;
         if (compare(versionBehind, versionAhead) === 1) {
             throw new Error(`Version regression ${versionBehind} -> ${versionAhead}`);
         }
-        for (const level of ["major", "minor", "patch", "betaPreRelease"]) {
+        for (const level of ["major", "minor", "patch", "rc"]) {
             if (versionBehind[level] !== versionAhead[level]) {
                 return level;
             }
@@ -9673,7 +9673,7 @@ function getLatestSemVersionedTagFactory(params) {
     function getLatestSemVersionedTag(params) {
         var e_1, _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { owner, repo, beta, major } = params;
+            const { owner, repo, rcPolicy, major } = params;
             const semVersionedTags = [];
             const { listTags } = listTags_1.listTagsFactory({ octokit });
             try {
@@ -9689,17 +9689,17 @@ function getLatestSemVersionedTagFactory(params) {
                     catch (_d) {
                         continue;
                     }
-                    switch (beta) {
-                        case "IGNORE BETA":
-                            if (version.betaPreRelease !== undefined) {
+                    switch (rcPolicy) {
+                        case "IGNORE RC":
+                            if (version.rc !== undefined) {
                                 continue;
                             }
                             break;
-                        case "ONLY LOOK FOR BETA":
-                            if (version.betaPreRelease === undefined) {
+                        case "ONLY LOOK FOR RC":
+                            if (version.rc === undefined) {
                                 continue;
                             }
-                        case "BETA OR REGULAR RELEASE":
+                        case "RC OR REGULAR RELEASE":
                             break;
                     }
                     semVersionedTags.push({ tag, version });
@@ -11287,7 +11287,7 @@ function action(_actionName, params, core) {
         const octokit = createOctokit_1.createOctokit({ github_token });
         const { getCommitAhead } = getCommitAhead_1.getCommitAheadFactory({ octokit });
         const { getLatestSemVersionedTag } = getLatestSemVersionedTag_1.getLatestSemVersionedTagFactory({ octokit });
-        const { tag: branchBehind } = (_a = (yield getLatestSemVersionedTag({ owner, repo, "beta": "IGNORE BETA", "major": undefined }))) !== null && _a !== void 0 ? _a : {};
+        const { tag: branchBehind } = (_a = (yield getLatestSemVersionedTag({ owner, repo, "rcPolicy": "IGNORE RC", "major": undefined }))) !== null && _a !== void 0 ? _a : {};
         if (branchBehind === undefined) {
             core.warning(`It's the first release, not editing the CHANGELOG.md`);
             return;
@@ -11309,15 +11309,15 @@ function action(_actionName, params, core) {
             branch,
             "compare_to_version": "0.0.0"
         }, core).then(({ version }) => version)));
-        if (NpmModuleVersion_1.NpmModuleVersion.parse(branchAheadVersion).betaPreRelease !== undefined) {
-            core.warning(`Version on ${branch} is ${branchAheadVersion} it's a beta release, we do not update the CHANGELOG.md`);
+        if (NpmModuleVersion_1.NpmModuleVersion.parse(branchAheadVersion).rc !== undefined) {
+            core.warning(`Version on ${branch} is ${branchAheadVersion} it's a release candidate, we do not update the CHANGELOG.md`);
             return;
         }
         const bumpType = NpmModuleVersion_1.NpmModuleVersion.bumpType({
             "versionAheadStr": branchAheadVersion,
             "versionBehindStr": branchBehindVersion || "0.0.0"
         });
-        assert_1.assert(bumpType !== "betaPreRelease");
+        assert_1.assert(bumpType !== "rc");
         if (bumpType === "same") {
             core.warning(`Version on ${branch} and ${branchBehind} are the same, not editing CHANGELOG.md`);
             return;
@@ -12287,7 +12287,7 @@ exports.outputNames = [
     "from_version",
     "to_version",
     "is_upgraded_version",
-    "is_release_beta"
+    "is_pre_release"
 ];
 function getOutputDescription(inputName) {
     switch (inputName) {
@@ -12304,7 +12304,7 @@ function getOutputDescription(inputName) {
         case "from_version": return "Output of is_package_json_version_upgraded, string";
         case "to_version": return "Output of is_package_json_version_upgraded, string";
         case "is_upgraded_version": return "Output of is_package_json_version_upgraded, true|false";
-        case "is_release_beta": return "Output of is_package_json_version_upgraded, true|false";
+        case "is_pre_release": return "Output of is_package_json_version_upgraded, true|false";
     }
 }
 exports.getOutputDescription = getOutputDescription;
@@ -14651,8 +14651,8 @@ function action(_actionName, params, core) {
             const getLatestSemVersionedTagParam = {
                 owner,
                 repo,
-                "beta": to_version.betaPreRelease !== undefined ?
-                    "ONLY LOOK FOR BETA" : "IGNORE BETA",
+                "rcPolicy": to_version.rc !== undefined ?
+                    "ONLY LOOK FOR RC" : "IGNORE RC",
                 "major": to_version.major
             };
             let wrap = yield getLatestSemVersionedTag(getLatestSemVersionedTagParam);
@@ -14668,13 +14668,13 @@ function action(_actionName, params, core) {
         core.debug(`Last version was ${NpmModuleVersion_1.NpmModuleVersion.stringify(from_version)}`);
         const is_upgraded_version = NpmModuleVersion_1.NpmModuleVersion.compare(to_version, from_version) === 1 ? "true" : "false";
         core.debug(`Is version upgraded: ${is_upgraded_version}`);
-        const is_release_beta = is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
-        core.debug(`Is release beta: ${is_release_beta}`);
+        const is_pre_release = is_upgraded_version === "false" ? "false" : to_version.rc !== undefined ? "true" : "false";
+        core.debug(`Is pre release: ${is_pre_release}`);
         return {
             "to_version": NpmModuleVersion_1.NpmModuleVersion.stringify(to_version),
             "from_version": NpmModuleVersion_1.NpmModuleVersion.stringify(from_version),
             is_upgraded_version,
-            is_release_beta
+            is_pre_release
         };
     });
 }

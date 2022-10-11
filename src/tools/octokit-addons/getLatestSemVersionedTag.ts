@@ -11,7 +11,7 @@ export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
         params: {
             owner: string;
             repo: string;
-            beta: "ONLY LOOK FOR BETA" | "IGNORE BETA" | "BETA OR REGULAR RELEASE";
+            rcPolicy: "ONLY LOOK FOR RC" | "IGNORE RC" | "RC OR REGULAR RELEASE";
             major: number | undefined;
         }
     ): Promise<{
@@ -19,7 +19,7 @@ export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
         version: NpmModuleVersion;
     } | undefined> {
 
-        const { owner, repo, beta, major } = params;
+        const { owner, repo, rcPolicy, major } = params;
 
         const semVersionedTags: { tag: string; version: NpmModuleVersion; }[] = [];
 
@@ -41,17 +41,17 @@ export function getLatestSemVersionedTagFactory(params: { octokit: Octokit; }) {
                 continue;
             }
 
-            switch (beta) {
-                case "IGNORE BETA":
-                    if (version.betaPreRelease !== undefined) {
+            switch (rcPolicy) {
+                case "IGNORE RC":
+                    if (version.rc !== undefined) {
                         continue;
                     }
                     break;
-                case "ONLY LOOK FOR BETA":
-                    if (version.betaPreRelease === undefined) {
+                case "ONLY LOOK FOR RC":
+                    if (version.rc === undefined) {
                         continue;
                     }
-                case "BETA OR REGULAR RELEASE":
+                case "RC OR REGULAR RELEASE":
                     break;
             }
 

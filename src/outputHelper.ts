@@ -16,7 +16,7 @@ export const outputNames = [
     "from_version",
     "to_version",
     "is_upgraded_version",
-    "is_release_beta"
+    "is_pre_release"
 ] as const;
 
 
@@ -35,7 +35,7 @@ export function getOutputDescription(inputName: typeof outputNames[number]): str
         case "from_version": return "Output of is_package_json_version_upgraded, string";
         case "to_version": return "Output of is_package_json_version_upgraded, string";
         case "is_upgraded_version": return "Output of is_package_json_version_upgraded, true|false";
-        case "is_release_beta": return "Output of is_package_json_version_upgraded, true|false";
+        case "is_pre_release": return "Output of is_package_json_version_upgraded, true|false";
     }
 }
 

@@ -24,7 +24,7 @@ type CoreLike = {
     debug: (message: string) => void;
 };
 
-export const { setOutput } = setOutputFactory<"from_version" | "to_version" | "is_upgraded_version" | "is_release_beta">();
+export const { setOutput } = setOutputFactory<"from_version" | "to_version" | "is_upgraded_version" | "is_pre_release">();
 
 export async function action(
     _actionName: "is_package_json_version_upgraded",
@@ -59,8 +59,8 @@ export async function action(
         const getLatestSemVersionedTagParam: Param0<typeof getLatestSemVersionedTag> = {
             owner,
             repo,
-            "beta": to_version.betaPreRelease !== undefined ?
-                "ONLY LOOK FOR BETA" : "IGNORE BETA",
+            "rcPolicy": to_version.rc !== undefined ?
+                "ONLY LOOK FOR RC" : "IGNORE RC",
             "major": to_version.major
         };
 
@@ -89,15 +89,15 @@ export async function action(
 
     core.debug(`Is version upgraded: ${is_upgraded_version}`);
 
-    const is_release_beta = is_upgraded_version === "false" ? "false" : to_version.betaPreRelease !== undefined ? "true" : "false";
+    const is_pre_release = is_upgraded_version === "false" ? "false" : to_version.rc !== undefined ? "true" : "false";
 
-    core.debug(`Is release beta: ${is_release_beta}`);
+    core.debug(`Is pre release: ${is_pre_release}`);
 
     return {
         "to_version": NpmModuleVersion.stringify(to_version),
         "from_version": NpmModuleVersion.stringify(from_version),
         is_upgraded_version,
-        is_release_beta
+        is_pre_release
     };
 
 }

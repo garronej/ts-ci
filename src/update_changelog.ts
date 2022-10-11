@@ -57,7 +57,7 @@ export async function action(
 
     const { getLatestSemVersionedTag } = getLatestSemVersionedTagFactory({ octokit });
 
-    const { tag: branchBehind } = (await getLatestSemVersionedTag({ owner, repo, "beta": "IGNORE BETA", "major": undefined })) ?? {};
+    const { tag: branchBehind } = (await getLatestSemVersionedTag({ owner, repo, "rcPolicy": "IGNORE RC", "major": undefined })) ?? {};
 
     if( branchBehind === undefined ){
 
@@ -101,9 +101,9 @@ export async function action(
             )
     );
 
-    if( NpmModuleVersion.parse(branchAheadVersion).betaPreRelease !== undefined ){
+    if( NpmModuleVersion.parse(branchAheadVersion).rc !== undefined ){
 
-        core.warning(`Version on ${branch} is ${branchAheadVersion} it's a beta release, we do not update the CHANGELOG.md`);
+        core.warning(`Version on ${branch} is ${branchAheadVersion} it's a release candidate, we do not update the CHANGELOG.md`);
 
         return;
 
@@ -114,7 +114,7 @@ export async function action(
         "versionBehindStr": branchBehindVersion || "0.0.0"
     });
 
-    assert(bumpType !== "betaPreRelease");
+    assert(bumpType !== "rc");
 
     if( bumpType === "same" ){
 
