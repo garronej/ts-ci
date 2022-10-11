@@ -28,8 +28,9 @@ https://user-images.githubusercontent.com/6702424/167035748-4fe28710-ed0f-4feb-a
 - Go to the repository ``Settings`` tab, then ``Secrets`` you will need to add a new secret:
 ``NPM_TOKEN``, you NPM authorization token.
 - To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
-- Publish beta release by setting your version number to `X.Y.Z-beta.T` (example: `1.0.0-beta.32`). You usually want to do that from a branch,
-  it work as well! You just have to open a PR.
+- Publish pre-release by setting your version number to `X.Y.Z-rc.U` (example: `1.0.0-rc.32`). On NPM the version will be tagged `next`.  
+- The CI runs on `main` and on the branches that have a PR open on `main`.  
+
 # Features
 
 This template automates the boring and tedious tasks of:
