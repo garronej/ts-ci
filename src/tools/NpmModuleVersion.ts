@@ -11,7 +11,7 @@ export namespace NpmModuleVersion {
 
     export function parse(versionStr: string): NpmModuleVersion {
 
-        const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-rc.([0-9]+))?/);
+        const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-rc.([0-9]+))?$/);
 
         if (!match) {
             throw new Error(`${versionStr} is not a valid NPM version`);
