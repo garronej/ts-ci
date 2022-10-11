@@ -5420,7 +5420,7 @@ exports.NpmModuleVersion = void 0;
 var NpmModuleVersion;
 (function (NpmModuleVersion) {
     function parse(versionStr) {
-        const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-rc.([0-9]+))?/);
+        const match = versionStr.match(/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-rc.([0-9]+))?$/);
         if (!match) {
             throw new Error(`${versionStr} is not a valid NPM version`);
         }
