@@ -80,5 +80,5 @@ outputs:
   is_release_beta:
     description: 'Output of is_package_json_version_upgraded, true|false'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
