@@ -108,7 +108,6 @@ jobs:
         ref: ${{ github.ref }}
     - uses: actions/setup-node@v3
       with:
-        node-version: '16'
         registry-url: https://registry.npmjs.org/
     - uses: bahmutov/npm-install@v1
     - run: |
@@ -117,7 +116,7 @@ jobs:
             PACKAGE_MANAGER=yarn
         fi
         $PACKAGE_MANAGER run build
-    - run: npx -y -p denoify@0.6.5 denoify_enable_short_npm_import_path
+    - run: npx -y -p denoify@1.2.2 enable_short_npm_import_path
       env:
         DRY_RUN: "0"
     - name: Publishing on NPM
