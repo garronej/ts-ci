@@ -1783,10 +1783,12 @@ const sync_package_and_package_lock_version = __importStar(__webpack_require__(8
 const setup_repo_webhook_for_deno_land_publishing = __importStar(__webpack_require__(518));
 const is_well_formed_and_available_module_name = __importStar(__webpack_require__(245));
 const tell_if_project_uses_npm_or_yarn = __importStar(__webpack_require__(201));
+const remove_dark_mode_specific_images_from_readme = __importStar(__webpack_require__(275));
 const string_replace = __importStar(__webpack_require__(599));
 const is_package_json_version_upgraded = __importStar(__webpack_require__(949));
 const inputHelper_1 = __webpack_require__(649);
 const update_changelog = __importStar(__webpack_require__(702));
+const assert_1 = __webpack_require__(606);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const action_name = inputHelper_1.getActionName();
@@ -1818,10 +1820,11 @@ function run() {
             case "is_package_json_version_upgraded":
                 is_package_json_version_upgraded.setOutput(yield is_package_json_version_upgraded.action(action_name, is_package_json_version_upgraded.getActionParams(), core));
                 return null;
+            case "remove_dark_mode_specific_images_from_readme":
+                yield remove_dark_mode_specific_images_from_readme.action(action_name);
+                return null;
         }
-        if (true) {
-            throw new Error(`${action_name} Not supported by this toolkit`);
-        }
+        assert_1.assert(false);
     });
 }
 (() => __awaiter(void 0, void 0, void 0, function* () {
@@ -1829,7 +1832,7 @@ function run() {
         yield run();
     }
     catch (error) {
-        core.setFailed(error.message);
+        core.setFailed(String(error));
     }
 }))();
 
@@ -2283,6 +2286,57 @@ exports.assertIsRefWrapper = {
     "ref": (0, id_1.id)(undefined),
 };
 //# sourceMappingURL=assertIsRefWrapper.js.map
+
+/***/ }),
+
+/***/ 275:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.removeDarkModeSpecificImageFromReadme = exports.action = void 0;
+const fs = __importStar(__webpack_require__(747));
+function action(_actionName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        fs.writeFileSync("README.md", Buffer.from(removeDarkModeSpecificImageFromReadme(fs.readFileSync("README.md").toString("utf8")), "utf8"));
+    });
+}
+exports.action = action;
+function removeDarkModeSpecificImageFromReadme(readmeRawContent) {
+    return readmeRawContent
+        .replace(/^!\[[^\]]*\]\([^#]+#gh-dark-mode-only\)/gm, "");
+}
+exports.removeDarkModeSpecificImageFromReadme = removeDarkModeSpecificImageFromReadme;
+
 
 /***/ }),
 
@@ -10747,7 +10801,8 @@ exports.availableActions = [
     "is_well_formed_and_available_module_name",
     "string_replace",
     "tell_if_project_uses_npm_or_yarn",
-    "is_package_json_version_upgraded"
+    "is_package_json_version_upgraded",
+    "remove_dark_mode_specific_images_from_readme"
 ];
 function getInputDescription(inputName) {
     switch (inputName) {

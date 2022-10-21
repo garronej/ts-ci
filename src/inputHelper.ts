@@ -27,7 +27,8 @@ export const availableActions = [
     "is_well_formed_and_available_module_name",
     "string_replace",
     "tell_if_project_uses_npm_or_yarn",
-    "is_package_json_version_upgraded"
+    "is_package_json_version_upgraded",
+    "remove_dark_mode_specific_images_from_readme"
 ] as const;
 
 

@@ -4,7 +4,7 @@ author: 'u/garronej'
 inputs:
   action_name:
     required: true
-    description: 'Action to run, one of: "get_package_json_version", "dispatch_event", "update_changelog", "sync_package_and_package_lock_version", "setup_repo_webhook_for_deno_land_publishing", "is_well_formed_and_available_module_name", "string_replace", "tell_if_project_uses_npm_or_yarn", "is_package_json_version_upgraded"'
+    description: 'Action to run, one of: "get_package_json_version", "dispatch_event", "update_changelog", "sync_package_and_package_lock_version", "setup_repo_webhook_for_deno_land_publishing", "is_well_formed_and_available_module_name", "string_replace", "tell_if_project_uses_npm_or_yarn", "is_package_json_version_upgraded", "remove_dark_mode_specific_images_from_readme"'
   owner:
     required: false
     description: 'Repository owner, example: ''garronej'',github.repository_owner'

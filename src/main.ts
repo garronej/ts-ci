@@ -5,10 +5,13 @@ import * as sync_package_and_package_lock_version from "./sync_package_and_packa
 import * as setup_repo_webhook_for_deno_land_publishing from "./setup_repo_webhook_for_deno_land_publishing";
 import * as is_well_formed_and_available_module_name from "./is_well_formed_and_available_module_name";
 import * as tell_if_project_uses_npm_or_yarn from "./tell_if_project_uses_npm_or_yarn";
+import * as remove_dark_mode_specific_images_from_readme from "./remove_dark_mode_specific_images_from_readme";
 import * as string_replace from "./string_replace";
 import * as is_package_json_version_upgraded from "./is_package_json_version_upgraded";
 import { getActionName } from "./inputHelper";
 import * as update_changelog from "./update_changelog";
+import { assert } from "tsafe/assert";
+import type { Equals } from "tsafe";
 
 async function run(): Promise<null> {
 
@@ -90,12 +93,14 @@ async function run(): Promise<null> {
                 )
             );
             return null;
-
+        case "remove_dark_mode_specific_images_from_readme":
+            await remove_dark_mode_specific_images_from_readme.action(
+                action_name
+            );
+            return null;
     }
 
-    if (1 === 0 + 1) {
-        throw new Error(`${action_name} Not supported by this toolkit`);
-    }
+    assert<Equals<typeof action_name, never>>(false);
 
 }
 
@@ -106,7 +111,7 @@ async function run(): Promise<null> {
         await run()
 
     } catch (error) {
-        core.setFailed(error.message);
+        core.setFailed(String(error));
     }
 
 })();
