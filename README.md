@@ -61,7 +61,7 @@ Besides, good stuff that comes with using this template:
 
 ## Can I use `npm` instead of `yarn`
 
-Yes, just remove the `yarn.lock` file.
+Yes, just remove the `yarn.lock` file and edit `.github/workflows/ci.yaml`, replace all `yarn ***` by `npm run ****`.  
 ## What will be included in the npm bundle?
 
 All filles listed in [the files property of your package JSON](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L35-L41).  
