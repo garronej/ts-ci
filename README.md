@@ -12,14 +12,11 @@ https://user-images.githubusercontent.com/6702424/167035748-4fe28710-ed0f-4feb-a
 `ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
 - It's not a CLI tool, the automation happens with Github Actions.  
   Update your `package.json` version number, push. Voila, your new version is published on NPM.  
+- It enables you to publish prerelease simply by updating your package version to something like '1.2.3-rc.3'.  
+- The workflow runs on the main branch and on branches that have a PR open on main. 
 - It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib, your modules will be tree shakable.  
   E.g: `import { aSpecificFunction } from "your-module/aSpecificFile"`  
 
-<p align="center">
-    <a href='https://youtu.be/rYaAZg8RYyI'>
-        <img src="https://user-images.githubusercontent.com/6702424/127759381-f8bb7efe-231c-4540-84bb-fc17c3d4dc38.gif">
-    </a>
-</p>
 
 # How to use
 
@@ -37,12 +34,12 @@ This template automates the boring and tedious tasks of:
 - Filling up the ``package.json``
 - Setting up Typescript.
 - Testing on multiple Node version running on Ubuntu and Windows before publishing.
-- Maintaining a CHANGELOG.
-- Publishing on NPM and creating corresponding GitHub releases.
+- Publishing on NPM and creating corresponding GitHub releases.  
+- Publish prerelease
 
 Besides, good stuff that comes with using this template:
 - The `dist/` directory is not tracked on the ``main`` branch.
-- Shorter specific file import path.  
+- Shorter specific file import path. (this can be disabled by removing [this line of ci.yaml](https://github.com/garronej/ts-ci/blob/eabbcfa5b22777c6b051206d8f4e2c8a8624c853/.github/workflows/ci.yaml#L100))
   ``import {...} from "my_module/theFile"`` instead of the usual
   ``import {...} from "my_module/dist/theFile"`` 
 - ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
@@ -78,7 +75,7 @@ Remove [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60
 Remove [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/.github/workflows/ci.yaml#L12-L26) and [this](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/.github/workflows/ci.yaml#L29) from `github/workflows/ci.yaml`  
 Remove `.eslintignore`, `.eslintrc.js`, `.prettierignore` and `.prettierrc.json`.
 
-## Accessing files outside the ``dist/`` directory
+## Accessing files outside the ``dist/`` directory (when [this line is present in your repo](https://github.com/garronej/ts-ci/blob/eabbcfa5b22777c6b051206d8f4e2c8a8624c853/.github/workflows/ci.yaml#L100))
 
 The drawback of having short import path is that the dir structure  
 is not exactly the same in production ( in the npm bundle ) and in development.
@@ -135,22 +132,5 @@ export function getProjectRoot(): string {
     return (result = getProjectRootRec(__dirname));
 }
 ```
-
-## How does the automatic ``CHANGELOG.md`` update works?
-
-Starting from the second release, a ``CHANGELOG.md`` will be created at the root of the repo.
-
-*Example:*  
-![image](https://user-images.githubusercontent.com/6702424/82747884-c47a5800-9d9d-11ea-8f3b-22df03352e54.png)
-
-The ``CHANGELOG.md`` is built from the commits messages since last release.
-
-Are NOT included in the ``CHANGELOG.md``:
-- The commit messages that includes the word "changelog" ( non-case sensitive ). 
-- The commit messages that start with "Merge branch ".
-- The commit messages that with "GitBook: "
-
-*The GitHub release will point to a freezed version of the ``CHANGELOG.md``*:  
-![image](https://user-images.githubusercontent.com/6702424/82748469-6439e500-9da2-11ea-8552-ea9b7322dfa7.png)
 
 </details>
