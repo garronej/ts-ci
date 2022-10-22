@@ -7,12 +7,7 @@
     <br>
 </p>
 
-
-<p align="center">
-    <a href='https://youtu.be/rYaAZg8RYyI'>
-        <img width="1200" src="https://user-images.githubusercontent.com/6702424/127759381-f8bb7efe-231c-4540-84bb-fc17c3d4dc38.gif">
-    </a>
-</p>
+https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
 
 `ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
 - It's not a CLI tool, the automation happens with Github Actions.  
