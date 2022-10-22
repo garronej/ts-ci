@@ -59,7 +59,7 @@ Besides, good stuff that comes with using this template:
 <details>
   <summary>Click to expand</summary>  
 
-## Can I use `npm` instead of `yarn`
+## Can I use `npm` (or something else) instead of `yarn`
 
 Yes, just remove the `yarn.lock` file and edit `.github/workflows/ci.yaml`, replace all `yarn ***` by `npm run ****`.  
 ## What will be included in the npm bundle?
