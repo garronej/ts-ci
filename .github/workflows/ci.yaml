@@ -39,9 +39,11 @@ jobs:
 
   check_if_version_upgraded:
     name: Check if version upgrade
-    # We run this only if it's a push on the default branch or if it's a PR from a 
-    # branch (meaning not a PR from a fork). It would be more straightforward to test if secrets.NPM_TOKEN is 
-    # defined but GitHub Action don't allow it yet.
+    # When someone forks the repo and opens a PR we want to enables the tests to be run (the previous jobs)
+    # but obviously only us should be allowed to release.
+    # In the following check we make sure that we own the branch this CI workflow is running on before continuing.
+    # Without this check, trying to release would fail anyway because only us have the correct secret.NPM_TOKEN but
+    # it's cleaner to stop the execution instead of letting the CI crash.
     if: |
       github.event_name == 'push' || 
       github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login 
@@ -61,8 +63,8 @@ jobs:
 
   create_github_release:
     runs-on: ubuntu-latest
-    # We create a release only if the version have been upgraded and we are on the main branch
-    # or if we are on a branch of the repo that has an PR open on main.
+    # We create release only if the version in the package.json have been upgraded and this CI is running against the main branch.
+    # We allow branches with a PR open on main to publish pre-release (x.y.z-rc.u) but not actual releases.
     if: |
       needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true' &&
       (
