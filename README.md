@@ -10,7 +10,7 @@
 https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
 
 `ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
-- It's not a CLI tool, the automation happens with Github Actions.  
+- It's not a CLI tool, the automation happens within Github Actions.  
   Update your `package.json` version number, push. Voila, your new version is published on NPM.  
 - It enables you to publish prerelease simply by updating your package version to something like `1.2.3-rc.3`.  
 - When someone opens submit a PR the tests are run agaist their fork. 
@@ -62,7 +62,7 @@ If you want to release for both CJS and ESM, it's a bit less straign forward. Yo
 
 - Have a `tsconfig.json` that targets CSM (as by default): [example](https://github.com/garronej/tss-react/blob/main/tsconfig.json)  
 - Perfome two build, one for CJS, one for ESM. [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L43)  
-- Explicitely `module` and `exports` in `package.json`, [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L11-L41).  
+- Provide a `module` and `exports` property in your `package.json`, [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L11-L41).  
 
 # FAQ
 
