@@ -24,6 +24,7 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - [Denoify](https://github.com/garronej/denoify)
 - [tss-react](https://github.com/garronej/tss-react)
 - [EVT](https://github.com/garronej/evt) 
+- [i18nifty](https://github.com/etalab/i18nifty)  
 
 # How to use
 
