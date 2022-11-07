@@ -37,19 +37,19 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 
 # Features
 
-This template automates the boring and tedious tasks of:
-- Filling up the ``package.json``
-- Setting up Typescript.
-- Testing on multiple Node version running on Ubuntu and Windows before publishing.
-- Publishing on NPM and creating corresponding GitHub releases.  
-- Publish prerelease
-
-Besides, good stuff that comes with using this template:
-- The `dist/` directory is not tracked on the ``main`` branch.
-- Shorter specific file import path. (this can be disabled by removing [this line of ci.yaml](https://github.com/garronej/ts-ci/blob/eabbcfa5b22777c6b051206d8f4e2c8a8624c853/.github/workflows/ci.yaml#L100))
-  ``import {...} from "my_module/theFile"`` instead of the usual
-  ``import {...} from "my_module/dist/theFile"`` 
-- ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
+- ✍️ Filling up the `package.json`
+- ✅ Testing on multiple Node version running on Ubuntu and Windows before publishing.
+- 📦 Publishing on NPM and creating corresponding GitHub releases.  
+- 🌗 You can use a different repo image for dark and light mode. 
+  Example with: [i18nifty](https://github.com/etalab/i18nifty): [Light](https://user-images.githubusercontent.com/6702424/200299948-94bacf9d-381e-40f8-b9a3-8e726bcd37c5.png) - [Dark](https://user-images.githubusercontent.com/6702424/200299807-42388349-a5ae-44b2-abd1-0aa538b58da2.png)  
+  See [here](https://github.com/etalab/i18nifty/blob/f6ad7bb11514224a416158af7af8e4073c7932c1/README.md?plain=1#L1-L11) the special GitHub syntax (#gh-dark-mode-only) that enable this to work.  
+  TS-CI provides [an extra action that strips the dark mode specific image from your README.md](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L105-L107) before publishing on NPM (Npm do not recognize `#gh-dark-mode-only` yet).  
+- 🩳 TS-CI comes by default with [a step in the workflow](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) that move your file dist file to the root before releasing.  
+  This enables your user to import your module like:  
+  `import {...} from "my_module/theFile"` (instead of "my_module/dist/theFile")  
+  Feel free to remove [this action](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) if you don't like this behavior (or if you juste have an index.ts and users are not supposed to cherry
+  pick what they want to import from your module.) 
+- ⚙️ ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)
 
 
 # Relase in CJS, ESM or both
