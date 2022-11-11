@@ -50,7 +50,7 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
   `import {...} from "my_module/theFile"` (instead of "my_module/**dist**/theFile" )  
   Feel free to remove [this action](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) if you don't like this behavior (or if you juste have an index.ts and users are not supposed to cherry
   pick what they want to import from your module.) 
-- ⚙️ ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](#disable-linting-and-formatting) this feature)  
+- ⚙️ ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](https://github.com/garronej/ts-ci/blob/8da207622e51a248542cf013707198cd7cad1d09/README.md?plain=1#L87-L91) this feature)  
 
 
 # Relase in CJS, ESM or both
