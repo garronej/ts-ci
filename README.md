@@ -43,8 +43,8 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - 📦 Publishing on NPM and creating corresponding GitHub releases.  
 - 🌗 You can use a different repo image for dark and light mode. 
   Example with: [i18nifty](https://github.com/etalab/i18nifty): [Light](https://user-images.githubusercontent.com/6702424/200299948-94bacf9d-381e-40f8-b9a3-8e726bcd37c5.png) - [Dark](https://user-images.githubusercontent.com/6702424/200299807-42388349-a5ae-44b2-abd1-0aa538b58da2.png)  
-  See [here](https://github.com/etalab/i18nifty/blob/f6ad7bb11514224a416158af7af8e4073c7932c1/README.md?plain=1#L1-L11) the special GitHub syntax (#gh-dark-mode-only) that enable this to work.  
-  TS-CI provides [an extra action that strips the dark mode specific image from your README.md](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L105-L107) before publishing on NPM (Npm do not recognize `#gh-dark-mode-only` yet).  
+  See [here](https://github.com/etalab/i18nifty/blob/f6ad7bb11514224a416158af7af8e4073c7932c1/README.md?plain=1#L1-L11) the special GitHub syntax (`#gh-dark-mode-only`) that enable this to work.  
+  TS-CI provides [an extra action that strips the dark mode specific image from your README.md](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L105-L107) before [publishing on NPM](https://www.npmjs.com/package/i18nifty) (NPM do not recognize `#gh-dark-mode-only` yet).  
 - 🩳 TS-CI comes by default with [a step in the workflow](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) that move your dist files to the root before releasing.  
   This enables your user to import specific file of your module like:  
   `import {...} from "my_module/theFile"` (instead of "my_module/**dist**/theFile" )  
