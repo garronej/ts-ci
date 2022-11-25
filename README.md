@@ -64,6 +64,7 @@ If you want to release for both CJS and ESM, it's a bit less straign forward. Yo
 - Have a `tsconfig.json` that targets CSM (as by default): [example](https://github.com/garronej/tss-react/blob/main/tsconfig.json)  
 - Perfome two build, one for CJS, one for ESM. [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L43)  
 - Provide a `module` and `exports` property in your `package.json`, [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L11-L41).  
+- Exclude things you don't want in the NPM bundle. [Example](https://github.com/garronej/tss-react/blob/eca273675ea6b402a260d262c4e09cac3e415da5/package.json#L76-L77)
 
 # FAQ
 
