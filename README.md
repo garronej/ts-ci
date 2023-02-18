@@ -5,7 +5,12 @@
     <i> 🚀A starter for any TypeScript project meant to be published on NPM🚀</i>
     <br>
     <br>
-</p>
+</p>  
+  
+> 🗣️ Sorry, since a recent GitHub update you need to manually allow GitHub Action to push on your REPO.  
+> Fo this reason the inital setup will fail.  
+> You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
+
 
 https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
 
