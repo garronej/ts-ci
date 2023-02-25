@@ -15,7 +15,8 @@
         "lint": "npm run lint:check -- --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
         "format": "npm run _format -- --write",
-        "format:check": "npm run _format -- --list-different"
+        "format:check": "npm run _format -- --list-different",
+        "link-in-app": "ts-node --skipProject src/scripts/link-in-app.ts"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -35,6 +36,7 @@
     "files": [
         "src/",
         "!src/test/",
+        "!src/scripts",
         "dist/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo"
@@ -50,6 +52,7 @@
         "eslint-config-prettier": "^8.3.0",
         "husky": "^4.3.8",
         "lint-staged": "^11.1.1",
-        "prettier": "^2.3.2"
+        "prettier": "^2.3.2",
+        "ts-node": "^10.9.1"
     }
 }

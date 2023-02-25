@@ -46,6 +46,7 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - ✍️ Filling up the `package.json`
 - ✅ Testing on multiple Node version running on Ubuntu and Windows before publishing.
 - 📦 Publishing on NPM and creating corresponding GitHub releases.  
+- 🧪 Enable you to test your local copy of the module on an external app.  
 - 🌗 You can use a different repo image for dark and light mode. 
   Example with: [i18nifty](https://github.com/etalab/i18nifty): [Light](https://user-images.githubusercontent.com/6702424/200299948-94bacf9d-381e-40f8-b9a3-8e726bcd37c5.png) - [Dark](https://user-images.githubusercontent.com/6702424/200299807-42388349-a5ae-44b2-abd1-0aa538b58da2.png)  
   See [here](https://github.com/etalab/i18nifty/blob/f6ad7bb11514224a416158af7af8e4073c7932c1/README.md?plain=1#L1-L11) the special GitHub syntax (`#gh-dark-mode-only`) that enable this to work.  
@@ -79,6 +80,8 @@ If you want to release for both CJS and ESM, it's a bit less straign forward. Yo
 ## Can I use `npm` (or something else) instead of `yarn`
 
 Yes, just remove the `yarn.lock` file and edit `.github/workflows/ci.yaml`, replace all `yarn ***` by `npm run ****`.  
+Note however that the the script (`src/link-in-app.ts`) that enable you to test in an external app will no longer work.  
+
 ## What will be included in the npm bundle?
 
 All filles listed in [the files property of your package JSON](https://github.com/garronej/ts_ci/blob/974054f2b83f8170317f2b2fa60b5f78e9336c0b/package.json#L35-L41).  
