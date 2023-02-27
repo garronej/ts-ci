@@ -6,6 +6,7 @@
         "lib": ["es2015", "DOM"],
         "esModuleInterop": true,
         "declaration": true,
+        // Do not change or the linkinkg cript will stop working
         "outDir": "./dist",
         "sourceMap": true,
         "newLine": "LF",
