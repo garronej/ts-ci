@@ -80,7 +80,7 @@ If you want to release for both CJS and ESM, it's a bit less straign forward. Yo
 ## Can I use `npm` (or something else) instead of `yarn`
 
 Yes, just remove the `yarn.lock` file and edit `.github/workflows/ci.yaml`, replace all `yarn ***` by `npm run ****`.  
-Note however that the the script (`src/link-in-app.ts`) that enable you to test in an external app will no longer work.  
+Note however that the the script (`scripts/link-in-app.ts`) that enable you to test in an external app will no longer work.  
 
 ## What will be included in the npm bundle?
 

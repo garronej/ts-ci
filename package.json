@@ -16,7 +16,7 @@
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
         "format": "npm run _format -- --write",
         "format:check": "npm run _format -- --list-different",
-        "link-in-app": "ts-node --skipProject src/scripts/link-in-app.ts"
+        "link-in-app": "ts-node --skipProject scripts/link-in-app.ts"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -36,7 +36,6 @@
     "files": [
         "src/",
         "!src/test/",
-        "!src/scripts",
         "dist/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo"
