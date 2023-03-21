@@ -2,35 +2,26 @@ import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
 
-const singletonDependencies = [
-    //"react",
-    //"@types/react",
+const singletonDependencies: string[] = [
+    //"react", 
+    //"@types/react"
 ];
 
 const rootDirPath = pathJoin(__dirname, "..", "..");
 
+//NOTE: This is only required because of: https://github.com/garronej/ts-ci/blob/c0e207b9677523d4ec97fe672ddd72ccbb3c1cc4/README.md?plain=1#L54-L58
 fs.writeFileSync(
     pathJoin(rootDirPath, "dist", "package.json"),
     Buffer.from(
         JSON.stringify(
             (() => {
-                const packageJsonParsed = JSON.parse(
-                    fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8")
-                );
+                const packageJsonParsed = JSON.parse(fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8"));
 
                 return {
                     ...packageJsonParsed,
                     "main": packageJsonParsed["main"]?.replace(/^dist\//, ""),
                     "types": packageJsonParsed["types"]?.replace(/^dist\//, ""),
                     "module": packageJsonParsed["module"]?.replace(/^dist\//, ""),
-                    "bin": !("bin" in packageJsonParsed)
-                        ? undefined
-                        : Object.fromEntries(
-                              Object.entries<string>(packageJsonParsed["bin"]).map(([k, v]) => [
-                                  k,
-                                  v.replace(/^dist\//, "")
-                              ])
-                          ),
                     "exports": !("exports" in packageJsonParsed)
                         ? undefined
                         : Object.fromEntries(
@@ -52,7 +43,7 @@ const commonThirdPartyDeps = (() => {
     // For example [ "@emotion" ] it's more convenient than
     // having to list every sub emotion packages (@emotion/css @emotion/utils ...)
     // in singletonDependencies
-    const namespaceSingletonDependencies = [];
+    const namespaceSingletonDependencies: string[] = [];
 
     return [
         ...namespaceSingletonDependencies
@@ -66,17 +57,15 @@ const commonThirdPartyDeps = (() => {
     ];
 })();
 
-const yarnHomeDirPath = pathJoin(rootDirPath, ".yarn_home");
+const yarnGlobalDirPath = pathJoin(rootDirPath, ".yarn_home");
 
-fs.rmSync(yarnHomeDirPath, { "recursive": true, "force": true });
-fs.mkdirSync(yarnHomeDirPath);
+fs.rmSync(yarnGlobalDirPath, { "recursive": true, "force": true });
+fs.mkdirSync(yarnGlobalDirPath);
 
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
-    const cmd = ["yarn", "link", ...(targetModuleName !== undefined ? [targetModuleName] : [])].join(
-        " "
-    );
+    const cmd = ["yarn", "link", ...(targetModuleName !== undefined ? [targetModuleName] : ["--no-bin-links"])].join(" ");
 
     console.log(`$ cd ${pathRelative(rootDirPath, cwd) || "."} && ${cmd}`);
 
@@ -84,7 +73,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
         cwd,
         "env": {
             ...process.env,
-            "HOME": yarnHomeDirPath
+            "HOME": yarnGlobalDirPath
         }
     });
 };
@@ -125,13 +114,7 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
     console.log(`${current}/${total} ${commonThirdPartyDep}`);
 
     const localInstallPath = pathJoin(
-        ...[
-            rootDirPath,
-            "node_modules",
-            ...(commonThirdPartyDep.startsWith("@")
-                ? commonThirdPartyDep.split("/")
-                : [commonThirdPartyDep])
-        ]
+        ...[rootDirPath, "node_modules", ...(commonThirdPartyDep.startsWith("@") ? commonThirdPartyDep.split("/") : [commonThirdPartyDep])]
     );
 
     execYarnLink({ "cwd": localInstallPath });
@@ -153,9 +136,7 @@ execYarnLink({ "cwd": pathJoin(rootDirPath, "dist") });
 testAppPaths.forEach(testAppPath =>
     execYarnLink({
         "cwd": testAppPath,
-        "targetModuleName": JSON.parse(
-            fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8")
-        )["name"]
+        "targetModuleName": JSON.parse(fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8"))["name"]
     })
 );
 
