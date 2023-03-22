@@ -7,7 +7,7 @@ const singletonDependencies: string[] = [
     //"@types/react"
 ];
 
-const rootDirPath = pathJoin(__dirname, "..", "..");
+const rootDirPath = pathJoin(__dirname, "..");
 
 //NOTE: This is only required because of: https://github.com/garronej/ts-ci/blob/c0e207b9677523d4ec97fe672ddd72ccbb3c1cc4/README.md?plain=1#L54-L58
 fs.writeFileSync(
