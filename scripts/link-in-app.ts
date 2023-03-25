@@ -22,6 +22,14 @@ fs.writeFileSync(
                     "main": packageJsonParsed["main"]?.replace(/^dist\//, ""),
                     "types": packageJsonParsed["types"]?.replace(/^dist\//, ""),
                     "module": packageJsonParsed["module"]?.replace(/^dist\//, ""),
+                    "bin": !("bin" in packageJsonParsed)
+                        ? undefined
+                        : Object.fromEntries(
+                              Object.entries(packageJsonParsed["bin"]).map(([key, value]) => [
+                                  key,
+                                  (value as string).replace(/^dist\//, "")
+                              ])
+                          ),
                     "exports": !("exports" in packageJsonParsed)
                         ? undefined
                         : Object.fromEntries(
