@@ -63,7 +63,7 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 
 By default your module relase [in CJS](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L3) with [ESM module interop](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L6).  
 
-If you want to **only** release as ESM just set `"module": "ES2020"` in your `tsconfig.json` (and remove `esModuleInterop`).    
+If you want to **only** release as ESM just set `"module": "ES6"` in your `tsconfig.json` (and remove `esModuleInterop`).    
 
 If you want to release for both CJS and ESM, it's a bit less straign forward. You have to:  
 
