@@ -8,25 +8,35 @@
 </p>  
 
 Have you written some functions or React component that you're proud of? Do you want to share it as a standalone module on NPM, 
-but find yourself unsure about the publishing process or how to manage the lifecycle of an open-source library? 
+but find yourself unsure about the publishing process or how to manage the lifecycle of an open-source library?  
 
-Look no further - ts-ci is here to jumpstart your journey towards becoming a proficient NPM module author.
+Look no further - ts-ci is here to jumpstart your journey towards becoming a proficient NPM module author.  
 
+Contrary to what other guides or project starters may suggest, you don't necessarily need Vite/rollup to bundle your library, 
+nor do you need to fragment your modules into smaller, independently published units on NPM under the package/ directory for your module 
+to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`). 
+
+The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
+publishing `.js` files and types declaration `.d.ts` files, which are the output of `tsc`. 
+
+And that's all there is to it!
   
 > 🗣️ Since a recent GitHub update you need to manually allow GitHub Action to push on your repo.  
 > Fo this reason the initial setup will fail.  
 > You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
 
-
-https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
-
-
-`ts-ci` is an innovative project starter, arguably superior to alternatives like [TSDX](https://github.com/formium/tsdx) and [typescript-starter](https://github.com/bitjson/typescript-starter). Here's why:
+Key features:  
 
 - Unlike traditional CLI tools, `ts-ci` utilizes automation within Github Actions. Simply update your `package.json` version number and push. Your new version is automatically published on NPM. 
 - It offers the convenience of publishing prereleases. All you need to do is update your package version to a prerelease format like `1.2.3-rc.3`. 
 - It fosters enhanced quality control as it runs tests against the submitter's fork whenever a PR is opened. 
 - `ts-ci` doesn't bundle your library into a single file. Instead, users can cherry-pick imports from your library, enabling tree shaking. For instance: `import { aSpecificFunction } from "your-module/aSpecificFile"`. 
+
+
+https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
+
+
+
 
 # Examples of project using this template
 
@@ -44,25 +54,18 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 ``NPM_TOKEN``, you NPM authorization token.
 - To trigger publishing edit the ``package.json`` ``version`` field ( ``0.0.0``-> ``0.0.1`` for example) then push changes... that's all !
 - Publish pre-release by setting your version number to `X.Y.Z-rc.U` (example: `1.0.0-rc.32`). On NPM the version will be tagged `next`.  
-- The CI runs on `main` and on the branches that have a PR open on `main`.  
+- The CI runs on `main` and on the branches that have a PR open on `main` (You can publish pre-release from branches this way).  
 
 # Features
 
-- ✍️ Filling up the `package.json`
-- ✅ Testing on multiple Node version running on Ubuntu and Windows before publishing.
-- 📦 Publishing on NPM and creating corresponding GitHub releases.  
-- 🧪 Enable you to test your local copy of the module on an external app.  
-- 🌗 You can use a different repo image for dark and light mode. 
-  Example with: [i18nifty](https://github.com/etalab/i18nifty): [Light](https://user-images.githubusercontent.com/6702424/200299948-94bacf9d-381e-40f8-b9a3-8e726bcd37c5.png) - [Dark](https://user-images.githubusercontent.com/6702424/200299807-42388349-a5ae-44b2-abd1-0aa538b58da2.png)  
-  See [here](https://github.com/etalab/i18nifty/blob/f6ad7bb11514224a416158af7af8e4073c7932c1/README.md?plain=1#L1-L11) the special GitHub syntax (`#gh-dark-mode-only`) that enable this to work.  
-  TS-CI provides [an extra action that strips the dark mode specific image from your README.md](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L105-L107) before [publishing on NPM](https://www.npmjs.com/package/i18nifty) (NPM do not recognize `#gh-dark-mode-only` yet).  
-- 🩳 TS-CI comes by default with [a step in the workflow](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) that move your dist files to the root before releasing.  
-  This enables your user to import specific file of your module like:  
-  `import {...} from "my_module/theFile"` (instead of "my_module/**dist**/theFile" )  
-  Feel free to remove [this action](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) if you don't like this behavior (or if you juste have an index.ts and users are not supposed to cherry
-  pick what they want to import from your module.) 
-- ⚙️ ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](https://github.com/garronej/ts-ci/blob/8da207622e51a248542cf013707198cd7cad1d09/README.md?plain=1#L87-L91) this feature)  
-
+- ✍️ Assists in completing the `package.json` details.
+- ✅ Runs your test across various OSes and Node version combinations. [Reference](https://github.com/garronej/ts-ci/blob/4e0b7980315a5156de33c1a4f44907f382bbc862/.github/workflows/ci.yaml#L26-L29). Note: This might be overkill for most use-cases. Feel free to modify the matrix as per your needs.
+- 📦 Supports publishing on NPM along with creating corresponding GitHub releases.
+- 🧪 Enables testing of your local module copy in your application before publishing it on NPM.
+- 🌗 Offers flexibility to use different repository images for dark and light modes. For instance, check out [i18nifty](https://github.com/etalab/i18nifty): [Light](https://user-images.githubusercontent.com/6702424/200299948-94bacf9d-381e-40f8-b9a3-8e726bcd37c5.png) and [Dark](https://user-images.githubusercontent.com/6702424/200299807-42388349-a5ae-44b2-abd1-0aa538b58da2.png). For implementation details, see [here](https://github.com/etalab/i18nifty/blob/f6ad7bb11514224a416158af7af8e4073c7932c1/README.md?plain=1#L1-L11). TS-CI also provides [an additional action](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L105-L107) that removes the dark mode specific image from your README.md before [publishing on NPM](https://www.npmjs.com/package/i18nifty), as NPM does not yet support the `#gh-dark-mode-only` syntax.
+- 🩳 By default, TS-CI incorporates [a step in the workflow](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102) that relocates your distribution files to the root directory before releasing, allowing your users to import specific files from your module as `import {...} from "my_module/theFile"` rather than "my_module/**dist**/theFile". If you dislike this behavior or if you only have an index.ts file and do not intend for users to selectively import from your module, you may remove [this action](https://github.com/garronej/ts-ci/blob/09916b317c55a04dbf2fc036d7343cd6c6756cc6/.github/workflows/ci.yaml#L102).
+- ⚙️ ESlint and Prettier are automatically triggered against files staged for commit. Despite what [t3dotgg](https://github.com/t3dotgg) says, it's the correct way of doing it, 
+that being said, this feature is optional and can be [disabled](https://github.com/garronej/ts-ci/blob/8da207622e51a248542cf013707198cd7cad1d09/README.md?plain=1#L87-L91) if desired.
 
 # Release in CJS, ESM or both
 
