@@ -78,8 +78,6 @@ You want to avoid this strategy if:
 ## ESM only
 
 If you want to **only** release as ESM just set `"module": "ES6"` in your `tsconfig.json` (and remove `esModuleInterop`).    
-You will need to tell `jest` that your module needs to be transpiled by using 
-`"transformIgnorePatterns": [ "node_modules/(?!@codegouvfr/react-dsfr)" ]`.  
 
 You want to avoid this strategy if:  
 - You want your module to be usable with node. The ESM distribution produced by TypeScript is an ESM distribution
