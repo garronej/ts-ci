@@ -2,26 +2,31 @@
     <img width="350" src="https://user-images.githubusercontent.com/6702424/109354825-ab4b8e00-787e-11eb-8336-6009415ecaf6.png">  
 </p>
 <p align="center">
-    <i> 🚀A starter for any TypeScript project meant to be published on NPM🚀</i>
+    <i> 🚀 A project starter for module publisher 🚀</i>
     <br>
     <br>
 </p>  
+
+Have you written some code that you're proud of? Do you want to share it as a standalone module on NPM, 
+but find yourself unsure about the publishing process or how to manage the lifecycle of an open-source library? 
+
+Look no further - ts-ci is here to jumpstart your journey towards becoming a proficient NPM module author.
+
   
 > 🗣️ Since a recent GitHub update you need to manually allow GitHub Action to push on your repo.  
-> Fo this reason the inital setup will fail.  
+> Fo this reason the initial setup will fail.  
 > You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
 
 
 https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
 
-`ts-ci` is a project starter like [TSDX](https://github.com/formium/tsdx) or [typescript-starter](https://github.com/bitjson/typescript-starter) but (arguably) better because:  
-- It's not a CLI tool, the automation happens within Github Actions.  
-  Update your `package.json` version number, push. Voila, your new version is published on NPM.  
-- It enables you to publish prerelease simply by updating your package version to something like `1.2.3-rc.3`.  
-- When someone opens submit a PR the tests are run agaist their fork. 
-- It doesn't bundle your library into a single file so users can cherry-pick what they want to import from your lib, your modules will be tree shakable. 
-  E.g: `import { aSpecificFunction } from "your-module/aSpecificFile"`  
-  
+
+`ts-ci` is an innovative project starter, arguably superior to alternatives like [TSDX](https://github.com/formium/tsdx) and [typescript-starter](https://github.com/bitjson/typescript-starter). Here's why:
+
+- Unlike traditional CLI tools, `ts-ci` utilizes automation within Github Actions. Simply update your `package.json` version number and push. Your new version is automatically published on NPM. 
+- It offers the convenience of publishing prereleases. All you need to do is update your package version to a prerelease format like `1.2.3-rc.3`. 
+- It fosters enhanced quality control as it runs tests against the submitter's fork whenever a PR is opened. 
+- `ts-ci` doesn't bundle your library into a single file. Instead, users can cherry-pick imports from your library, enabling tree shaking. For instance: `import { aSpecificFunction } from "your-module/aSpecificFile"`. 
 
 # Examples of project using this template
 
@@ -59,18 +64,55 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - ⚙️ ESlint and Prettier are automatically run against files staged for commit. (Optional, you can [disable](https://github.com/garronej/ts-ci/blob/8da207622e51a248542cf013707198cd7cad1d09/README.md?plain=1#L87-L91) this feature)  
 
 
-# Relase in CJS, ESM or both
+# Release in CJS, ESM or both
 
-By default your module relase [in CJS](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L3) with [ESM module interop](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L6).  
+## CJS only (default)
+
+By default your module release [in CommonJS (CJS)](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L3) with [ESM module interop](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L6).  
+
+You want to avoid this strategy if:  
+- Your module has peer dependencies that provides both an ESM and CJS distribution. (Example `@mui/material`, `@emotion/react`).  
+- You make use of async imports (`import(...).then(...))`). 
+- You want your module to be usable in node `type: module` mode *AND* you have some `export default` (if you don't have export default it will work just fine).
+
+## ESM only
 
 If you want to **only** release as ESM just set `"module": "ES6"` in your `tsconfig.json` (and remove `esModuleInterop`).    
+You will need to tell `jest` that your module needs to be transpiled by using 
+`"transformIgnorePatterns": [ "node_modules/(?!@codegouvfr/react-dsfr)" ]`.  
 
-If you want to release for both CJS and ESM, it's a bit less straign forward. You have to:  
+You want to avoid this strategy if:  
+- You want your module to be usable with node. The ESM distribution produced by TypeScript is an ESM distribution
+that node in `type: module` can process (files need to have `.mjs` extension, exports need to be listed).  
+As a result your module won't be usable at all on node except through Next.js for example that will be able to make it work.  
+This means for example that you'd have to tell your users to configure their JEST so that it transpiles your module 
+using `"transformIgnorePatterns": [ "node_modules/(?!@codegouvfr/react-dsfr)" ]`.  
+If you publish scripts (your `package.json` has a `bin` property) you'll need to [transpile your script separately in CJS](https://github.com/garronej/ts-ci/issues/1#issuecomment-1556046899).  
+
+## ESM for bundlers (browser) + CJS for node.  
 
 - Have a `tsconfig.json` that targets CSM (as by default): [example](https://github.com/garronej/tss-react/blob/main/tsconfig.json)  
-- Perfome two build, one for CJS, one for ESM. [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L43)  
-- Provide a `module` and `exports` property in your `package.json`, [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L11-L41).  
-- Exclude things you don't want in the NPM bundle. [Example](https://github.com/garronej/tss-react/blob/eca273675ea6b402a260d262c4e09cac3e415da5/package.json#L76-L77)
+- Perform two build, one for CJS, one for ESM. [example](https://github.com/garronej/tss-react/blob/3cab4732edaff7ba41e3f01b7524b8db47cf7f25/package.json#L43)  
+- Explicitly list your exports in your `package.json`, [example](https://github.com/garronej/tss-react/blob/52ee92df56ef9fc82c0608deb4c35944b82b7b74/package.json#L11-L52).  
+
+You want to avoid this strategy if:  
+- You use `export default` and you want to support node in `type: module` mode.  
+- You have lazy import (`import(...).then(...)`) and you want them to be lazy not only on the browser but on node too.  
+
+## Deno  
+
+Regardless of the scenario you opt for you can always release for Deno using [Denoify](https://denoify.dev).  
+
+## I have questions
+
+If you find your self thinking:  
+
+"I don't know man, ESM, CJS, I have no idea, I just want my stuff to work!"
+"None of the option above covers all my requirement?"
+"Why can't I have a solution that work in every case?"  
+"Why can't I publish an actual standard compliant ESM distribution?"  
+
+Just [start a discussion](https://github.com/garronej/ts-ci/discussions) or hit [my Twitter DM](https://twitter.com/GarroneJoseph) I'll be happy to provide further guidance.  
 
 # FAQ
 
