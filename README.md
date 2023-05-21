@@ -7,7 +7,7 @@
     <br>
 </p>  
 
-Have you written some code that you're proud of? Do you want to share it as a standalone module on NPM, 
+Have you written some functions or React component that you're proud of? Do you want to share it as a standalone module on NPM, 
 but find yourself unsure about the publishing process or how to manage the lifecycle of an open-source library? 
 
 Look no further - ts-ci is here to jumpstart your journey towards becoming a proficient NPM module author.

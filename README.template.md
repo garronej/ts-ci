@@ -31,14 +31,15 @@ $ npm install --save #{REPO_NAME}#
 ```
 
 ```typescript
-import { myFunction, myObject } from "#{REPO_NAME}#";
+import { myFunction, myObject, MyReactComponent } from "#{REPO_NAME}#";
 ```
 
-Specific imports:
+Specific imports, only import what you need:
 
 ```typescript
 import { myFunction } from "#{REPO_NAME}#/myFunction";
 import { myObject } from "#{REPO_NAME}#/myObject";
+import MyReactComponent from "#{REPO_NAME}#/MyReactComponent";
 ```
 
 # Contributing
