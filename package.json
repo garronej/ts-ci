@@ -6,8 +6,6 @@
         "type": "git",
         "url": "git://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#.git"
     },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
     "scripts": {
         "test": "echo DODO",
         "build": "tsc",
@@ -17,6 +15,13 @@
         "format": "npm run _format -- --write",
         "format:check": "npm run _format -- --list-different",
         "link-in-app": "ts-node --skipProject scripts/link-in-app.ts"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js",
+        "./*": "./dist/*.js",
+        "./tools": "./dist/tools/index.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
