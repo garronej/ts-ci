@@ -21,10 +21,6 @@ publishing `.js` files and types declaration `.d.ts` files, which are the output
 
 And that's all there is to it!
   
-> 🗣️ Since a recent GitHub update you need to manually allow GitHub Action to push on your repo.  
-> Fo this reason the initial setup will fail.  
-> You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
-
 Key features:  
 
 - Unlike traditional CLI tools, `ts-ci` utilizes automation within Github Actions. Simply update your `package.json` version number and push. Your new version is automatically published on NPM. 
@@ -36,8 +32,6 @@ Key features:
 https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
 
 
-
-
 # Examples of project using this template
 
 - [Keycloakify](https://github.com/garronej/keycloakify)
@@ -46,7 +40,11 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - [EVT](https://github.com/garronej/evt) 
 - [i18nifty](https://github.com/etalab/i18nifty)  
 
-# How to use
+# How to use  
+
+> 🗣️ Since a recent GitHub update you need to manually allow GitHub Action to push on your repo.  
+> Fo this reason the initial setup will fail.  
+> You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
 
 - Click on ![image](https://user-images.githubusercontent.com/6702424/127756563-ec5f2d07-d758-43f1-8fac-387847c0d064.png)
 - The repo name you will choose will be used as a module name for NPM.
