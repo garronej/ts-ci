@@ -11,17 +11,8 @@ Have you written some functions or React component that you're proud of? Do you 
 but find yourself unsure about the publishing process or how to manage the lifecycle of an open-source library?  
 
 Look no further - ts-ci is here to jumpstart your journey towards becoming a proficient NPM module author.  
-
-Contrary to what other guides or project starters may suggest, you don't necessarily need Vite/rollup to bundle your library, 
-nor do you need to fragment your modules into smaller, independently published units on NPM under the package/ directory for your module 
-to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`). 
-
-The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
-publishing `.js` files and types declaration `.d.ts` files, which are the output of `tsc`. 
-
-And that's all there is to it!
   
-Key features:  
+Main selling points:  
 
 - Unlike traditional CLI tools, `ts-ci` utilizes automation within Github Actions. Simply update your `package.json` version number and push. Your new version is automatically published on NPM. 
 - It offers the convenience of publishing prereleases. All you need to do is update your package version to a prerelease format like `1.2.3-rc.3`. 
