@@ -56,16 +56,22 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - ⚙️ ESlint and Prettier are automatically triggered against files staged for commit. Despite what [t3dotgg](https://github.com/t3dotgg) says, it's the correct way of doing it, 
 that being said, this feature is optional and can be [disabled](https://github.com/garronej/ts-ci/blob/8da207622e51a248542cf013707198cd7cad1d09/README.md?plain=1#L87-L91) if desired.
 
-# Release in CJS, ESM or both  
+# Release in CJS, ESM or both (but don't bundle!)
 
-Contrary to what other guides or project starters may suggest, you don't need to bundle your library with something like Vite/Rollup, 
-nor do you need to fragment your modules into smaller, independently published units on NPM under the package/ directory for your module 
-to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`). 
+Contrary to what other guides or project starters may suggest, you don't need to bundle your library (or in other words you don't need to use Vite/Rollup), 
+nor do you need to fragment your modules into smaller, independently published units on NPM under the `packages/` directory for your module 
+to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`).  
+
+When you bundle your library, you incorporate __all your dependencies__ into the `.js` code you distribute. This could potentially lead to duplication of dependencies. 
+
+For instance, if your library depends on the [classnames](https://www.npmjs.com/package/classnames) package, the entirety of `classnames` source code will be included in your bundle. Subsequently, if a user of your library is also directly using `classnames`, there will be two copies of `classnames` in their final application bundle.
+
+Another disadvantage of bundling is the lack of selective importing. For example, if a user wishes to import only a specific component or functionality from your module, they would be unable to do so. Instead, they are required to import the entire library.
 
 The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
-publishing `.js` files and types declaration `.d.ts` files, which are the output of `tsc`. 
+publishing types declaration (`.d.ts`) and the correct flavor of JavaScript files, which are the output of `tsc`.  
 
-Your role is to decide what flavor of JS you want to distribute, that's all there is to it!
+That's all there is to it!
 
 ## CJS only (default)
 
