@@ -58,14 +58,14 @@ that being said, this feature is optional and can be [disabled](https://github.c
 
 # Release in CJS, ESM or both  
 
-Contrary to what other guides or project starters may suggest, you don't necessarily need Vite/rollup to bundle your library, 
+Contrary to what other guides or project starters may suggest, you don't need to bundle your library with something like Vite/Rollup, 
 nor do you need to fragment your modules into smaller, independently published units on NPM under the package/ directory for your module 
 to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`). 
 
 The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
 publishing `.js` files and types declaration `.d.ts` files, which are the output of `tsc`. 
 
-And that's all there is to it!
+Your role is to decide what flavor of JS you want to distribute, that's all there is to it!
 
 ## CJS only (default)
 
