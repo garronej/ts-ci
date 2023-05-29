@@ -78,7 +78,8 @@ That's all there is to it!
 By default your module release [in CommonJS (CJS)](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L3) with [ESM module interop](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L6).  
 
 You want to avoid this strategy if:  
-- Your module has peer dependencies that provides both an ESM and CJS distribution. (Example `@mui/material`, `@emotion/react`).  
+- Your module has peer dependencies that provides both an ESM and CJS distribution. (Example `@mui/material`, `@emotion/react`). [This is a problem specific to Vite 
+  that should be fixed soon](https://github.com/vitejs/vite/pull/13370).  
 - You make use of async imports (`import(...).then(...))`). 
 - You want your module to be usable in node `type: module` mode *AND* you have some `export default` (if you don't have export default it will work just fine).
 
@@ -86,12 +87,16 @@ You want to avoid this strategy if:
 
 If you want to **only** release as ESM just set `"module": "ES6"` in your `tsconfig.json` (and remove `esModuleInterop`).
 You can remove [the listing of your export](https://github.com/garronej/ts-ci/blob/16dbde73a52ea7750a39f0179f121dd8927c1ee5/package.json#L21-L25) in the package.json it's not of any use.  
+This option has the advantage, if you are publishing a React library to enable you to import assets file (`.svg`, `.css`) files like for example [here](https://github.com/codegouvfr/react-dsfr/blob/459f2a8f8c4de054217628e281c97520ac9889de/src/AgentConnectButton.tsx#L7-L10) (Don't forget to copy your the assets from your `src/` to your `dist/` though, TypeScript don't do it for you). 
 
 You want to avoid this strategy if:  
 - You want your module to be usable with node. The ESM distribution produced by TypeScript is an ESM distribution
 that node in `type: module` can process (files need to have `.mjs` extension, exports need to be listed).  
-As a result your module won't be usable at all on node except through Next.js for example that will be able to make it work.  
-This means for example that you'd have to tell your users to configure their JEST so that it transpiles your module 
+As a result your module won't be usable at all on node except through Next.js that will be able to make it work.  
+Note that it will work out of the box in Next.js setup using [the AppDir router](https://nextjs.org/docs/app/building-your-application/routing) 
+but for project using the legacy [pagesRouter](https://nextjs.org/docs/pages/building-your-application/routing) your user will have to add 
+`transpilePackages: ["<your-module>"]` in their `next.config.js` file. [Example](https://github.com/garronej/react-dsfr-next-demo/blob/70ca68eebe326fab73f8cbd41a9f0c0bb2f15e8a/next.config.js#L14).
+This means also that you'd have to tell your users to configure their JEST so that it transpiles your module 
 using `"transformIgnorePatterns": [ "node_modules/(?!@codegouvfr/react-dsfr)" ]`.  
 If you publish scripts (your `package.json` has a `bin` property) you'll need to [transpile your script separately in CJS](https://github.com/garronej/ts-ci/issues/1#issuecomment-1556046899).  
 
