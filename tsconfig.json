@@ -16,7 +16,8 @@
         "strict": true,
         "downlevelIteration": true,
         "jsx": "react-jsx",
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true
     },
     "include": ["src"],
     "exclude": ["src/**/*.deno.ts", "src/**/*.deno.tsx"]
