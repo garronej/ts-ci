@@ -11,21 +11,8 @@ Have you written some functions or React component that you're proud of? Do you 
 but find yourself unsure about the publishing process or how to manage the lifecycle of an open-source library?  
 
 Look no further - ts-ci is here to jumpstart your journey towards becoming a proficient NPM module author.  
-
-Contrary to what other guides or project starters may suggest, you don't necessarily need Vite/rollup to bundle your library, 
-nor do you need to fragment your modules into smaller, independently published units on NPM under the package/ directory for your module 
-to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`). 
-
-The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
-publishing `.js` files and types declaration `.d.ts` files, which are the output of `tsc`. 
-
-And that's all there is to it!
   
-> 🗣️ Since a recent GitHub update you need to manually allow GitHub Action to push on your repo.  
-> Fo this reason the initial setup will fail.  
-> You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
-
-Key features:  
+Main selling points:  
 
 - Unlike traditional CLI tools, `ts-ci` utilizes automation within Github Actions. Simply update your `package.json` version number and push. Your new version is automatically published on NPM. 
 - It offers the convenience of publishing prereleases. All you need to do is update your package version to a prerelease format like `1.2.3-rc.3`. 
@@ -36,8 +23,6 @@ Key features:
 https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
 
 
-
-
 # Examples of project using this template
 
 - [Keycloakify](https://github.com/garronej/keycloakify)
@@ -46,7 +31,11 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - [EVT](https://github.com/garronej/evt) 
 - [i18nifty](https://github.com/etalab/i18nifty)  
 
-# How to use
+# How to use  
+
+> 🗣️ Since a recent GitHub update you need to manually allow GitHub Action to push on your repo.  
+> Fo this reason the initial setup will fail.  
+> You need to enabled permission and re-run failed job: [see video](https://user-images.githubusercontent.com/6702424/213480604-0aac0ea7-487f-491d-94ae-df245b2c7ee8.mov)  
 
 - Click on ![image](https://user-images.githubusercontent.com/6702424/127756563-ec5f2d07-d758-43f1-8fac-387847c0d064.png)
 - The repo name you will choose will be used as a module name for NPM.
@@ -67,7 +56,22 @@ https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a
 - ⚙️ ESlint and Prettier are automatically triggered against files staged for commit. Despite what [t3dotgg](https://github.com/t3dotgg) says, it's the correct way of doing it, 
 that being said, this feature is optional and can be [disabled](https://github.com/garronej/ts-ci/blob/8da207622e51a248542cf013707198cd7cad1d09/README.md?plain=1#L87-L91) if desired.
 
-# Release in CJS, ESM or both
+# Release in CJS, ESM or both (but don't bundle!)
+
+Contrary to what other guides or project starters may suggest, you don't need to bundle your library (or in other words you don't need to use Vite/Rollup), 
+nor do you need to fragment your modules into smaller, independently published units on NPM under the `packages/` directory for your module 
+to be tree-shakable (e.g., `@your-module/submodule1`, `@your-module/submodule2`).  
+
+When you bundle your library, you incorporate __all your dependencies__ into the `.js` code you distribute. This could potentially lead to duplication of dependencies. 
+
+For instance, if your library depends on the [classnames](https://www.npmjs.com/package/classnames) package, the entirety of `classnames` source code will be included in your bundle. Subsequently, if a user of your library is also directly using `classnames`, there will be two copies of `classnames` in their final application bundle.
+
+Another disadvantage of bundling is the lack of selective importing. For example, if a user wishes to import only a specific component or functionality from your module, they would be unable to do so. Instead, they are required to import the entire library.
+
+The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
+publishing types declaration (`.d.ts`) and the correct flavor of JavaScript files, which are the output of `tsc`.  
+
+That's all there is to it!
 
 ## CJS only (default)
 
