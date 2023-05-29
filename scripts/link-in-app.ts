@@ -3,7 +3,7 @@ import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
 
 const singletonDependencies: string[] = [
-    //"react", 
+    //"react",
     //"@types/react"
 ];
 
@@ -15,7 +15,9 @@ fs.writeFileSync(
     Buffer.from(
         JSON.stringify(
             (() => {
-                const packageJsonParsed = JSON.parse(fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8"));
+                const packageJsonParsed = JSON.parse(
+                    fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8")
+                );
 
                 return {
                     ...packageJsonParsed,
@@ -73,7 +75,11 @@ fs.mkdirSync(yarnGlobalDirPath);
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
-    const cmd = ["yarn", "link", ...(targetModuleName !== undefined ? [targetModuleName] : ["--no-bin-links"])].join(" ");
+    const cmd = [
+        "yarn",
+        "link",
+        ...(targetModuleName !== undefined ? [targetModuleName] : ["--no-bin-links"])
+    ].join(" ");
 
     console.log(`$ cd ${pathRelative(rootDirPath, cwd) || "."} && ${cmd}`);
 
@@ -122,7 +128,13 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
     console.log(`${current}/${total} ${commonThirdPartyDep}`);
 
     const localInstallPath = pathJoin(
-        ...[rootDirPath, "node_modules", ...(commonThirdPartyDep.startsWith("@") ? commonThirdPartyDep.split("/") : [commonThirdPartyDep])]
+        ...[
+            rootDirPath,
+            "node_modules",
+            ...(commonThirdPartyDep.startsWith("@")
+                ? commonThirdPartyDep.split("/")
+                : [commonThirdPartyDep])
+        ]
     );
 
     execYarnLink({ "cwd": localInstallPath });
@@ -144,7 +156,9 @@ execYarnLink({ "cwd": pathJoin(rootDirPath, "dist") });
 testAppPaths.forEach(testAppPath =>
     execYarnLink({
         "cwd": testAppPath,
-        "targetModuleName": JSON.parse(fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8"))["name"]
+        "targetModuleName": JSON.parse(
+            fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8")
+        )["name"]
     })
 );
 
