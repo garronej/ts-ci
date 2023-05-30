@@ -91,7 +91,7 @@ This option has the advantage, if you are publishing a React library, to enable 
 
 You want to avoid this strategy if:  
 - You want your module to be usable with node. The ESM distribution produced by TypeScript is an ESM distribution
-that node in `type: module` can process (files need to have `.mjs` extension, exports need to be listed).  
+that node in `type: module` can't process (files need to have `.mjs` extension, exports need to be listed).  
 As a result your module won't be usable at all on node except through Next.js that will be able to make it work.  
 Note that it will work out of the box in Next.js setup using [the AppDir router](https://nextjs.org/docs/app/building-your-application/routing) 
 but for project using the legacy [pagesRouter](https://nextjs.org/docs/pages/building-your-application/routing) your user will have to add 
