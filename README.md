@@ -66,7 +66,9 @@ When you bundle your library, you incorporate __all your dependencies__ into the
 
 For instance, if your library depends on the [classnames](https://www.npmjs.com/package/classnames) package, the entirety of `classnames` source code will be included in your bundle. Subsequently, if a user of your library is also directly using `classnames`, there will be two copies of `classnames` in their final application bundle.
 
-Another disadvantage of bundling is the lack of selective importing. For example, if a user wishes to import only a specific component or functionality from your module, they would be unable to do so. Instead, they are required to import the entire library.
+Another disadvantage of bundling is the lack of selective importing. For example, if a user wishes to import only a specific component or functionality from your module, they would be unable to do so. Instead, they are required to import the entire library.  
+
+Publishing independent units on NPM under the `packages/` directory (e.g., `@your-module/submodule1`, `@your-module/submodule2`) is a common practice, but it's not necessarily a beneficial one. The first reason against this approach is that once you comprehend the fact that bundling isn't necessary, persisting with this process becomes somewhat pointless. The second reason concerns your users, who are then burdened with the responsibility of individually installing and synchronizing the various components' versions. This could cause potential inconsistencies and compatibility issues, making the user experience less efficient and potentially more troublesome.  
 
 The reality is much simpler. The responsibility of bundling lies with the final application; your role involves merely 
 publishing types declaration (`.d.ts`) and the correct flavor of JavaScript files, which are the output of `tsc`.  
