@@ -44,7 +44,7 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "keywords": [],
-    "homepage": "https://github.com/garronej/update-ts-ci",
+    "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
     "devDependencies": {
         "@types/node": "^20.2.1",
         "typescript": "^5.0.4",
