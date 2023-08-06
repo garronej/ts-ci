@@ -2,7 +2,7 @@
     <img width="350" src="https://user-images.githubusercontent.com/6702424/109354825-ab4b8e00-787e-11eb-8336-6009415ecaf6.png">  
 </p>
 <p align="center">
-    <i> 🚀 A starter project for module publisher 🚀</i>
+    <i> 🚀 A starter project for module publisher! 🚀</i>
     <br>
     <br>
 </p>  
