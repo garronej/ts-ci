@@ -77,11 +77,9 @@ That's all there is to it!
 
 ## CJS only (default)
 
-By default your module release [in CommonJS (CJS)](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L3) with [ESM module interop](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L6).  
+By default your module release [in CommonJS (CJS)](https://github.com/garronej/ts-ci/blob/8390339b52c98cdbd458d4b945286f999358a1ff/tsconfig.json#L3).  
 
 You want to avoid this strategy if:  
-- Your module has peer dependencies that provides both an ESM and CJS distribution. (Example `@mui/material`, `@emotion/react`). [This is a problem specific to Vite 
-  that should be fixed soon](https://github.com/vitejs/vite/pull/13370).  
 - You make use of async imports (`import(...).then(...))`). 
 - You want your module to be usable in node `type: module` mode *AND* you have some `export default` (if you don't have export default it will work just fine).
 
