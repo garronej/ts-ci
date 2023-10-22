@@ -6,7 +6,7 @@
     <br>
     <br>
     <a href="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/actions">
-      <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/workflows/ci/badge.svg?branch=main">
+      <img src="https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#/actions/workflows/ci.yaml/badge.svg?branch=main">
     </a>
     <a href="https://bundlephobia.com/package/#{REPO_NAME}#">
       <img src="https://img.shields.io/bundlephobia/minzip/#{REPO_NAME}#">
