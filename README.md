@@ -15,13 +15,10 @@ Look no further - ts-ci is here to jumpstart your journey towards becoming a pro
 Main selling points:  
 
 - Unlike traditional CLI tools, `ts-ci` utilizes automation within Github Actions. Simply update your `package.json` version number and push. Your new version is automatically published on NPM. 
-- It offers the convenience of publishing prereleases. All you need to do is update your package version to a prerelease format like `1.2.3-rc.3`. 
-- It fosters enhanced quality control as it runs tests against the submitter's fork whenever a PR is opened. 
-- `ts-ci` doesn't bundle your library into a single file. Instead, users can cherry-pick imports from your library, enabling tree shaking. For instance: `import { aSpecificFunction } from "your-module/aSpecificFile"`. 
-
+- It doesn't bundle your library into a single file. Instead, users can cherry-pick imports from your library, enabling tree shaking. For instance: `import { aSpecificFunction } from "your-module/aSpecificFile"`.
+- It's just a starting point. It provides a good default CI workflow that you can adapt to your needs.  
 
 https://user-images.githubusercontent.com/6702424/197344513-065246b9-8823-4894-a9a7-6c539da10655.mp4
-
 
 # Examples of project using this template
 
