@@ -34,7 +34,7 @@
     "@types/node": "^12.7.12",
     "@types/node-fetch": "^2.5.7",
     "@types/validate-npm-package-name": "^3.0.0",
-    "@zeit/ncc": "^0.20.5",
+    "@vercel/ncc": "^0.38.1",
     "js-yaml": "^3.13.1",
     "prettier": "^1.19.1",
     "typescript": "^3.6.4"
