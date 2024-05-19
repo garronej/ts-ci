@@ -80,5 +80,5 @@ outputs:
   is_pre_release:
     description: 'Output of is_package_json_version_upgraded, true|false'
 runs:
-  using: 'node21'
+  using: 'node20'
   main: 'dist/index.js'

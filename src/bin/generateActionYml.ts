@@ -27,7 +27,7 @@ fs.writeFileSync(
             `    description: '${getOutputDescription(outputName).replace(/'/g,"''")}'`
         ].join("\n")),
         `runs:`,
-        `  using: 'node21'`,
+        `  using: 'node20'`,
         `  main: 'dist/index.js'`
     ].join("\n"), "utf8")
 );
