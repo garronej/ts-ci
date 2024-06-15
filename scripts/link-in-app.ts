@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
+import * as os from "os";
 
 const singletonDependencies: string[] = [
     //"react",
@@ -10,44 +11,31 @@ const singletonDependencies: string[] = [
 const rootDirPath = pathJoin(__dirname, "..");
 
 //NOTE: This is only required because of: https://github.com/garronej/ts-ci/blob/c0e207b9677523d4ec97fe672ddd72ccbb3c1cc4/README.md?plain=1#L54-L58
-fs.writeFileSync(
-    pathJoin(rootDirPath, "dist", "package.json"),
-    Buffer.from(
-        JSON.stringify(
-            (() => {
-                const packageJsonParsed = JSON.parse(
-                    fs.readFileSync(pathJoin(rootDirPath, "package.json")).toString("utf8")
-                );
+//If you change the outDir in tsconfig.json you must update this block.
+{
+    let modifiedPackageJsonContent = fs
+        .readFileSync(pathJoin(rootDirPath, "package.json"))
+        .toString("utf8");
 
-                return {
-                    ...packageJsonParsed,
-                    "main": packageJsonParsed["main"]?.replace(/^dist\//, ""),
-                    "types": packageJsonParsed["types"]?.replace(/^dist\//, ""),
-                    "module": packageJsonParsed["module"]?.replace(/^dist\//, ""),
-                    "bin": !("bin" in packageJsonParsed)
-                        ? undefined
-                        : Object.fromEntries(
-                              Object.entries(packageJsonParsed["bin"]).map(([key, value]) => [
-                                  key,
-                                  (value as string).replace(/^dist\//, "")
-                              ])
-                          ),
-                    "exports": !("exports" in packageJsonParsed)
-                        ? undefined
-                        : Object.fromEntries(
-                              Object.entries(packageJsonParsed["exports"]).map(([key, value]) => [
-                                  key,
-                                  (value as string).replace(/^\.\/dist\//, "./")
-                              ])
-                          )
-                };
-            })(),
-            null,
-            2
-        ),
-        "utf8"
-    )
-);
+    modifiedPackageJsonContent = (() => {
+        const o = JSON.parse(modifiedPackageJsonContent);
+
+        delete o.files;
+
+        return JSON.stringify(o, null, 2);
+    })();
+
+    modifiedPackageJsonContent = modifiedPackageJsonContent
+        .replace(/"dist\//g, '"')
+        .replace(/"\.\/dist\//g, '"./')
+        .replace(/"!dist\//g, '"!')
+        .replace(/"!\.\/dist\//g, '"!./');
+
+    fs.writeFileSync(
+        pathJoin(rootDirPath, "dist", "package.json"),
+        Buffer.from(modifiedPackageJsonContent, "utf8")
+    );
+}
 
 const commonThirdPartyDeps = (() => {
     // For example [ "@emotion" ] it's more convenient than
@@ -85,9 +73,11 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 
     execSync(cmd, {
         cwd,
-        "env": {
+        env: {
             ...process.env,
-            "HOME": yarnGlobalDirPath
+            ...(os.platform() === "win32"
+                ? { USERPROFILE: yarnGlobalDirPath }
+                : { HOME: yarnGlobalDirPath })
         }
     });
 };
