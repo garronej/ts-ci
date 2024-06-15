@@ -14,7 +14,7 @@
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
         "format": "npm run _format -- --write",
         "format:check": "npm run _format -- --list-different",
-        "link-in-app": "ts-node --skipProject scripts/link-in-app.ts"
+        "link-in-app": "tsx scripts/link-in-app.ts"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -47,18 +47,18 @@
     "homepage": "https://github.com/#{USER_OR_ORG}#/#{REPO_NAME}#",
     "devDependencies": {
         "@types/node": "^20.2.1",
-        "typescript": "^5.0.4",
+        "typescript": "^5.4.5",
         "@typescript-eslint/eslint-plugin": "^5.59.6",
         "@typescript-eslint/parser": "^5.59.6",
         "eslint": "^8.41.0",
         "eslint-config-prettier": "^8.8.0",
         "husky": "^4.3.8",
         "lint-staged": "^11.1.1",
-        "prettier": "^2.8.8",
-        "vitest": "^0.31.1",
-        "ts-node": "^10.9.1",
-        "react": "^18.2.0",
-        "@types/react": "^18.2.6"
+        "prettier": "^3.3.2",
+        "vitest": "^1.6.0",
+        "tsx": "^4.15.5",
+        "react": "^18.3.1",
+        "@types/react": "^18.3.3"
     },
     "publishConfig": {
         "access": "public"

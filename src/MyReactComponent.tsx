@@ -1,7 +1,5 @@
-
-
 export function MyReactComponent() {
-  return <div>My React Component</div>;
+    return <div>My React Component</div>;
 }
 
 export default MyReactComponent;

@@ -3,10 +3,12 @@ import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
 import * as os from "os";
 
-const singletonDependencies: string[] = [
-    //"react",
-    //"@types/react"
-];
+const singletonDependencies: string[] = ["react", "@types/react"];
+
+// For example [ "@emotion" ] it's more convenient than
+// having to list every sub emotion packages (@emotion/css @emotion/utils ...)
+// in singletonDependencies
+const namespaceSingletonDependencies: string[] = [];
 
 const rootDirPath = pathJoin(__dirname, "..");
 
@@ -37,23 +39,16 @@ const rootDirPath = pathJoin(__dirname, "..");
     );
 }
 
-const commonThirdPartyDeps = (() => {
-    // For example [ "@emotion" ] it's more convenient than
-    // having to list every sub emotion packages (@emotion/css @emotion/utils ...)
-    // in singletonDependencies
-    const namespaceSingletonDependencies: string[] = [];
-
-    return [
-        ...namespaceSingletonDependencies
-            .map(namespaceModuleName =>
-                fs
-                    .readdirSync(pathJoin(rootDirPath, "node_modules", namespaceModuleName))
-                    .map(submoduleName => `${namespaceModuleName}/${submoduleName}`)
-            )
-            .reduce((prev, curr) => [...prev, ...curr], []),
-        ...singletonDependencies
-    ];
-})();
+const commonThirdPartyDeps = [
+    ...namespaceSingletonDependencies
+        .map(namespaceModuleName =>
+            fs
+                .readdirSync(pathJoin(rootDirPath, "node_modules", namespaceModuleName))
+                .map(submoduleName => `${namespaceModuleName}/${submoduleName}`)
+        )
+        .reduce((prev, curr) => [...prev, ...curr], []),
+    ...singletonDependencies
+];
 
 const yarnGlobalDirPath = pathJoin(rootDirPath, ".yarn_home");
 
