@@ -44,7 +44,7 @@ export async function action(
     const to_version = await getPackageJsonVersion({ owner, repo, branch, github_token });
 
     if( to_version === undefined ){
-        throw new Error(`No version in package.json on ${owner}/${repo}#${branch} (or repo is private)`);
+        throw new Error(`No version in package.json on ${owner}/${repo}#${branch}`);
     }
 
 
