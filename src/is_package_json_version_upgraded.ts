@@ -110,27 +110,32 @@ async function getPackageJsonVersion(params: {
     github_token: string;
 }): Promise<NpmModuleVersion | undefined> {
 
-    const { owner, repo, branch, github_token } = params;
+    const { 
+        owner, 
+        repo, 
+        branch, 
+        github_token 
+    } = params;
 
     const version = await fetch(
-        urlJoin(
-            `https://raw.github.com`,
-            owner,
-            repo,
-            branch,
-            "package.json"
-        ),
+        `https://api.github.com/repos/${owner}/${repo}/contents/package.json?ref=${branch}`,
         {
-            "headers": {
-                "Authorization": `token ${github_token}`
-            }
+        "headers": {
+            "Authorization": `token ${github_token}`
         }
-    )
-        .then(res => res.text())
+    })
+        .then(async res => {
+
+            const { content }= JSON.parse(await res.text()) as { content: string; };
+
+            return Buffer.from(content, "base64").toString("utf-8");
+
+        })
         .then(text => JSON.parse(text))
+
         .then(({ version }) => version as string)
         .catch(() => undefined)
-        ;
+
 
     if (version === undefined) {
         return undefined;

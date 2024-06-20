@@ -1,16 +1,21 @@
 
 
 import { action } from "../is_package_json_version_upgraded";
+import { assert } from "tsafe/assert";
 
 (async () => {
 
-    const repo = "keycloakify-demo-app";
+    const repo = "tss-react";
+
+    const github_token = process.env.GITHUB_TOKEN
+
+    assert(github_token !== undefined);
 
     const result = await action("is_package_json_version_upgraded", {
-        "owner": "InseeFrLab",
+        "owner": "garronej",
         repo,
-        "branch": "4fc0ccb46bdb3912e0a215ca3ae45aed458ea6a4",
-        "github_token": ""
+        "branch": "main",
+        github_token
     }, { "debug": console.log });
 
     console.log(result);

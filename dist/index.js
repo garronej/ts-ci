@@ -321,12 +321,15 @@ exports.action = action;
 function getPackageJsonVersion(params) {
     return __awaiter(this, void 0, void 0, function* () {
         const { owner, repo, branch, github_token } = params;
-        const version = yield node_fetch_1.default(urlJoin(`https://raw.github.com`, owner, repo, branch, "package.json"), {
+        const version = yield node_fetch_1.default(`https://api.github.com/repos/${owner}/${repo}/contents/package.json?ref=${branch}`, {
             "headers": {
                 "Authorization": `token ${github_token}`
             }
         })
-            .then(res => res.text())
+            .then((res) => __awaiter(this, void 0, void 0, function* () {
+            const { content } = JSON.parse(yield res.text());
+            return Buffer.from(content, "base64").toString("utf-8");
+        }))
             .then(text => JSON.parse(text))
             .then(({ version }) => version)
             .catch(() => undefined);
