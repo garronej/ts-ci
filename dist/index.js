@@ -278,7 +278,7 @@ function action(_actionName, params, core) {
         //When it's a normal branch: github.head_ref==="" and github.ref==="refs/heads/main"
         //When it's a pr from: github.head_ref==="<name of the branch branch>"
         const branch = params.branch.replace(/^refs\/heads\//, "");
-        const to_version = yield getPackageJsonVersion({ owner, repo, branch });
+        const to_version = yield getPackageJsonVersion({ owner, repo, branch, github_token });
         if (to_version === undefined) {
             throw new Error(`No version in package.json on ${owner}/${repo}#${branch} (or repo is private)`);
         }
@@ -320,8 +320,12 @@ exports.action = action;
 //TODO: Find a way to make it work with private repo
 function getPackageJsonVersion(params) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { owner, repo, branch } = params;
-        const version = yield node_fetch_1.default(urlJoin(`https://raw.github.com`, owner, repo, branch, "package.json"))
+        const { owner, repo, branch, github_token } = params;
+        const version = yield node_fetch_1.default(urlJoin(`https://raw.github.com`, owner, repo, branch, "package.json"), {
+            "headers": {
+                "Authorization": `token ${github_token}`
+            }
+        })
             .then(res => res.text())
             .then(text => JSON.parse(text))
             .then(({ version }) => version)
