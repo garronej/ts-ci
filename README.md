@@ -84,7 +84,7 @@ You want to avoid this strategy if:
 
 ## ESM only
 
-If you want to **only** release as ESM just set `"module": "ES6"` in your `tsconfig.json`.
+If you want to **only** release as ESM just set `"module": "ES2020"` in your `tsconfig.json`, you also probably want to set `"target": "ES2017"`.
 You can remove [the listing of your export](https://github.com/garronej/ts-ci/blob/16dbde73a52ea7750a39f0179f121dd8927c1ee5/package.json#L21-L25) in the package.json it's not of any use.  
 This option has the advantage, if you are publishing a React library, to enable you to import assets file (`.svg`, `.css`) like for example [here](https://github.com/codegouvfr/react-dsfr/blob/459f2a8f8c4de054217628e281c97520ac9889de/src/AgentConnectButton.tsx#L7-L10) (Don't forget to copy your the assets from your `src/` to your `dist/` though, TypeScript don't do it for you). 
 
