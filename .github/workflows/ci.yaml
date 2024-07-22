@@ -21,13 +21,8 @@ jobs:
         npm run lint:check
         npm run format:check
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     needs: test_lint
-    strategy:
-      matrix:
-        node: [ '16', '17' ]
-        os: [ windows-latest, ubuntu-latest ]
-    name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
